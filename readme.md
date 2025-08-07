@@ -1,8 +1,4 @@
-<div align="center">
-
-    <h1>Teleinformática y Redes</h1>
-
-</div>
+# Teleinformática y Redes
 
 ## Guías Teóricas
 
