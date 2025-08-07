@@ -66,10 +66,8 @@
 
 ➤ [**STA04**] - [Comunicaciones y redes de computadores](https://github.com/mnomico/tyr/raw/main/libros/STA04.pdf)
 
-<div style="margin-left: 30px; margin-top: -10px">
-
-⤷ Capítulo 1: “Introducción”<br>
-⤷ Capítulo 2: “Protocolos y Arquitectura”
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 1: “Introducción”<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 2: “Protocolos y Arquitectura”
 
 </div>
 
