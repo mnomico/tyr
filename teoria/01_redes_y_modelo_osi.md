@@ -62,7 +62,11 @@
 
 ### Bibliografia
 
-[**STA04**] - [Comunicaciones y redes de computadores](../libros/STA04.pdf)
+<div>
+
+[**STA04**] - [Comunicaciones y redes de computadores](https://github.com/mnomico/tyr/raw/main/libros/STA04.pdf)
+
+</div>
 
 ➤ Capítulo 1: “Introducción”
 
