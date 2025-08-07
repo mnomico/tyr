@@ -64,13 +64,15 @@
 
 <div>
 
-[**STA04**] - [Comunicaciones y redes de computadores](https://github.com/mnomico/tyr/raw/main/libros/STA04.pdf)
+➤ [**STA04**] - [Comunicaciones y redes de computadores](https://github.com/mnomico/tyr/raw/main/libros/STA04.pdf)
+
+<div style="margin-left: 30px; margin-top: -10px">
+
+⤷ Capítulo 1: “Introducción”<br>
+⤷ Capítulo 2: “Protocolos y Arquitectura”
 
 </div>
 
-➤ Capítulo 1: “Introducción”
 
-➤ Capítulo 2: “Protocolos y Arquitectura”
-
-[**Online**] - [Breve historia de Internet](https://www.internetsociety.org/es/internet/history-internet/brief-history-internet/)
+➤ [**Online**] - [Breve historia de Internet](https://www.internetsociety.org/es/internet/history-internet/brief-history-internet/)
 
