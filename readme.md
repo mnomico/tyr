@@ -10,6 +10,8 @@
 
 ## Trabajos Prácticos
 
+➤ [TPL 1 - Configuración inicial de la red del laboratorio](/practica/tpl1-configuracion-inicial.md)
+
 ## Bibliografía
 
 |ID         |Libro                                                                                                                                        |
