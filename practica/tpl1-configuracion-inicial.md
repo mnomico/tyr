@@ -262,12 +262,12 @@ Los comandos necesarios para llevar adelante la práctica se encuentran listados
     El mensaje ```ICMP Echo Request``` es el mensaje que envía el emisor, mientras que el mensaje ```ICMP Echo Reply``` es el mensaje que envía el receptor una vez que recibe un mensaje de solicitud.
 
     Datos relevantes:
-    - **Internet Control Message Protocol** (cabecera de transporte): 
+    - **Internet Control Message Protocol** (protocolo auxiliar de red): 
         - **Type**: en este caso es de valor 0 (reply) u 8 (request).
         - **Response time**: el tiempo de respuesta para mensajes de tipo reply.
     - **Internet Protocol version 4** (cabecera de red):
         - **Identification**: es un valor único por cada paquete que se transfiere.
-        - **Protocol**: indica el protocolo de capa superior encapsulado en la trama. En este caso es ICMP.
+        - **Protocol**: indica el protocolo de capa superior encapsulado en la trama. En este caso es ICMP, pero ICMP no es un protocolo de la capa superior (transporte) sino que es un protocolo auxiliar.
         - **Source / Destination Address**: contiene las direcciones IP de origen / destino.
     - **Ethernet II** (cabecera de enlace):
         - **Destination / Source**: contiene la dirección física del sistema destino / origen. Estas direcciones pueden ser tanto de sistemas finales como de sistemas intermedios.
