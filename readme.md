@@ -12,6 +12,8 @@
 
 ➤ [TPL 1 - Configuración inicial de la red del laboratorio](/practica/tpl1-configuracion-inicial.md)
 
+➤ [TPL 2 - Aplicaciones 1: Cliente/Servidor - Telnet](/practica/tpl2-telnet.md)
+
 ## Bibliografía
 
 |ID         |Libro                                                                                                                                        |
