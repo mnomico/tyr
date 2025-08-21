@@ -6,8 +6,6 @@
 
 ### Segunda parte: Configuración de hosts en una red - prueba de conectividad - análisis de captura
 
-**Consignas**
-
 Los comandos necesarios para llevar adelante la práctica se encuentran listados en el apunte respectivo de la asignatura, disponible en la web de la misma. En todos los casos, el informe a entregar debe mostrar los comandos ejecutados y las salidas obtenidas (en caso de ser una salida extensa, resaltar la parte importante). Además, se debe explicar lo que se interpreta de dicha salida y si es lo esperado en cada caso.
 
 1. Verificar la/s interfaces de red (comúnmente llamada placa de red o NIC) que el sistema operativo haya detectado en pc1 y pc2, y listar su información en pantalla.
@@ -259,6 +257,44 @@ Los comandos necesarios para llevar adelante la práctica se encuentran listados
 
     [Captura ICMP](./archivos/captura_icmp.pcap)
 
+    ![](./archivos/tpl1.9.png)
+
+    El mensaje ```ICMP Echo Request``` es el mensaje que envía el emisor, mientras que el mensaje ```ICMP Echo Reply``` es el mensaje que envía el receptor una vez que recibe un mensaje de solicitud.
+
+    Datos relevantes:
+    - **Internet Control Message Protocol** (cabecera de transporte): 
+        - **Type**: en este caso es de valor 0 (reply) u 8 (request).
+        - **Response time**: el tiempo de respuesta para mensajes de tipo reply.
+    - **Internet Protocol version 4** (cabecera de red):
+        - **Identification**: es un valor único por cada paquete que se transfiere.
+        - **Protocol**: indica el protocolo de capa superior encapsulado en la trama. En este caso es ICMP.
+        - **Source / Destination Address**: contiene las direcciones IP de origen / destino.
+    - **Ethernet II** (cabecera de enlace):
+        - **Destination / Source**: contiene la dirección física del sistema destino / origen. Estas direcciones pueden ser tanto de sistemas finales como de sistemas intermedios.
+        - **Type**: indica el protocolo de capa superior encapsulado en la trama. En este caso es IPv4.
+     
 ---
 
 9. Escribir los comandos de configuración que ejecutó en los puntos 2, 4, 5 y 7 en pc1 y pc2 a los archivos pc1.startup y pc2.startup respectivamente, que están dentro del directorio del laboratorio, de manera tal que los nodos se configuren automáticamente al reiniciar el laboratorio.
+
+    ```
+    [usuario@host]$ echo "ip addr add dev eth0 10.4.11.11/24" >> pc1.startup 
+    [usuario@host]$ echo "hostname tyr11" >> pc1.startup 
+    [usuario@host]$ echo "10.4.11.12 tyr12 >> /etc/hosts" >> pc1.startup
+    [usuario@host]$ echo "ip route add default via 10.4.11.30 dev eth0" >> pc1.startup 
+    [usuario@host]$ cat pc1.startup 
+    ip addr add dev eth0 10.4.11.11/24
+    hostname tyr11
+    10.4.11.12 tyr12 >> /etc/hosts
+    ip route add default via 10.4.11.30 dev eth0
+
+    [usuario@host]$ echo "ip addr add dev eth0 10.4.11.12/24" >> pc2.startup 
+    [usuario@host]$ echo "hostname tyr12" >> pc2.startup 
+    [usuario@host]$ echo "10.4.11.11 tyr11 >> /etc/hosts" >> pc2.startup
+    [usuario@host]$ echo "ip route add default via 10.4.11.30 dev eth0" >> pc2.startup 
+    [usuario@host]$ cat pc2.startup 
+    ip addr add dev eth0 10.4.11.12/24
+    hostname tyr12
+    10.4.11.11 tyr11 >> /etc/hosts
+    ip route add default via 10.4.11.30 dev eth0
+    ```
