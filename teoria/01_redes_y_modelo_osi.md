@@ -6,9 +6,35 @@
 
 ### Indice
 
+💡 [Conceptos a tener en cuenta](#conceptos-a-tener-en-cuenta)
+
 ❓ [Guía de preguntas](#guia-de-preguntas)
 
+📝 [Resumen](#resumen)
+
 📖 [Bibliografía](#bibliografia)
+
+---
+
+### Conceptos a tener en cuenta
+
+➤ Redes
+
+➤ Enlaces
+
+➤ Protocolos
+
+➤ Modelo OSI
+
+➤ Capas del Modelo OSI
+
+➤ PDU
+
+➤ Encapsulamiento
+
+➤ Pila de Protocolos (OSI y TCP/IP)
+
+➤ Tipos de Servicio
 
 ---
 
@@ -130,6 +156,10 @@
     c. ¿Qué reglas plantearon para las redes?
 
     d. ¿Qué problemas debían resolver? Relacione cada uno con la capa del Modelo OSI adecuada para resolverlo.
+
+---
+
+### Resumen
 
 ---
 
