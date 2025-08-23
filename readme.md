@@ -8,6 +8,8 @@
 
 ➤ [01 - Introducción, Redes y Modelo OSI](/teoria/01_redes_y_modelo_osi.md)
 
+➤ [02 - Modelo para las Comunicaciones y Transmisión de Datos](/teoria/02_comunicaciones_de_datos.md)
+
 ## Trabajos Prácticos
 
 ➤ [TPL 1 - Configuración inicial de la red del laboratorio](/practica/tpl1-configuracion-inicial.md)
@@ -18,7 +20,7 @@
 
 |ID         |Libro                                                                                                                                        |
 |:----------|:--------------------------------------------------------------------------------------------------------------------------------------------|
-|[**FOR07**]|FOROUZAN, B.A. Transmisión de Datos y Redes de Comunicaciones. 4o ed. McGraw Hill. 2007.                                                     |
+|[**FOR07**]|[FOROUZAN, B.A. Data Communications and Networking. 4o ed. McGraw Hill. 2007.](https://github.com/mnomico/tyr/raw/main/libros/FOR07.pdf)                                                     |
 |[**FOR09**]|FOROUZAN, B.A. TCP IP Protocol Suite. McGraw-Hill Higher Education, 2009.                                                                    |
 |[**KUR12**]|KUROSE, J. y ROSS, K. Computer Networking: A Top-Down Approach. 6o ed. Prenctice Hall, 2012.                                                 |
 |[**PET11**]|PETERSON, L. y DAVIE B. Computer Networks: A Systems Approach, 5o ed. Morgan Kaufmann, 2011.                                                 |
