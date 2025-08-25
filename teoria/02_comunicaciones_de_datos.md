@@ -373,7 +373,7 @@ La utilización del ancho de banda es el uso inteligente del ancho de banda disp
 
 En la *multiplexación*, nuestro objetivo es la eficiencia: combinamos varios canales en uno. En el *ensanchado*, nuestro objetivo es la privacidad y el antijamming: expandemos el ancho de banda de un canal para insertar redundancia.
 
-### 6.1 Multiplexación
+#### 6.1 Multiplexación
 
 Cuando el ancho de banda de un medio que enlaza dos dispositivos es mayor que el ancho de banda que necesitan los dispositivos, el enlace puede ser compartido. La **multiplexación** es un conjunto de técnicas que permite la transmisión simultánea de múltiples señales a través de un enlace de datos.
 
