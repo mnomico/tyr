@@ -257,7 +257,11 @@ Los comandos necesarios para llevar adelante la práctica se encuentran listados
 
     [Captura ICMP](./archivos/captura_icmp.pcap)
 
+    <div align='center'>
+
     ![](./archivos/tpl1.9.png)
+
+    </div>
 
     El mensaje ```ICMP Echo Request``` es el mensaje que envía el emisor, mientras que el mensaje ```ICMP Echo Reply``` es el mensaje que envía el receptor una vez que recibe un mensaje de solicitud.
 
