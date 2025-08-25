@@ -136,19 +136,19 @@ En la comunicación de datos, generalmente se utiliza las señales analógicas p
 
 Las señales anaógicas periódicas se pueden clasificar en *simples* o *compuestas*. Una señal analógica periódica simple, una onda sinusoidal, no puede ser descompuesta en señales más simples. Una señal analógica periódica compuesta está compuesta por múltiples ondas sinusoidales.
 
-Una onda sinusoidal se puede describir mediante tres parámetros: el pico de **amplitud**, la **frequencia**, y la **fase**.
+Una onda sinusoidal se puede describir mediante tres parámetros: el pico de **amplitud**, la **frecuencia**, y la **fase**.
 
 El pico de amplitud de una señal es el valor absoluto de su intensidad más alta.
 
 ![](./imagenes/02_amplitud.png)
 
-El período se refiere a la cantidad de tiempo, en segundos, que una señal necesita para completar 1 ciclo. La frequencia se refiere al número de períodos en 1 segundo. El período es la inversa de la frequencia (T = 1/f), y la frequencia es la inversa del período (f = 1/T).
+El período se refiere a la cantidad de tiempo, en segundos, que una señal necesita para completar 1 ciclo. La frecuencia se refiere al número de períodos en 1 segundo. El período es la inversa de la frecuencia (T = 1/f), y la frecuencia es la inversa del período (f = 1/T).
 
-![](./imagenes/02_frequencia.png)
+![](./imagenes/02_frecuencia.png)
 
-El período se expresa en segundos. La frequencia se expresa en Hertz (Hz), lo cual significa ciclo por segundo.
+El período se expresa en segundos. La frecuencia se expresa en Hertz (Hz), lo cual significa ciclo por segundo.
 
-Otra manera de ver la frequencia es la siguiente: la frequencia es la tasa de cambios con respecto al tiempo. Si suceden cambios en un corto período de tiempo, significa alta frequencia, en cambio si suceden cambios en un largo período de tiempo, significa baja frequencia.
+Otra manera de ver la frecuencia es la siguiente: la frecuencia es la tasa de cambios con respecto al tiempo. Si suceden cambios en un corto período de tiempo, significa alta frecuencia, en cambio si suceden cambios en un largo período de tiempo, significa baja frecuencia.
 
 La fase describe la posición de la onda con respecto al tiempo 0. La fase se mide en grados o radianes.
 
@@ -166,11 +166,11 @@ Otra manera de observar la fase es en términos de posición u offset. Podemos d
 2. Una onda con fase de 90º se desplaza hacia la izquierda por 1/4 de ciclo. Pero la señal no existe antes del tiempo 0.
 3. Una onda con fase de 180º se desplaza hacia la izquierda por 1/2 de ciclo. Pero la señal no existe antes del tiempo 0.
 
-La *longitud de onda* es otra característica de una señal que viaja a través de un medio de transmisión. La longitud de donda fija el período o la frequencia de una onda sinusoidal simple a la velocidad de propagación del medio.
+La *longitud de onda* es otra característica de una señal que viaja a través de un medio de transmisión. La longitud de donda fija el período o la frecuencia de una onda sinusoidal simple a la velocidad de propagación del medio.
 
 La longitud de onda es la distancia que una señal simple puede viajar en un período.
 
-La longitud de onda se puede calcular si se tiene la velocidad de propagación y el período de la señal. Sin embargo, como el período y la frequencia están relacionados entre sí, si representamos la longitud de onda con λ, la propagación de la luz con c, y la frecuencia con f, tenemos:
+La longitud de onda se puede calcular si se tiene la velocidad de propagación y el período de la señal. Sin embargo, como el período y la frecuencia están relacionados entre sí, si representamos la longitud de onda con λ, la propagación de la luz con c, y la frecuencia con f, tenemos:
 
 ```
 longitud de onda = propagación de la velocidad x período 
@@ -178,11 +178,11 @@ longitud de onda = propagación de la velocidad x período
 λ = c * T = c / f
 ```
 
-La velocidad de propagación de señales electromagnéticas depende del medio y de la frequencia de la señal. La longitud de onda generalmente se mide en micrometros (micrones).
+La velocidad de propagación de señales electromagnéticas depende del medio y de la frecuencia de la señal. La longitud de onda generalmente se mide en micrometros (micrones).
 
-Una señal compuesta está formada por varias ondas sinusoidales simples de diferentes frequencias, amplitudes y fases. 
+Una señal compuesta está formada por varias ondas sinusoidales simples de diferentes frecuencias, amplitudes y fases. 
 
-Una señal compuesta puede ser periódica o aperiódica. Una señal compuesta periódica puede ser descompuesta en una serie de ondas sinusoidales simples con frequencias discretas. Una señal compuesta aperiódica puede ser descompuesta en una infinidad de ondas sinusoidales simples con frequencias continuas.
+Una señal compuesta puede ser periódica o aperiódica. Una señal compuesta periódica puede ser descompuesta en una serie de ondas sinusoidales simples con frecuencias discretas. Una señal compuesta aperiódica puede ser descompuesta en una infinidad de ondas sinusoidales simples con frecuencias continuas.
 
 ![](./imagenes/02_señal_periodica_compuesta.png)
 
@@ -190,9 +190,9 @@ La siguiente imagen muestra el resultado de descomponer la señal anterior en do
 
 ![](./imagenes/02_señal_periodica_descompuesta.png)
 
-La amplitud de la onda seno con frequencia *f* es casi la misma que la amplitud pico de la señal compuesta. La frecuencia de la onda seno con frecuencia *f* es la misma que la de la señal compuesta; se llama **frecuencia fundamental** o primer **armónico**.
+La amplitud de la onda seno con frecuencia *f* es casi la misma que la amplitud pico de la señal compuesta. La frecuencia de la onda seno con frecuencia *f* es la misma que la de la señal compuesta; se llama **frecuencia fundamental** o primer **armónico**.
 
-El rango de frecuencias contenida en una señal compuesta es su **ancho de banda**. El ancho de banda es la diferencia entre la frequencia más alta y la frequencia más baja de una señal compuesta.
+El rango de frecuencias contenida en una señal compuesta es su **ancho de banda**. El ancho de banda es la diferencia entre la frecuencia más alta y la frecuencia más baja de una señal compuesta.
 
 #### 3.3 Señales digitales
 
@@ -202,7 +202,7 @@ Además de ser representada por señales analógicas, la información también p
 
 Se envía 1 bit por nivel en la parte a de la imagen, y 2 bits por nivel en la parte b de la imagen. Si una señal tiene L niveles, entonces cada nivel necesita log2(L) bits.
 
-La mayoría de las señales digitales son aperiódicas, y por lo tanto, la frequencia y el período no son características apropiadas para describirlas. El término **bit rate** o **tasa de bits** se utiliza para describir las señales digitales. El bit rate es el número de bits enviados en 1 segundo, expresado en bits por segundo (bps).
+La mayoría de las señales digitales son aperiódicas, y por lo tanto, la frecuencia y el período no son características apropiadas para describirlas. El término **bit rate** o **tasa de bits** se utiliza para describir las señales digitales. El bit rate es el número de bits enviados en 1 segundo, expresado en bits por segundo (bps).
 
 Según el análisis de Fourier, una señal digital es una señal analógica compuesta con ancho de banda infinito.
 
@@ -238,7 +238,7 @@ dB = 10 log 10 (P2 / P1)
 
 Las variables P1 y P2 son las potencias de una señal en los puntos 1 y 2.
 
-La **distorsión** es el cambio de forma de una señal. La distorsión puede ocurrir en una señal compuesta formada por varias frequencias. Cada componente de señal tiene su propia velocidad de propagación a través del medio y, por lo tanto, su propio retraso en llegar al destino. Las diferencias en el retraso pueden crear diferencias en la fase si el retraso no es exactamente igual a la duración del período. Es decir, los componentes de señal en el receptor tienen fases diferentes de las que tenían en el emisor, por lo tanto la forma de la señal compuesta no es la misma.
+La **distorsión** es el cambio de forma de una señal. La distorsión puede ocurrir en una señal compuesta formada por varias frecuencias. Cada componente de señal tiene su propia velocidad de propagación a través del medio y, por lo tanto, su propio retraso en llegar al destino. Las diferencias en el retraso pueden crear diferencias en la fase si el retraso no es exactamente igual a la duración del período. Es decir, los componentes de señal en el receptor tienen fases diferentes de las que tenían en el emisor, por lo tanto la forma de la señal compuesta no es la misma.
 
 ![](./imagenes/02_distorsion.png)
 
@@ -291,7 +291,7 @@ Un problema importante es el rendimiento de la red.
 
 Una característica que mide el rendimiento de la red es el **ancho de banda**. Sin embargo, el término se puede usar en dos contextos diferentes con dos valores de medida diferentes: ancho de banda en hertz y ancho de banda en bits por segundo.
 
-El ancho de banda en hertz es el rango de frequencias contenidas en una señal compuesta o el rango de frequencias que un canal puede transmitir.
+El ancho de banda en hertz es el rango de frecuencias contenidas en una señal compuesta o el rango de frecuencias que un canal puede transmitir.
 
 El ancho de banda también se puede referir al número de bits por segundo que un canal, enlace o red puede transmitir.
 
@@ -323,9 +323,139 @@ El producto del ancho de banda y del retraso es el número de bits que puede lle
 
 Otro problema de rendimiento que está relacionado con el retraso es el **jitter**. El jitter es un problema si diferentes paquetes de datos encuentran diferentes retrasos y la aplicación que usa los datos en el receptor es sensible al tiempo (por ejemplo, datos de audio y video).
 
-#### 5.0 Utilización del Ancho de Banda: Multiplexación y Ensanchado
+#### 6.0 Utilización del Ancho de Banda: Multiplexación y Ensanchado
 
+La utilización del ancho de banda es el uso inteligente del ancho de banda disponible para alcanzar ciertos objetivos.
 
+En la *multiplexación*, nuestro objetivo es la eficiencia: combinamos varios canales en uno. En el *ensanchado*, nuestro objetivo es la privacidad y el antijamming: expandemos el ancho de banda de un canal para insertar redundancia.
+
+### 6.1 Multiplexación
+
+Cuando el ancho de banda de un medio que enlaza dos dispositivos es mayor que el ancho de banda que necesitan los dispositivos, el enlace puede ser compartido. La **multiplexación** es un conjunto de técnicas que permite la transmisión simultánea de múltiples señales a través de un enlace de datos.
+
+Si el ancho de banda de un enlace es mayor que el ancho de banda que necesitan los dispositivos, el ancho de banda es desperdiciado. Un sistema eficiente maximiza el uso de todos sus recursos.
+
+En un sistema multiplexado, n líneas comparten el ancho de banda de un enlace.
+
+![](./imagenes/02_division_de_enlace.png)
+
+Las líneas a la izquierda envían sus flujos de transmisión a un **multiplexor (MUX)** que los combina en un solo flujo (muchos a uno). En el receptor, ese flujo es alimentado a un **demultiplexor (DEMUX)** que separa el flujo (uno a muchos) y los envía a sus líneas correspondientes.
+
+En la imagen, la palabra enlace se refiere al camino físico, mientras que la palabra canal se refiere a la porción del enlace que realiza la transmisión entre un par de líneas dado. Un enlace puede tener varios (n) canales.
+
+Existen tres técnicas básicas de multiplexación: multiplexación por división de frecuencias, multiplexación por división de longitud de ondas, y multiplexación por división de tiempo. Las primeras dos son técnicas diseñadas para señales analógicas, y la tercera para señales digitales.
+
+La **multiplexación por división de frecuencias (FDM)** es una técnica analógica que puede ser aplicada cuando el ancho de banda de un enlace (en hertz) es mayor que el ancho de banda combinado de las señales a ser transmitidas. En FDM, las señales generadas por cada dispositivo emisor modulan diferentes frecuencias portadoras. Estas señales moduladas son combinadas en una señal compuesta que puede ser transportada por el enlace. Las frecuencias portadoras son separadas por el ancho de banda suficiente para acomodar la señal modulada. Este rango de ancho de banda son los canales por los cuales las señales van a viajar. Los canales pueden ser separados por tiras de anchos de banda sin usar, llamadas **bandas de guarda** para prevenir que las señales se solapen. Además, las frecuencias portadoras no deben interferir con las frecuencias de datos originales.
+
+![](./imagenes/02_fdm.png)
+
+La siguiente imagen muestra el proceso de multiplexación FDM:
+
+![](./imagenes/02_mux_fdm.png)
+
+Cada fuente genera una señal de un rango de frecuencia similar. Dentro del multiplexor, estas señales similares modulan frequencias portadoras diferentes (f1, f2 y f3). La señal modulada resultante se combina en una señal compuesta que es enviada a través de un medio de enlace que tiene el ancho de banda suficiente para acomodarla.
+
+El demultiplexor utiliza una serie de filtros para descomponer la señal multiplexada en sus señales componentes. Las señales individuales son pasadas a un demodulador que las separa de sus portadores y las pasa a las líneas de salida.
+
+![](./imagenes/02_demux_fdm.png)
+
+La **multiplexación por división de longitud de ondas (WDM)** está diseñada para usar la capacidad de alta tasa de datos de la fibra óptica. 
+
+Conceptualmente WDM es igual que FDM, con la excepción de que la multiplexación y demultiplexación implica señales ópticas transmitidas por canales de fibra óptica. La diferencia es que las frecuencias son muy altas.
+
+![](./imagenes/02_mux_wdm.png)
+
+![](./imagenes/02_demux_wdm.png)
+
+La **multiplexación por división de tiempo (TDM)** es un proceso digital que le permite a varias conexiones compartir el ancho de banda de un enlace. En vez de compartir una porción del ancho de banda como en FDM, el tiempo es compartido. Cada conexión ocupa una porción del tiempo en el enlace. 
+
+![](./imagenes/02_tdm.png)
+
+Se utiliza el mismo enlace que en FDM, pero el enlace se divide por tiempo en vez de por frecuencia. Las porciones de señales 1, 2, 3 y 4 ocupan el enlace secuencialmente.
+
+TDM se puede dividir en dos esquemas diferentes: *síncrona* y *estadística*.
+
+En la **TDM síncrona**, el flujo de datos de cada conexión de entrada está dividida en unidades, donde cada entrada ocupa una ranura de tiempo de entrada. Una unidad puede ser 1 bit, un caracter, o un bloque de datos. Cada unidad de entrada pasa a ser una unidad de salida y ocupa una ranura de tiempo de salida. Sin embargo, la duración de una ranura de tiempo de salida es n veces más corta que la duración de de una ranura de tiempo de entrada. Si una ranura de tiempo de entrada ocupa T segundos, la ranura de tiempo de salida dura T/n segundos, donde n es el número de conexiones. En otras palabras, una unidad en una conexión de salida tiene una duración más corta, ya que viaja más rápido.
+
+En TDM síncrona, una ronda de unidad de datos de cada conexión de entrada se introduce en una trama. Si tenemos n conexiones, una trama se divide en n ranuras de tiempo y se asigna una ranura a cada unidad, una por cada línea de entrada. Si la duración de la unidad de entrada es T, la duración de cada ranura es T/in y la duración de cada trama es T.
+
+![](./imagenes/02_mux_tdm_sincrona.png)
+
+La tasa de datos de un enlace de salida debe ser n veces la tasa de datos de una conexión para garantizar el flujo de datos. En la imagen anterior, la tasa de datos de un enlace es 3 veces la tasa de datos de una conexión, y la duración de una unidad en una conexión es 3 veces la de una ranura de tiempo.
+
+Las ranuras de tiempo son agrupadas en **tramas**. Una trama consiste en un ciclo completo de ranuras de tiempo, con una ranura dedicada a cada emisor. En un sistema con n líneas de entrada, cada trama tiene n ranuras, con cada ranura asignada a transportar datos de una línea de entrada específica.
+
+Los conmutadores del multiplexor y demultiplexor se sincronizan y rotan a la misma velocidad, pero en diferentes sentidos. Cuando el conmutador del multiplexor se abre frente a una conexión, dicha conexión puede enviar una unidad por la línea. Este proceso se denomina **interleaving** o **entrelazado**. Cuando el conmutador del demultiplexor se abre frente a una conexión, dicha conexión puede recibir una unidad de la línea.
+
+![](./imagenes/02_interleaving.png)
+
+Un problema de TDM es como manejar la disparidad en la tasa de datos de entrada. Si las tasas de datos no son las mismas, se pueden utilizar tres estrategias: *multiplexación multinivel*, *asignación múltiple de ranuras*, e *inserción de bits*.
+
+La **multiplexación multinivel** es una técnica que se usa cuando una tasa de datos de una línea de entrada es un múltiplo de otras. Las líneas de datos se pueden multiplexar para igualar la tasa de datos de otras líneas.
+
+![](./imagenes/02_mux_multinivel.png)
+
+A veces es más eficiente asignar más de una ranura en una trama para una sola línea de entrada. Una línea de entrada se puede dividir para asignarle dos ranuras en la salida. Esto se llama **asignación múltiple de ranuras**.
+
+![](./imagenes/02_mux_ranuras.png)
+
+A veces la tasa de bits de las fuentes no son múltiplos enteros de cada uno. Una solución es hacer que la línea de entrada que tenga la tasa de datos más alta sea la dominante, y agregar bits extra a las líneas de entrada con tasas menores. Esta técnica se denomina **inserción de bits**.
+
+![](./imagenes/02_mux_insercion.png)
+
+La sincronización entre el multiplexor y el demultiplexor es un problema principal de la TDM. Si no están sincronizados, un bit que pertenece a un canal puede ser recibido por el canal incorrecto. Para esto se agregan bits de sincronización al principio de cada trama. Estos bits se llaman **bits de tramado**, y siguen un patrón trama a trama que permite al demultiplexor sincronizarse con el flujo entrante para que pueda separar las ranuras de tiempo de manera precisa. En general, el patrón va alternando entre 0 y 1 por trama.
+
+![](./imagenes/02_bits_tramado.png)
+
+En la **TDM estadística**, las ranuras son asignadas dinámicamente para mejorar la eficiencia de ancho de banda. Sólo cuando una línea de entrada tiene una ranura entera de datos para enviar se le da una ranura en la trama de salida. El número de ranuras en cada trama es menor al número de líneas de entrada. El multiplexor chequea cada línea de entrada usando round-robin: le asigna una ranura a una línea de entrada si la línea tiene datos a enviar, sino, se saltea la línea y se chequea la siguiente línea.
+
+![](./imagenes/02_comparacion_tdm.png)
+
+Las diferencias con respecto a TDM síncrona son:
+
+- Las ranuras en TDM estadística lleva datos y una dirección, y la proporción del tamaño de datos con respecto al tamaño de la dirección debe ser razonable para que la transmisión sea eficiente.
+- Las tramas en TDM estadística no necesitan ser sincronizadas, no necesitan los bits de sincronización.
+- En TDM estadística, la capacidad del enlace es menor que la suma de las capacidades de cada canal. La capacidad del enlace está basada en las estadísticas de la carga de cada canal.
+
+#### 6.2 Espectro ensanchado
+
+En el **espectro ensanchado**, se combinan señales de diferentes fuentes para que puedan entrar en un ancho de banda más grande, pero sólo en aplicaciones inalámbricas (LANs y WANs). En este tipo de aplicaciones, las estaciones usan el aire como el medio de comunicación, y deben compartir este medio sin ser interceptadas por un escuchador y sin ser subjetos de interferencias por parte de intrusos malintencionados.
+
+Para lograr esto, las técnicas de ensanchado agregan redundancia: ensanchan el espectro original que necesita cada estación. Si el ancho de banda requerido por cada estación es B, el espectro ensanchado lo expande a Bss, de manera que Bss >> B. El ancho de banda expandido permite a la fuente envolver su mensaje en una envoltura protectora para una transmisión más segura.
+
+![](./imagenes/02_espectro_ensanchado.png)
+
+El espectro ensanchado alcanza sus objetivos mediante dos principios:
+1. El ancho de banda asignado a cada estación necesita ser más grande que lo que se necesita. Esto permite la redundancia.
+2. La expansión del ancho de banda original B al ancho de banda Bss debe ser hecho por un proceso que es independiente de la señal original, es decir que el ensanchado ocurre después de que la señal es creada por la fuente.
+
+Luego de que la señal es creada por la fuente, el proceso de ensanchado usa un código de ensanchado y ensancha el ancho de banda. El código de ensanchado es una serie de números que parecen aleatorios, pero en realidad son un patrón.
+
+Existen dos técnicas para ensanchar el ancho de banda: *espectro de ensanchado por salto de frecuencia (FHSS)* y *espectro de ensanchado por secuencia directa (DSSS)*
+
+La técnica de **espectro de ensanchado por salto de frecuencia (FHSS)** usa M diferentes frecuencias portadoras que son moduladas por la señal fuente. En un mommento, la señal modula una frecuencia portadora, en el momento siguiente, la señal modula otra frecuencia portadora. Si bien la modulación es hecha usando una frecuencia portadora a la vez, M frecuencias son usadas en el largo plazo. El ancho de banda ocupado por una fuente después de ensanchar es BpHSS >> B.
+
+![](./imagenes/02_fhss.png)
+
+Un generador de código pseudo-aleatorio llamado ruido pseudoaleatorio (pseudorandom noise, PN) crea un patrón k-bit por cada período de salto Tk. La tabla de frecuencia usa el patrón para encontrar la frecuencia que se usa para este período de salto y se lo pasa al sintetizador de frecuencias. El sintetizador de frecuencias crea una señal portadora de esa frecuencia, y la señal fuente modula la señal portadora.
+
+![](./imagenes/02_seleccion_frec_fhss.png)
+
+![](./imagenes/02_ciclos_fhss.png)
+
+Este esquema puede cumplir con los objetivos mencionados anteriormente. Si hay muchos patrones k-bit y el período de salto es corto, un emisor y un receptor pueden tener privacidad. Si un intruso intenta interceptar la señal transmitida, sólo puede acceder a un pequeño pedazo de datos porque no conoce la secuencia de ensanchado para poder adaptarse al siguiente salto. El esquema también tiene un efecto anti-intercepción, si un agente malicioso intenta enviar un ruido para interceptar la señal, sólo podrá por un período de salto, pero no por el período completo.
+
+Si el número de frecuencias de salto es M, se pueden multiplexar M canales en uno, compartiendo el mismo ancho de banda Bss. Esto es posible porque una estación usa solo una frecuencia en cada período de salto. 
+
+La técnica de **espectro ensanchado de sequencia directa (DSSS)** también expande el ancho de banda de la señal original, pero reemplaza cada bit de datos con n bits usando un código de ensanchado, llamado chips, donde la tasa de chips es n veces la tasa de bit de datos.
+
+![](./imagenes/02_dsss.png)
+
+![](./imagenes/02_ejemplo_dsss.png)
+
+En la imagen de arriba, el código de ensanchado es 11 chips con el patrón 10110111000. Si la tasa de la señal original es N, la tasa de la señal ensanchada es 11/N. Esto significa que el ancho de banda requerido para la señal ensanchada es 11 veces más larga que la del ancho de banda de la señal original. La señal ensanchada provee privacidad si el intruso no sabe el código, y también provee inmunidad con respecto a interferencias si cada estación usa un código diferente.
+
+En DSSS, si se usa un código de ensanchado que ensancha señales que no pueden ser combinadas y separadas, entonces no se puede compartir en ancho de banda. Pero si se usa un tipo especial de código de secuencia que permite la combinación y separación de señales ensanchadas, se puede compartir el ancho de banda.
 
 ---
 
