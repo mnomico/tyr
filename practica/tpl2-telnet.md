@@ -8,17 +8,131 @@
 
 Utilice para esta parte de la práctica el laboratorio de práctica kathara-lab_conf_inicial y configure las interfaces de pc1 y pc2 tal como lo hizo en el primer trabajo práctico de laboratorio. Verifique conectividad entre ambos hosts.
 
+```
+--- Startup Commands Log
+++ ip addr add dev eth0 10.4.11.11/24
+++ hostname tyr11
+++ echo '10.4.11.12 tyr12'
+++ ip route add default via 10.4.11.30 dev eth0
+--- End Startup Commands Log
+root@tyr11:/# ping tyr12 -c 3
+PING tyr12 (10.4.11.12) 56(84) bytes of data.
+64 bytes from tyr12 (10.4.11.12): icmp_seq=1 ttl=64 time=2.08 ms
+64 bytes from tyr12 (10.4.11.12): icmp_seq=2 ttl=64 time=0.643 ms
+64 bytes from tyr12 (10.4.11.12): icmp_seq=3 ttl=64 time=0.610 ms
+
+--- tyr12 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2025ms
+rtt min/avg/max/mdev = 0.610/1.111/2.082/0.686 ms
+```
+
+```
+--- Startup Commands Log
+++ ip addr add dev eth0 10.4.11.12/24
+++ hostname tyr12
+++ echo '10.4.11.11 tyr11'
+++ ip route add default via 10.4.11.30 dev eth0
+--- End Startup Commands Log
+root@tyr12:/# ping tyr11 -c 3
+PING tyr11 (10.4.11.11) 56(84) bytes of data.
+64 bytes from tyr11 (10.4.11.11): icmp_seq=1 ttl=64 time=0.895 ms
+64 bytes from tyr11 (10.4.11.11): icmp_seq=2 ttl=64 time=0.683 ms
+64 bytes from tyr11 (10.4.11.11): icmp_seq=3 ttl=64 time=0.611 ms
+
+--- tyr11 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2057ms
+rtt min/avg/max/mdev = 0.611/0.729/0.895/0.120 ms
+```
+
 Defina un número de puerto para el proceso servidor (superior a 1024).
+
+Voy a usar el puerto 3125.
 
 En el dispositivo capturador inicie la captura utilizando el comando tcpdump o tshark sobre la interfaz eth0 y redirigir la salida a un archivo en el directorio /shared para su posterior análisis. (Ej. “ tshark -i eth0 -w - > /shared/captura_nc.pcap ”)
 
+```
+root@capturador:/# tshark -i eth0 -w - > /shared/captura_cliente_servidor.pcap
+Running as user "root" and group "root". This could be dangerous.
+Capturing on 'eth0'
+ ** (tshark:45) 00:59:12.871224 [Main MESSAGE] -- Capture started.
+ ** (tshark:45) 00:59:12.871402 [Main MESSAGE] -- File: "-"
+```
+
 En el host pc1 deberá ejecutar la utilidad nc actuando como servidor, indicando como parámetro el número de puerto elegido. Una vez iniciado, este servicio quedará en modo de escucha o listening. En el otro host (pc2) ejecute la utilidad nc como cliente indicando como parámetros la IP del servidor y número de puerto.
 
+```
+root@tyr11:/# nc -l -p 3125
+```
+
+```
+root@tyr12:/# nc 10.4.11.11 3125
+```
+
+El comando ```nc``` se utiliza para todo lo relacionado con TCP/UDP.
+
+Con el argumento ```-l``` se especifica que ```nc``` debe escuchar una conexión proveniente, con ```-p``` se debe especificar el puerto en el cual ```nc``` debe escuchar.
+
+Cuando ```nc``` se utiliza pasándole como argumentos un hostname y un puerto (un socket), ```nc``` intenta establecer una conexión utilizando dicho socket.
+
 Si generó correctamente los procesos servidor y cliente, debería poder ver una especie de “chat”. Intercambie varios mensajes con el otro dispositivo y finalice la conexión (en cualquiera de los host presione CTRL+C). Luego detenga la captura en el dispositivo capturador (CTRL+C).
+
+```
+root@tyr11:/# nc -l -p 3125
+hola
+que tal
+chau
+nos vemos
+^C
+```
+
+```
+root@tyr12:/# nc 10.4.11.11 3125
+hola
+que tal
+chau
+nos vemos
+^C
+```
+
+```
+root@capturador:/# tshark -i eth0 -w - > /shared/captura_cliente_servidor.pcap
+Running as user "root" and group "root". This could be dangerous.
+Capturing on 'eth0'
+ ** (tshark:45) 00:59:12.871224 [Main MESSAGE] -- Capture started.
+ ** (tshark:45) 00:59:12.871402 [Main MESSAGE] -- File: "-"
+21 ^C
+tshark: 
+```
 
 Analice la captura almacenada en el archivo utilizando tshark y diversos parámetros de visualización (consulte la guía de comandos provista por la materia).
 
 a) “Extraiga” de la captura solamente los datos intercambiados a nivel aplicación y remítalos.
+
+```
+[usuario@host kathara-lab_conf_inicial]$ tshark -r shared/captura_cliente_servidor.pcap -nqz follow,tcp,hex,0
+
+===================================================================
+Follow: tcp,hex
+Filter: tcp.stream eq 0
+Node 0: 10.4.11.12:38918
+Node 1: 10.4.11.11:3125
+	00000000  68 6f 6c 61 0a                                    hola.
+00000000  71 75 65 20 74 61 6c 0a                           que tal.
+	00000005  63 68 61 75 0a                                    chau.
+00000008  6e 6f 73 20 76 65 6d 6f  73 0a                    nos vemo s.
+===================================================================
+```
+
+El comando ```tshark -r shared/captura_cliente_servidor.pcap -nqz follow,tcp,hex,0``` significa:
+
+- **-r**: se utiliza para analizar una captura
+- **-n**: deshabilita la resolución de nombres
+- **-q**: abreviar el contenido en la salida (por ejemplo, cuando se usan estadísticas)
+- **-z follow,tcp,hex,0**: muestra el contenido del flujo TCP de dos nodos, especificando el modo de salida en hexadecimal a partir del flujo 0.
+
+En la salida se pueden observar los sockets del cliente y del servidor; ```Node 0``` representa el socket del cliente y ```Node 1``` representa el socket del servidor.
+
+También se pueden observar los mensajes intercambiados entre los nodos en hexadecimal, mostrando la conversión en ASCII a la derecha de cada mensaje.
 
 b) Realice un diagrama representando el intercambio de tramas indicando las que corresponden al establecimiento de la conexión TCP, a las de transmisión de datos a nivel aplicación, y a las del cierre de la conexión TCP.
     
