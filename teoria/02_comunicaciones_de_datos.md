@@ -128,7 +128,7 @@ La manera más simple de mostrar señales es graficándolas en un par de ejes pe
 
 Las señales pueden tomar dos formas, *periódicas* o *aperiódicas* .
 
-Una señal periódica completa un patrón dentro de una franja de tiempo medible, llamada **período**, y repite ese patrón por períodos idénticos. Un **ciclo** es un patrón completo. Una señal aperiódica cambia sin mostrar un partón o ciclo que se repite a través del paso del tiempo.
+Una señal periódica completa un patrón dentro de una franja de tiempo medible, llamada **período**, y repite ese patrón por períodos idénticos. Un **ciclo** es un patrón completo. Una señal aperiódica cambia sin mostrar un patrón o ciclo que se repite a través del paso del tiempo.
 
 En la comunicación de datos, generalmente se utiliza las señales analógicas periódicas (porque necesitan menor ancho de banda) y las señales digitales aperiódicas (porque repesentan la variación de datos).
 
@@ -150,7 +150,7 @@ El período se refiere a la cantidad de tiempo, en segundos, que una señal nece
 
 <div align='center'>
 
-![](./imagenes/02_frecuencia.png)
+![](./imagenes/02_frequencia.png)
 
 </div>
 
@@ -178,7 +178,7 @@ Otra manera de observar la fase es en términos de posición u offset. Podemos d
 2. Una onda con fase de 90º se desplaza hacia la izquierda por 1/4 de ciclo. Pero la señal no existe antes del tiempo 0.
 3. Una onda con fase de 180º se desplaza hacia la izquierda por 1/2 de ciclo. Pero la señal no existe antes del tiempo 0.
 
-La *longitud de onda* es otra característica de una señal que viaja a través de un medio de transmisión. La longitud de donda fija el período o la frecuencia de una onda sinusoidal simple a la velocidad de propagación del medio.
+La *longitud de onda* es otra característica de una señal que viaja a través de un medio de transmisión. La longitud de onda fija el período o la frecuencia de una onda sinusoidal simple a la velocidad de propagación del medio.
 
 La longitud de onda es la distancia que una señal simple puede viajar en un período.
 
@@ -256,7 +256,7 @@ En la imagen, se muestra la modulación de una señal digital. La señal digital
 
 #### 3.4 Deterioro de la transmisión
 
-Las señales viajan a través de medios de transmisión, los cuales no son perfectos. Esta imperfección causa el deterioro de la transmisión. Esto significa que la señal al principio del medio no es la misma que la señal al final del medio, lo que se envía no es lo que se recive. Las tres causas del deterioro son la *atenuación*, *distorsión* y *ruido*.
+Las señales viajan a través de medios de transmisión, los cuales no son perfectos. Esta imperfección causa el deterioro de la transmisión. Esto significa que la señal al principio del medio no es la misma que la señal al final del medio, lo que se envía no es lo que se recibe. Las tres causas del deterioro son la *atenuación*, *distorsión* y *ruido*.
 
 La **atenuación** es la pérdida de energía. Cuando una señal viaja a través del medio, pierde un poco de su energía para vencer la resistencia del medio. Para compensar esta pérdida, se usan amplificadores para amplificar la señal.
 
@@ -284,7 +284,7 @@ La **distorsión** es el cambio de forma de una señal. La distorsión puede ocu
 
 El **ruido** y sus diferentes tipos, pueden corromper la señal. El ruido térmico es el movimiento aleatorio de electrones en un cable que crea una señal extra. El ruido inducido viene de fuentes como motores y electrodomésticos. Ruido de impulso es un pico que viene de líneas de potencia, energía, etc.
 
-Para hallar el límite de tasa de bits teórico, necesitamos saber la relación entre la potencia de la señal u la potencia del ruido. La **relación señal-ruido (SNR, Signal-to-Noise Ratio)** se define como:
+Para hallar el límite de tasa de bits teórico, necesitamos saber la relación entre la potencia de la señal y la potencia del ruido. La **relación señal-ruido (SNR, Signal-to-Noise Ratio)** se define como:
 
 ```
 SNR = potencia promedio de la señal / potencia promedio del ruido
@@ -339,7 +339,7 @@ El ancho de banda en hertz es el rango de frecuencias contenidas en una señal c
 
 El ancho de banda también se puede referir al número de bits por segundo que un canal, enlace o red puede transmitir.
 
-Hay una relación explícita entre el ancho de banda en hertz y en bps. Un incremento en ancho de banda en hertz significa un ancho de banda en bps. La relación depende de si usamos transmisión banda base o transmisión con modulación.
+Hay una relación explícita entre el ancho de banda en hertz y en bps. Un incremento en ancho de banda en hertz significa un incremento en ancho de banda en bps. La relación depende de si usamos transmisión banda base o transmisión con modulación.
 
 El **throughtput** o **rendimiento** es una medida de que tan rápido podemos enviar datos por una red. Si bien puede pensarse que ancho de banda en bps y throughtput pueden ser lo mismo, en realidad son diferentes. El ancho de banda es una medida potencial de un enlace y el throughtput es la medida real de cuán rápido podemos enviar datos.
 
@@ -365,7 +365,7 @@ El tiempo de encolamiento es el tiempo que necesita cada sistema intermedio o fi
 
 El producto del ancho de banda y del retraso es el número de bits que puede llenar el enlace. Esta medición es importante si necesitamos enviar datos en ráfagas y esperar para recibir el ACK de cada ráfaga antes de enviar la próxima. Para usar la capacidad máxima del enlace, debemos hacer que el tamaño de nuestras ráfagas de datos sean 2 veces el producto del ancho de banda y del retraso, ya que necesitamos llenar el canal full duplex.
 
-Otro problema de rendimiento que está relacionado con el retraso es el **jitter**. El jitter es un problema si diferentes paquetes de datos encuentran diferentes retrasos y la aplicación que usa los datos en el receptor es sensible al tiempo (por ejemplo, datos de audio y video).
+Otro problema de rendimiento que está relacionado con el retraso es el **jitter**. El jitter es un problema si diferentes paquetes de datos experimentan diferentes retrasos y la aplicación que usa los datos en el receptor es sensible al tiempo (por ejemplo, datos de audio y video).
 
 #### 6.0 Utilización del Ancho de Banda: Multiplexación y Ensanchado
 
