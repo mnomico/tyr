@@ -135,8 +135,22 @@ En la salida se pueden observar los sockets del cliente y del servidor; ```Node 
 También se pueden observar los mensajes intercambiados entre los nodos en hexadecimal, mostrando la conversión en ASCII a la derecha de cada mensaje.
 
 b) Realice un diagrama representando el intercambio de tramas indicando las que corresponden al establecimiento de la conexión TCP, a las de transmisión de datos a nivel aplicación, y a las del cierre de la conexión TCP.
-    
+
+<div align='center'>
+
+![](./archivos/tpl2.b.png)
+
+</div>
+
+El ```three way handshake``` es el establecimiento de la conexión entre dos hosts. El cliente es el que inicia la comunicación: envía una trama con el flag ```SYN``` en 1 y con el número de secuencia con el cual va a comenzar la comunicación. El servidor recibe esa trama y responde con una trama cuyo flag SYN también está en 1 y con el flag ```ACK``` en 1, confirmando la recepción de la trama y el número de secuencia. Por último, el cliente envía una trama con el flag ACK en 1, confirmando la recepción de la trama enviada por el servidor, y estableciendo la conexión para empezar a transmitir datos.
+
+Luego por cada dato que se transmite, sea el cliente o el servidor el que transmite datos, en la trama enviada se encuentra el flag PSH en 1 junto con el flag ACK también en 1. El flag ```PSH``` indica que se envíen los datos inmediatamente sin esperar a que se llene el buffer.
+
+Por último, para cerrar la conexión, el host que desea hacerlo envía una trama con flag FIN en 1 y con flag ACK en 1. El flag ```FIN``` indica que el emisor ya no tiene datos para transmitir y desea terminar la conexión. El receptor de esta trama responde con una trama con flag ACK en 1, y una vez que ya no tenga datos para enviar, envia su propia trama con flags FIN y ACK en 1. Finalmente, el host que inicialmente quiso terminar la conexión, envía una trama con flag ACK en 1 para confirmar la recepción de los datos.
+
 c) ¿Todas las tramas en las que identifica el protocolo TCP transportan datos de aplicación?. ¿Si no es así puede explicar el porqué?
+
+No, las tramas involucradas en el establecimiento y finalización de la conexión, y en algunos casos en la confirmación de recepción de datos, sólo contienen datos de control para la conexión. Es así porque la característica principal del protocolo TCP es asegurar la entrega correcta y ordenada de los datos.
 
 ### Segunda parte: Protocolo de acceso remoto TELNET
 
