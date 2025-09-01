@@ -47,7 +47,7 @@
 
 <div align='center'>
 
-![](./archivos/tpl3.4)
+![](./archivos/tpl3.4.png)
 
 Figura 1: Host en la red a definir en DNS
 
