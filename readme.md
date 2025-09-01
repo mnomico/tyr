@@ -16,6 +16,8 @@
 
 ➤ [TPL 2 - Aplicaciones 1: Cliente/Servidor - Telnet](/practica/tpl2-telnet.md)
 
+➤ [TPL 3 - Domain Name System](/practica/tpl3-dns.md)
+
 ## Bibliografía
 
 |ID         |Libro                                                                                                                                        |
