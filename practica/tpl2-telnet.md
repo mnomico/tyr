@@ -254,8 +254,10 @@ a) Identifique e indique las tramas que corresponden a la transmisión de datos 
 
 b) Comente las características de la información en tránsito con respecto a la confidencialidad.
 
+Los datos se envían sin cifrado en texto plano, esto es un problema porque agentes malintencionados pueden interceptar la transmisión y capturar los datos, e incluso alterarlos, ya que no se verifica la integridad de éstos. También podría redirigir el tráfico a otro equipo o incluso hacerse pasar por el cliente o por el servidor.
+
 ### Preguntas (guía de lectura)
-- En la capa de aplicación ¿a qué se denomina cliente y a qué servidor?.
-- En el stack TCP/IP, ¿cómo es posible que un protocolo de transporte brinde servicio a n procesos ejecutándose en un mismo host?.
-- ¿Cuáles son las características y usos del protocolo telnet?.
+- En la capa de aplicación ¿a qué se denomina cliente y a qué servidor?
+- En el stack TCP/IP, ¿cómo es posible que un protocolo de transporte brinde servicio a n procesos ejecutándose en un mismo host?
+- ¿Cuáles son las características y usos del protocolo TELNET?
 - ¿Qué problemática resuelve NVT?
