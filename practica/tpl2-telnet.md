@@ -242,6 +242,16 @@ a) Identifique e indique las tramas que corresponden a la transmisión de datos 
 
 [Captura TELNET](./archivos/captura_telnet.pcap)
 
+- Las primeras 3 tramas corresponden al establecimiento de la conexión entre el host cliente con IP 172.16.0.20 y el cliente TELNET con IP 172.16.0.10, utilizando el protocolo TCP.
+- A partir de la trama 4 es cuando se empiezan a intercambiar tramas con el protocolo TELNET, es decir que en esta trama empieza la transmisión de datos a nivel aplicación. Desde la trama 4 hasta la trama 21, los hosts intercambian tramas para negociar los parámetros de sesión, confirmando la recepción de cada una enviando una trama TCP con flag ACK = 1.
+- En la trama 22, el servidor envía una trama TELNET con datos, solicitando al cliente el usuario para el inicio de sesión.
+- Entre la trama 24 y la trama 41, se intercambian tramas entre el cliente el servidor, en las cuales el cliente envía tramas TELNET por cada caracter que ingresa el usuario, y el servidor responde enviando tramas TELNET haciendo eco de los datos transmitidos por el cliente. El cliente responde este eco con tramas TCP de reconocimiento.
+- En la trama 42, el servidor envía una trama TELNET solicitando al cliente que ingrese la contraseña. A partir de la trama 43 hasta la trama 69 sucede algo similar al punto anterior, pero esta vez el servidor no hace eco de los datos enviados por el cliente, y en cambio envía tramas TCP de reconocimiento.
+- En la trama 70, el servidor envía el mensaje de bienvenida en una trama TELNET. En la trama 71, el cliente envía una trama TCP de reconocimiento y en la trama 72 envía una trama TELNET con el comando solicitado.
+- Hasta la trama 78 se intercambian tramas TELNET y TCP, y en la trama 78 el servidor envía al cliente la respuesta al comando en una trama TELNET.
+- A partir de la trama 80 es cuando el cliente empieza a enviar el comando "exit" para cerrar la sesión TELNET con el servidor.
+- Finalmente en la trama 93 es cuando se inicia la finalización de la conexión, siendo el servidor el que inicia el proceso enviando una trama TCP con flag FIN y ACK en 1. En la trama 94 el cliente responde también con una trama TCP con flag FIN y ACK en 1. Por último, en la trama 95, el servidor envía una trama TCP reconociendo la trama enviada por el cliente.
+
 b) Comente las características de la información en tránsito con respecto a la confidencialidad.
 
 ### Preguntas (guía de lectura)
