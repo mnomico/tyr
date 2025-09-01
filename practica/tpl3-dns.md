@@ -97,13 +97,13 @@ Hay varias aplicaciones en la capa de aplicación que siguen el paradigma client
 
 La imagen anterior muestra como un programa cliente/servidor DNS puede dar soporte a un programa de correo para encontrar la dirección IP de un receptor. Un usuario de un programa de correo puede saber la dirección de correo del receptor, pero el protocolo IP necesita la dirección IP. El cliente DNS envía una solicitud a un servidor DNS para encontrar la dirección IP correspondiente a esa dirección de correo.
 
-Para identificar una identidad, los protocolos TCP/IP usan la dirección IP. Pero las personas prefieren usar nombres en lugar de direcciones numéricas, entonces se necesita un sistema que pueda mapear un nombre a una dirección o viceversa.
+Para identificar una identidad, los protocolos TCP/IP usan la dirección IP. Pero las personas prefieren usar nombres en lugar de direcciones numéricas, entonces se necesita un sistema que pueda traducir un nombre a una dirección o viceversa.
 
 Con el tiempo fueron surgiendo varias soluciones, pero la que se utiliza hoy en día es dividir la enorme cantidad de información en partes más pequeñas y almacenar cada parte en una computadora diferente. El host que necesita encontrar una dirección se puede contactar con la computadora más cercana que contiene la información necesaria. Este método es el que utiliza el **Domain Name Service (DNS)**.
 
 #### 25.1 Espacio de nombres
 
-Para no ser ambiguos, los nombres asignados a las máquinas deben ser seleccionados con cuidado a partir de un espacio de nombres con control total sobre la asociación de nombres y direcciones IP. En otras palabras, los nombres deben ser únicos porque las direcciones son únicas. Un espacio de nombres que mapea cada dirección a un nombre único puede ser organizado de dos maneras: plana o jerárquica.
+Para no ser ambiguos, los nombres asignados a las máquinas deben ser seleccionados con cuidado a partir de un espacio de nombres con control total sobre la asociación de nombres y direcciones IP. En otras palabras, los nombres deben ser únicos porque las direcciones son únicas. Un espacio de nombres que traduce cada dirección a un nombre único puede ser organizado de dos maneras: plana o jerárquica.
 
 **Espacio de nombres plano**
 
@@ -160,7 +160,109 @@ La información contenida en un espacio de nombres de dominio debe ser almacenad
 
 **Jerarquía de servidores de nombre**
 
+La solución a esos problemas es distribuir la información en varias computadoras llamadas servidores DNS. Una manera de hacerlo es dividir el espacio entero en varios dominios con respecto al primer nivel, en otras palabras, dejamos solo a la raíz y creamos tantos subárboles como nodos de primer nivel haya. DNS permite subdividir los dominios en dominios más pequeños (subdominios). Cada servidor puede ser responsable de un dominio grande o pequeño, es decir que hay una jerarquía de servidores del mismo modo en el que hay una jerarquía de nombres.
 
+<div align='center'>
+
+![](./archivos/tpl3/25_jerarquia_de_servidores_de_nombre.png)
+
+</div>
+
+**Zona**
+
+Como la jerarquía completa de nombres de dominio no puede ser almacenada en un solo servidor, se divide en varios servidores. El servidor responsable o con autoridad se lo conoce como **zona**. La zona es una parte contigua del árbol entero. Si un servidor acepta responsabilidad de un dominio y no divide el dominio en subdominios, el dominio y la zona hacen referencia a lo mismo. El servidor crea una base de datos llamada **archivo de zona** y almacea toda la información de cada nodo bajo ese dominio. Sin embargo, si un servidor divide su dominio en subdominios y delega parte de su autoridad a otros servidores, dominio y zona se refieren a cosas diferentes. La información sobre los nodos en los subdominios se almacena en los servidores de los niveles bajos, con el servidor original almacenando una especie de referencia a esos servidores de nivel bajo. El servidor original todavía tiene una zona, pero la información detallada está almacenada en los servidores de niveles bajos.
+
+Un servidor también puede dividir parte de su dominio y delegar su responsabilidad, y al mismo tiempo mantener parte del dominio para si mismo. En este caso, la zona está hecha de información detallada para la parte del dominio que no fue delegada y hace referencia a esas partes que fueron delegadas.
+
+**Root server**
+
+Un **root server** o **servidor raíz** es un servidor cuya zona consiste de todo el árbol. Un root server generalmente no almacena información sobre los dominios pero delega su autoridad a otros servidores, manteniendo referencias a dichos servidores. Existen varios root servers, cada uno cubriendo el espacio de nombres de dominio entero. Estos servidores están distribuidos por todo el mundo.
+
+**Servidores primarios y secundarios**
+
+Un **servidor primario** es un servidor que almacena un archivo sobre la zona en la cual es autoridad. Es el responsable de crear, mantener, y actualizar el archivo de zona.
+
+Un **servidor secundario** es un servidor que transfiere toda la información sobre una zona desde otro servidor y almacena el archivo en su disco. No crea ni actualiza archivos de zona. Si se necesita actualizar, debe ser hecho por el servidor primario, el cual envía la versión actualizada al servidor secundario.
+
+La idea es crear redundancia sobre los datos para el caso en el que si uno de los servidores falla, el otro puede continuar sirviendo clientes. Hay que tener en cuenta que un servidor puede ser un servidor primario para una zona en específico y ser un servidor secundario para otra zona.
+
+#### 25.4 DNS en Internet
+
+En Internet, el espacio de nombres de dominios se divide en tres secciones diferentes: dominios genéricos, dominios de país, y dominio inverso.
+
+Los **dominios genéricos** definen hosts registrados de acuerdo con su comportamiento genérico. Cada nodo del árbol define un dominio, el cuál es un índice en la base de datos del espacio de nombres de dominio.
+
+<div align='center'>
+
+![](./archivos/tpl3/25_dominios_genericos.png)
+
+</div>
+
+Los **dominios de país** usan abreviaciones de dos caracteres. Las etiquetas secundarias pueden ser organizacionales, o pueden ser designaciones nacionales más específicas.
+
+El **dominio inverso** se usa para traducir una dirección a un nombre. Esto puede suceder, por ejemplo, cuando un servidor recibe una solicitud de un cliente para realizar una tarea. Si bien el servidor tiene un archivo que contiene la lista de clientes autorizados, sólo se lista la dirección IP del cliente. El servidor le consulta a su resolver para enviar una consulta al servidor DNS para traducir una dirección a un nombre para determinar si el cliente está en la lista de autorizados.
+
+Este tipo de consulta se denomina consulta inversa o de puntero. Para manejar una consulta puntero, el dominio inverso es agregado al espacio de nombres de dominio con el nodo de primer nivel llamado ```arpa```. El segundo nivel también es un solo nodo llamado ```in-addr```. El resto del dominio define direcciones IP. Por ejemplo, la IP ```190.104.80.1``` se representa como:
+
+```
+1.80.104.190.in-addr.arpa.
+```
+
+en ese nodo se almacena el registro PTR que apunta al nombre de dominio:
+
+```
+1.80.104.190.in-addr.arpa.   IN PTR   www.unlu.edu.ar.
+```
+
+Los servidores que manejan el dominio inverso también son jerárquicos, esto significa que la parte de la dirección IP que define la red debe estar en el nivel alto mientras que la parte de la dirección IP que define los hosts debe estar en un nivel debajo.
+
+#### 25.5 Resolución
+
+Traducir un nombre a una dirección o una dirección a un nombre se denomina resolución de direcciones.
+
+**Resolver**
+
+DNS es designado como una aplicación cliente/servidor. Un host que necesita encontrar una dirección a partir de un nombre o viceversa llama a un cliente DNS, el **resolver**. El resolver accede al servidor DNS más cercano con una solicitud de traducción. Si el servidor tiene la información, se la devuelve al resolver, si no, remite al resolver a otros servidores, o pregunta a otros servidores para que provean la información.
+
+Luego de que el resolver recibe la traducción, verifica si es una resolución correcta o un error, y finalmente responde al proceso que hizo la solicitud.
+
+**Traducción de nombres a direcciones**
+
+La mayoría de las veces, el resolver da el nombre de dominio a un servidor y le pregunta por la dirección correspondiente. El servidor mira los dominios genéricos o de país para encontrar la dirección.
+
+Si el nombre de dominio está en la sección de dominios genéricos, el resolver envía la consulta al servidor DNS local. Si el servidor local no lo puede resolver, remite al resolver a otros servidores o consulta a otros servidores directamente.
+
+Si el nombre de dominio está en la sección de dominios de país, el procedimiento es el mismo.
+
+**Traducción de direcciones a nombres**
+
+Para resolver consultas inversas, DNS usa el dominio inverso. En la solicitud, la dirección IP es invertida y las dos etiquetas ```in-addr``` y ```arpa``` son concatenados para crear un dominio aceptado por la sección de dominio inverso. Este dominio es recibido por el DNS local y se resuelve.
+
+**Resolución recursiva**
+
+El cliente (resolver) puede consultar por una respuesta recursiva al servidor de nombres, lo cual significa que el resolver espera que el servidor le de la respuesta final. Si el servidor es la autoridad para el nombre de dominio, consulta su base de datos y responde. Si no es la autoridad, le envía la solicitud a otro servidor (normalmente al padre) y espera por la respuesta. Si el padre es la autoridad, responde; si no, envía la consulta a otro servidor. Cuando la consulta es resuelta, la respuesta viaja hasta que llega al cliente que hizo la solicitud. Esto se llama **resolución recursiva**.
+
+<div align='center'>
+
+![](./archivos/tpl3/25_resolucion_recursiva.png)
+
+</div>
+
+**Resolución iterativa**
+
+Si el cliente no hace una consulta recursiva, la traducción se puede hacer de manera iterativa. Si el servidor es autoridad del nombre, envía la respuesta, si no, retorna la dirección IP del servidor que puede resolver la consulta. El cliente repite la consulta a los distintos servidores hasta que consigue una respuesta con la resolución.
+
+<div align='center'>
+
+![](./archivos/tpl3/25_resolucion_iterativa.png)
+
+</div>
+
+**Caching**
+
+Cada vez que el servidor recibe una consulta para un nombre que no está en su dominio, necesita buscar en su base de datos una dirección IP de un servidor. Cuando un servidor quiere resolver una traducción de otro servidor y recibe la respuesta, almacena esta información en su caché antes de enviarla al cliente. Si el mismo u otro cliente consultan por la misma traducción, puede resolver el problema a partir de la información contenida en la caché. Sin embargo, el servidor aclara al cliente que la información proviene de su caché, marcando la respuesta como ```no autoritativa```.
+
+El **caching** acelera la resolución, pero puede ser problemática si la información permanece por largos períodos de tiempo, ya que esa información podría estar desactualizada. Para evitar esto, se utilizan dos técnicas. Primero, el servidor autoritativo agrega información a la traducción llamada **time to live (TTL)**. Define el tiempo en segundos en el que dicha información puede ser almacenada en caché. Una vez terminado ese tiempo, la traducción es invalida y cualquier consulta sobre esa traducción debe ser enviada de nuevo al servidor autoridad. Segundo, DNS requiere que cada servidor mantenga un contador TTL para cada traducción que cachea, para que cuando alguna expire, la traducción sea eliminada.
 
 ---
 
