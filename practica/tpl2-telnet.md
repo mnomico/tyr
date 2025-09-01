@@ -160,11 +160,56 @@ Instale e inicie en Kathará el laboratorio de Telnet provisto por los docentes,
 
 El laboratorio cuenta con dos hosts. El primer host actuará como cliente telnet (client), mientras que el segundo host actuará como servidor remoto de telnet (remote).
 
-Asigne una dirección IP al host cliente dentro de la red 172.16.0.0/24 . (puede elegir cualquiera del rango 172.16.0.1-254 exepto 172.16.0.10 )
+Asigne una dirección IP al host cliente dentro de la red 172.16.0.0/24 . (puede elegir cualquiera del rango 172.16.0.1-254 excepto 172.16.0.10 )
+
+```
+root@client:/# ip addr add 172.16.0.20/24 dev eth0
+root@client:/# ip addr show
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+4: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc fq_codel state UP group default qlen 1000
+    link/ether 32:59:c4:b6:7a:d4 brd ff:ff:ff:ff:ff:ff
+    inet 172.16.0.20/24 scope global eth0
+       valid_lft forever preferred_lft forever
+```
 
 En el dispositivo capturador inicie la captura utilizando el comando tcpdump o tshark sobre la interfaz eth0 y redirigir la salida a un archivo en el directorio /shared para su posterior análisis. (Ej. “ tshark -i eth0 -w - > /shared/captura_telnet.pcap ”)
 
+```
+root@capturador:/# tshark -i eth0 -w - > /shared/captura_telnet.pcap
+Running as user "root" and group "root". This could be dangerous.
+Capturing on 'eth0'
+ ** (tshark:70) 02:22:53.488723 [Main MESSAGE] -- Capture started.
+ ** (tshark:70) 02:22:53.488811 [Main MESSAGE] -- File: "-"
+```
+
 En la terminal del host cliente, conéctese mediante telnet al host remoto, cuya dirección IP es 172.16.0.10. Utilice el nombre de usuario alumno y la clave ultrasecreta.
+
+```
+root@client:/# telnet 172.16.0.10
+Trying 172.16.0.10...
+Connected to 172.16.0.10.
+Escape character is '^]'.
+
+Linux 6.16.4-arch1-1 (remote) (pts/2)
+
+remote login: alumno
+Password: 
+Linux remote 6.16.4-arch1-1 #1 SMP PREEMPT_DYNAMIC Thu, 28 Aug 2025 19:49:53 +0000 x86_64
+=====================================================================
+Bienvenido al servidor en la Antartida.
+
+Continue el ejercicio ejecutando el comando:
+
+    who && who | openssl dgst
+
+Copie y pegue la salida de este en la resolucion de su practica.
+=====================================================================
+
+No directory, logging in with HOME=/
+```
 
 Con la sesión iniciada en remoto, ejecute el siguiente comando respetando la sintaxis.
 
@@ -172,13 +217,30 @@ Con la sesión iniciada en remoto, ejecute el siguiente comando respetando la si
 
 Copie la salida de dicho comando como resolución de este ejercicio (como texto). Añada además todos los comandos que ejecutó para lograr dicho resultado.
 
+```
+$ who && who | openssl dgst
+SHA256(stdin)= e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+```
+
 Salga del host remoto escribiendo el comando exit.
 
+```
+$ exit
+Connection closed by foreign host.
+```
+
 Luego detenga la captura en el dispositivo capturador. Remítala en formato pcap como parte de la tarea.
+
+```
+95 ^C
+tshark: 
+```
 
 Analice la captura:
 
 a) Identifique e indique las tramas que corresponden a la transmisión de datos a nivel aplicación, cuáles a protocolos auxiliares (si existen) y al establecimiento y cierre de la conexión TCP (referenciando por número de trama en la captura).
+
+[Captura TELNET](./archivos/captura_telnet.pcap)
 
 b) Comente las características de la información en tránsito con respecto a la confidencialidad.
 
