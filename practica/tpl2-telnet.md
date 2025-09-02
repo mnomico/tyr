@@ -257,7 +257,21 @@ b) Comente las características de la información en tránsito con respecto a l
 Los datos se envían sin cifrado en texto plano, esto es un problema porque agentes malintencionados pueden interceptar la transmisión y capturar los datos, e incluso alterarlos, ya que no se verifica la integridad de éstos. También podría redirigir el tráfico a otro equipo o incluso hacerse pasar por el cliente o por el servidor.
 
 ### Preguntas (guía de lectura)
+
 - En la capa de aplicación ¿a qué se denomina cliente y a qué servidor?
+
+	Se denomina cliente al proceso de aplicación que inicia la conexión, y se denomina servidor al proceso de aplicación que escucha constantemente, esperando solicitudes para brindar servicio.
+
+
 - En el stack TCP/IP, ¿cómo es posible que un protocolo de transporte brinde servicio a n procesos ejecutándose en un mismo host?
+
+    El protocolo de transporte puede brindar servicio a varios procesos en un mismo host porque las tramas de transporte contienen no sólo la dirección IP de los hosts sino también los puertos que corresponden a los procesos que participan en la comunicación.
+
+
 - ¿Cuáles son las características y usos del protocolo TELNET?
+
+	El protocolo TELNET es un protocolo de aplicación que utiliza el puerto 23 que se utiliza para acceder de manera remota a otro host. No posee cifrado de datos, lo cual lo vuelve inseguro de usar.
+
 - ¿Qué problemática resuelve NVT?
+
+	Cada sistema tiene su forma de representar caracteres y controlar terminales, por lo que cuando se enviaban datos desde una terminal física a uno remoto con TELNET, un código enviado que representa un caracter en una terminal física podía representar un caracter distinto en la terminal remota. Para evitar esto se introdujo NVT (Network Virtual Terminal), un formato estándar de comunicación para TELNET. NVT define que todos los caracteres se deben transmitir en formato ASCII de 7 bits. Funcionaba de la siguiente manera: cuando un cliente se conecta a través de TELNET, traduce su terminal al formato NVT. Los datos se transmiten en formato NVT, y cuando llegan al servidor se traducen al formato que pueda interpretar el servidor.
