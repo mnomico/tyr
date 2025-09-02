@@ -10,6 +10,8 @@
 
 ➤ [02 - Modelo para las Comunicaciones y Transmisión de Datos](/teoria/02_comunicaciones_de_datos.md)
 
+➤ [03 - Capa de Enlace](/teoria/03_capa_de_enlace.md)
+
 ## Trabajos Prácticos
 
 ➤ [TPL 1 - Configuración inicial de la red del laboratorio](/practica/tpl1-configuracion-inicial.md)
