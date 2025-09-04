@@ -122,6 +122,107 @@
 
 ### Resumen
 
+Para llevar a cabo el control necesario en el envío de datos se necesita un **protocolo de control del enlace de datos**. Cuando se utiliza un protocolo de este tipo, el medio de transmisión es el **enlace de datos**.
+
+Para lograr una comunicación de datos efectiva se necesita cumplir los siguientes requisitos y objetivos:
+
+- **Sincronización de trama**: los datos se envían en tramas, y el principio y fin de estas tramas deben ser identificables.
+- **Control de flujo**: el emisor no debe enviar tramas a una velocidad superior a la velocidad en la que el receptor puede recibirlas y procesarlas.
+- **Control de errores**: se debe corregir los bits erróneos provocados por el medio de transmisión.
+- **Direccionamiento**: se debe identificar a las estaciones involucradas en la transmisión.
+- **Datos y control sobre el mismo enlace**: el receptor debe poder diferenciar la información de control y la de datos.
+- **Gestión del enlace**: se necesita una serie de procedimientos para realizar la gestión del intercambio de datos.
+
+#### 7.1 Control de flujo
+
+El control de flujo es una técnica que asegura que el emisor no sobrecargue con datos al receptor. El receptor reserva una porción de memoria para la transferencia de datos (un buffer). Cuando se reciben datos, el receptor debe procesarlos primero y luego pasar los datos a las capas superiores. Si no se tiene un procedimiento para el control de flujo, el buffer del receptor se puede llenar y desbordar mientras procesa datos.
+
+<div align='center'>
+
+![](./imagenes/03_modelo_transmision_de_tramas.png)
+
+</div>
+
+Las flechas representan el envío de una trama entre dos estaciones. Los datos se envían en secuencias de tramas. Cada una contiene un campo de datos (payload) y un campo de información de control (header).
+
+El **tiempo de transmisión** es el tiempo que tarda una estación en enviar todos los bits de una trama sobre el medio. El **tiempo de propagación** es el tiempo que tarda un bit en atravesar el medio desde el origen hasta el destino.
+
+**Control de flujo mediante parada y espera**
+
+El procedimiento de control de flujo mediante parada y espera (stop & wait) funciona de la siguiente manera. El origen transmite una trama. El destino, cuando la recibe, envia una trama que confirma la recepción de la trama e indica al origen que puede enviar otra. El origen espera hasta recibir la confirmación antes de enviar la trama siguiente. De esta manera el destino puede detener el flujo de datos. 
+
+El origen segmenta la información en bloques pequeños, transmitiendo los datos en varias tramas. Esto se hace así por varias razones:
+
+- El tamaño del buffer del receptor puede ser limitado.
+- Mientras más larga sea la transmisión, más probable es la ocurrencia de errores. Si el tamaño de trama es grande, se debe retransmitir la trama completa, pero si se divide en tamaños más pequeños, la retransmisión es menos costosa.
+- En un medio compartido, es común que no se le permita a una estación ocupar el medio por períodos largos, para evitar que el resto de estaciones sufran retardos.
+
+Si se usan varias tramas para un solo mensaje, el método de stop & wait es ineficiente, porque sólo se puede transmitir una trama en un momento dado. La longitud de un enlace de bits es:
+
+```
+B = R * d / V
+
+B = longitud del enlace en bits, es decir la cantidad de bits que entran en el enlace
+R = velocidad del enlace en bps
+d = distancia del enlace en metros
+V = velocidad de propagación en m/s
+```
+
+En los casos en el que la longitud del enlace en bits es mayor que la longitud de la trama, aparecen ineficiencias importantes.
+
+<div align='center'>
+
+![](./imagenes/03_stop_and_wait.png)
+
+</div>
+
+El tiempo de transmisión se normaliza a la unidad (1) y el tiempo de propagación se expresa con la variable ```a```, que se puede expresar de la siguiente manera:
+
+```
+a = B / L
+
+B = longitud del enlace en bits
+L = longitud de la trama en bits
+```
+
+Cuando a < 1, el tiempo de propagación es menor que el de transmisión, es decir que la trama es tan larga que sus primeros bits llegan a destino antes de que el origen haya terminado su transmisión. En este caso, la línea se utiliza ineficientemente.
+
+Cuando a > 1, el tiempo de propagación es mayor que el de transmisión, es decir que el origen completa la transmisión de la trama antes de que lleguen sus primeros bits al destino. En este caso, parte de la línea se desperdicia. Para velocidades de transmisión y distancias grandes, se recomienda usar valores grandes de a.
+
+**Control de flujo mediante ventana deslizante**
+
+Si se permite que transiten varias tramas al mismo tiempo, la eficiencia va a mejorar significativamente.
+
+Para dos estaciones A y B, conectadas por un enlace full-duplex, la estación B reserva un buffer para almacenar W tramas, es decir que B puede aceptar W tramas, y A puede enviar W tramas sin esperar una confirmación. Para saber cuáles son las tramas confirmadas, cada trama tiene un número de secuencia. B envía una trama de confirmación con el número de secuencia de la trama siguiente que quiere recibir, lo cual indica que confirma la recepción de las tramas recibidas hasta el número de secuencia enviado y está preparado para recibir las W tramas siguientes, a partir del número de secuencia.
+
+Por ejemplo, B recibe las tramas 2, 3 y 4 y envía la confirmación cuando llega la trama 4, con número de secuencia 5: B está confirmando las tramas 2, 3 y 4. A mantiene una lista con los números de secuencia que puede transmitir y B mantiene una lista con los números de secuencia que puede recibir. Estas listas se consideran como una ventana de tramas, por eso este método se lo conoce como **control de flujo mediante ventana deslizante**.
+
+La numeración de las tramas ocupa un campo, por lo tanto va a tener un número limitado. Para un campo de k bits, el rango de números de secuencia es desde 0 hasta 2^k - 1. El máximo de la ventana es 2^(k-1) por una cuestión que se ve más adelante.
+
+<div asign='center'>
+
+![](./imagenes/03_ventana_deslizante.png)
+
+</div>
+
+En la imagen se usa números de secuencia de 3 bits, por lo que las tramas se van a numerar del 0 al 7 (porque 2^3 - 1 => 8 - 1 => 7), usando los mismos números para las tramas luego de la número 7. El rectángulo sombreado indica las tramas que se pueden transmitir. Cada vez que se envía una trama, la ventana se cierra, y cada vez que recibe una confirmación, la ventana se abre. Las tramas que están entre la barra vertical y la ventana ya fueron enviadas, pero no fueron confirmadas. Estas tramas son almacenadas por si hay que retransmitirlas.
+
+<div asign='center'>
+
+![](./imagenes/03_ventana_deslizante.png)
+
+</div>
+
+En esta imagen se usa un campo de 3 bits para los números de secuencia y un tamaño máximo para la ventana igual a 7 tramas, comenzando con la 0. Luego de transmitir 3 tramas sin confirmación, A cierra su ventana, pasando a tener un tamaño de 4 tramas, y manteniendo una copia de las tramas transmitidas sin confirmar. La ventana indica que A puede transmitir cuatro tramas, comenzando por la trama con número 3. B transmite una trama RR (Receive Ready) 3, que indica que recibió todas las tramas hasta la número 2 y que puede recibir 7 tramas a partir de la trama 3. Ahora A puede descartar las tramas almacenadas, y transmite las tramas 3, 4, 5 y 6. B devuelve una RR 4, confirmando la trama 3 y permitiendo la transmisión de tramas a partir de la trama 4 hasta la trama 2. Cuando la trama RR llega a A, como ya se transmitieron las tramas 4, 5 y 6, A solamente abre su ventana para permitir la transmisión de una trama más (porque sólo recibió confirmación de 1 trama).
+
+La mayoría de los protocolos permiten que una estación pueda interrumpir la transmisión con un mensaje RNR (Receive Not Ready), confirmando las tramas anteriores pero prohibe la recepción de tramas. Por ejemplo, RNR 5 significa que se confirma la recepción de tramas hasta la número 4 pero no acepta más. En algún momento la estación debe transmitir una confirmación para reabrir la ventana.
+
+Si se transmiten tramas en ambas direcciones, se puede utilizar un procedimiento conocido como **piggybacking**, en el que cada trama de datos incluye un campo para indicar el número de secuencia de la trama y otro campo para indicar el número de secuencia que confirma. Entonces si una estación tiene que enviar una confirmación y también datos, lo hace utilizando una sola trama ahorrando la capacidad del canal. Si la estación tiene datos para enviar pero nada para confirmar, envía el último número de secuencia de confirmación enviado.
+
+#### 7.2 Control de errores
+
+
+
 ---
 
 ### Bibliografia
