@@ -18,23 +18,167 @@
 
 ### Consignas
 
-1. Utilizando la herramienta dig (o nslookup ) realice consultas al servidor DNS indicado por el docente, (o desde su hogar al provisto por su ISP, o bien alguno de acceso público tal como 8.8.8.8 o 1.1.1.1) para obtener la siguiente información:
+1. Utilizando la herramienta dig (o nslookup) realice consultas al servidor DNS indicado por el docente, (o desde su hogar al provisto por su ISP, o bien alguno de acceso público tal como 8.8.8.8 o 1.1.1.1) para obtener la siguiente información:
     
     a. ¿Cuál es la dirección IP del host platdig.unlu.edu.ar ?
 
+        [user@host ~]$ dig platdig.unlu.edu.ar
+
+        ; <<>> DiG 9.20.13 <<>> platdig.unlu.edu.ar
+        ;; global options: +cmd
+        ;; Got answer:
+        ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 27941
+        ;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1
+
+        ;; OPT PSEUDOSECTION:
+        ; EDNS: version: 0, flags:; udp: 512
+        ;; QUESTION SECTION:
+        ;platdig.unlu.edu.ar.           IN      A
+
+        ;; ANSWER SECTION:
+        platdig.unlu.edu.ar.    3600    IN      A       190.104.80.55
+
+        ;; Query time: 29 msec
+        ;; SERVER: 192.168.100.1#53(192.168.100.1) (UDP)
+        ;; WHEN: Sun Sep 14 13:22:56 -03 2025
+        ;; MSG SIZE  rcvd: 64
+
+    El comando ```dig platdig.unlu.edu.ar``` produce esta salida, en la cual se puede encuentrar la dirección IP solicitada, en la parte de ```ANSWER SECTION```. En esta sección se indica los registros DNS que devolvió el servidor DNS, en este caso devolvió un registro ```A```, indicando que la IPv4 de platdig.unlu.edu.ar es 190.104.80.55.
+
     b. ¿Cuál es la dirección IP del host educativa.unlu.edu.ar ? ¿Qué diferencia nota en la respuesta respecto al punto anterior?
+
+        [user@host ~]$ dig educativa.unlu.edu.ar
+
+        ; <<>> DiG 9.20.13 <<>> educativa.unlu.edu.ar
+        ;; global options: +cmd
+        ;; Got answer:
+        ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 55646
+        ;; flags: qr rd ra; QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 1
+
+        ;; OPT PSEUDOSECTION:
+        ; EDNS: version: 0, flags:; udp: 1232
+        ;; QUESTION SECTION:
+        ;educativa.unlu.edu.ar.         IN      A
+
+        ;; ANSWER SECTION:
+        educativa.unlu.edu.ar.  3600    IN      CNAME   unlu1.unlu.edu.ar.
+        unlu1.unlu.edu.ar.      2180    IN      A       190.104.80.1
+
+        ;; Query time: 19 msec
+        ;; SERVER: 192.168.100.1#53(192.168.100.1) (UDP)
+        ;; WHEN: Sun Sep 14 13:28:55 -03 2025
+        ;; MSG SIZE  rcvd: 86
+
+    En este caso, el comando ```dig educativa.unlu.edu.ar``` devuelve un ```ANSWER SECTION``` con dos registros, un ```CNAME``` y un ```A```. El registro ```CNAME``` (Canonical Name) indica que "educativa.unlu.edu.ar" es un alias de "unlu1.unlu.edu.ar" (el nombre canónico), y es este último el cual contiene el registro ```A``` que contiene su dirección IPv4. Por lo tanto, la dirección IP de educativa.unlu.edu.ar es 190.104.80.1.
 
     c. ¿Cuáles son los intercambiadores de mail (mnemónico y dirección IP) del dominio unsa.edu.ar ?
 
+        [user@host ~]$ nslookup -type=MX unsa.edu.ar
+        Server:         192.168.100.1
+        Address:        192.168.100.1#53
+
+        Non-authoritative answer:
+        unsa.edu.ar     mail exchanger = 20 mx2.unsa.edu.ar.
+        unsa.edu.ar     mail exchanger = 10 mx1.unsa.edu.ar.
+
+        Authoritative answers can be found from:
+
+    El comando ```nslookup -type=MX unsa.edu.ar``` devuelve los registros ```MX``` de unsa.edu.ar, los cuales proporcionan los hosts a los cuales debemos consultar para saber cuál es la dirección IP de los intercambiadores de mail. En este caso son dos: mx1.unsa.edu.ar y mx2.unsa.edu.ar.
+
+        [user@host ~]$ nslookup -type=A mx1.unsa.edu.ar
+        Server:         192.168.100.1
+        Address:        192.168.100.1#53
+
+        Non-authoritative answer:
+        Name:   mx1.unsa.edu.ar
+        Address: 170.210.206.18
+
+    Con el comando ```nslookup -type=A mx1.unsa.edu.ar``` obtenemos los registros ```A``` de mx1.unsa.edu.ar, junto con su IPv4, la cual es 170.210.206.18.
+
+        [user@host ~]$ nslookup -type=A mx2.unsa.edu.ar
+        Server:         192.168.100.1
+        Address:        192.168.100.1#53
+
+        Non-authoritative answer:
+        Name:   mx2.unsa.edu.ar
+        Address: 190.221.183.218
+
+    Con el comando ```nslookup -type=A mx2.unsa.edu.ar``` obtenemos los registros ```A``` de mx2.unsa.edu.ar, junto con su IPv4, la cual es 190.221.183.218.
+
     d. ¿Cuál es el nombre del host cuya dirección IP es 190.104.80.12 ?
+
+        [user@host ~]$ nslookup 190.104.80.12
+        12.80.104.190.in-addr.arpa      name = redhidro.unlu.edu.ar.
+
+    El comando ```nslookup 190.104.80.12``` devuelve dos elementos:
+
+    - ```12.80.104.190.in-addr.arpa```: este es un nombre que lo arma el cliente DNS para poder realizar una consulta inversa al servidor DNS, el cual a partir de ese nombre obtiene un registro ```PTR``` que apunta al nombre canónico que corresponde con la dirección IP.
+    - ```redhidro.unlu.edu.ar.```: es el nombre canónico de la dirección IPv4 ```190.104.80.12```.
+
+    Entonces el nombre de host cuya dirección IP es 190.104.80.12 es redhidro.unlu.edu.ar.
 
     e. ¿Cuáles son los servidores de nombres (mnemónicos y dirección IP) para el dominio ripe.net ?
 
+        [user@host ~]$ dig +short -t NS ripe.net
+        ns4.apnic.net.
+        rirns.arin.net.
+        manus.authdns.ripe.net.
+        ns3.lacnic.net.
+        ns3.afrinic.net.
+    
+    Con el comando ```dig +short -t NS ripe.net``` obtengo sólo los mnemónicos de los nameservers de ripe.net. Cada uno de estos servidores de nombres contiene la información sobre ripe.net, por lo cual el cliente DNS puede utilizar cualquiera de estos para resolver la dirección IP de ripe.net.
+
+        [user@host ~]$ dig +short ns4.apnic.net.
+        202.12.31.53
+        [user@host ~]$ dig +short rirns.arin.net.
+        199.253.249.53
+        [user@host ~]$ dig +short manus.authdns.ripe.net.
+        193.0.9.7
+        [user@host ~]$ dig +short ns3.lacnic.net.
+        200.3.13.14
+        [user@host ~]$ dig +short ns3.afrinic.net.
+        204.61.216.100
+
     f. ¿Cuál es la dirección IPv6 del host debian.org ?
+
+        [user@host ~]$ dig -t AAAA debian.org
+
+        ; <<>> DiG 9.20.13 <<>> -t AAAA debian.org
+        ;; global options: +cmd
+        ;; Got answer:
+        ;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 56907
+        ;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1
+
+        ;; OPT PSEUDOSECTION:
+        ; EDNS: version: 0, flags:; udp: 4096
+        ;; QUESTION SECTION:
+        ;debian.org.                    IN      AAAA
+
+        ;; ANSWER SECTION:
+        debian.org.             207     IN      AAAA    2a04:4e42:200::644
+        debian.org.             207     IN      AAAA    2a04:4e42:600::644
+        debian.org.             207     IN      AAAA    2a04:4e42:400::644
+        debian.org.             207     IN      AAAA    2a04:4e42::644
+
+        ;; Query time: 2 msec
+        ;; SERVER: 192.168.100.1#53(192.168.100.1) (UDP)
+        ;; WHEN: Sun Sep 14 16:44:57 -03 2025
+        ;; MSG SIZE  rcvd: 151
+
+    Con el comando ```dig -t AAAA debian.org``` hago una consulta DNS para obtener los registros ```AAAA```, los cuales apuntan a direcciones IPv6. Las direcciones IPv6 de debian.org son:
+    - 2a04:4e42::644
+    - 2a04:4e42:200::644
+    - 2a04:4e42:600::644
+    - 2a04:4e42:400::644
 
 2. Utilice la herramienta DNS BAJAJ disponible en http://www.zonecut.net/dns/ para obtener información en forma de grafo acerca del dominio cruzroja.org.ar . ¿Cuáles son los servidores (nombre y dirección IP) para dicho dominio?
 
+La herramienta DNS BAJAJ muestra como se realiza la consulta para resolver la dirección IP de cruzroja.org.ar desde la raíz (1.root-servers.net) hacia los nodos descendientes, hasta encontrar los servidores de nombre ```ns1.cruzroja.org.ar.``` y ```ns2.cruzroja.org.ar.``` de cruzroja.org.ar, que apuntan a la misma dirección IP 107.190.132.130.
+
 3. ¿En dónde se encuentra la copia mas cercana de un servidor dns raíz? ¿Cuál es el nombre del servidor replicado (o servidores)?
+
+
+
 4. Defina cómo estará compuesta la base de datos de un servidor DNS administrado por Ud., de manera tal que sea el servidor primario del dominio SU-NRO-LEGAJO.tyr.example ( .example es un TLD reservado para uso en documentación y ejemplos). De acuerdo al diagrama de la Figura 1, defina:
 
     a. El nombre de todos los hosts en el nuevo dominio, y su respectivo puntero reverso.
