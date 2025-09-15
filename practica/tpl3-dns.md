@@ -173,11 +173,13 @@
 
 2. Utilice la herramienta DNS BAJAJ disponible en http://www.zonecut.net/dns/ para obtener información en forma de grafo acerca del dominio cruzroja.org.ar . ¿Cuáles son los servidores (nombre y dirección IP) para dicho dominio?
 
-La herramienta DNS BAJAJ muestra como se realiza la consulta para resolver la dirección IP de cruzroja.org.ar desde la raíz (1.root-servers.net) hacia los nodos descendientes, hasta encontrar los servidores de nombre ```ns1.cruzroja.org.ar.``` y ```ns2.cruzroja.org.ar.``` de cruzroja.org.ar, que apuntan a la misma dirección IP 107.190.132.130.
+    La herramienta DNS BAJAJ muestra como se realiza la consulta para resolver la dirección IP de cruzroja.org.ar desde la raíz (1.root-servers.net) hacia los nodos descendientes, hasta encontrar los servidores de nombre ```ns1.cruzroja.org.ar.``` y ```ns2.cruzroja.org.ar.``` de cruzroja.org.ar, que apuntan a la misma dirección IP 107.190.132.130.
 
 3. ¿En dónde se encuentra la copia mas cercana de un servidor dns raíz? ¿Cuál es el nombre del servidor replicado (o servidores)?
 
+    La copia más cercana de un servidor DNS raíz se encuentra en la instancia más cercana en la red, ya que los root servers se replican en varias instancias alrededor del mundo mediante anycast.
 
+    Los servidores raíz tienen el nombre ```x.root-servers.net```, donde ```x``` va de ```a``` a ```m```. Las replicas contienen el mismo nombre que el servidor original.
 
 4. Defina cómo estará compuesta la base de datos de un servidor DNS administrado por Ud., de manera tal que sea el servidor primario del dominio SU-NRO-LEGAJO.tyr.example ( .example es un TLD reservado para uso en documentación y ejemplos). De acuerdo al diagrama de la Figura 1, defina:
 
@@ -196,6 +198,32 @@ La herramienta DNS BAJAJ muestra como se realiza la consulta para resolver la di
 Figura 1: Host en la red a definir en DNS
 
 </div>
+
+    Nombre de la zona DNS: 168102.tyr.example
+    Nombre del servidor DNS: ns1.168102.tyr.example
+    Dirección de correo del contacto: nomicomateo@gmail.com
+    Número de serie de la zona: 2025091501
+    Tiempo de vida en caché: 3600 segundos
+
+    Resource Records:
+    168102.tyr.example.    IN      NS      ns1.168102.tyr.example.
+    168102.tyr.example.    IN      NS      pc1.168102.tyr.example.
+    ns1                    IN      A       10.1.1.10
+    pc1                    IN      A       10.1.1.21
+    pc2                    IN      A       10.1.1.22
+    pc3                    IN      A       10.1.1.23
+    server1                IN      A       10.1.1.150
+    router1                IN      A       10.1.1.200
+    www                    IN      CNAME   server1.168102.tyr.example.
+    ftp                    IN      CNAME   server1.168102.tyr.example.
+
+    Zona de Punteros Reversos:
+    10.1.1.10.in-addr.arpa      IN      PTR     ns1.168102.tyr.example.
+    21.1.1.10.in-addr.arpa      IN      PTR     pc1.168102.tyr.example.
+    22.1.1.10.in-addr.arpa      IN      PTR     pc2.168102.tyr.example.
+    23.1.1.10.in-addr.arpa      IN      PTR     pc3.168102.tyr.example.
+    150.1.1.10.in-addr.arpa     IN      PTR     server1.168102.tyr.example.
+    200.1.1.10.in-addr.arpa     IN      PTR     router1.168102.tyr.example.
 
 5. Instale e inicie en el entorno kathara el laboratorio de dns provisto por los docentes disponible en https://github.com/redesunlu/kathara-labs/blob/main/tarballs/kathara-lab_dns.tar.gz y realice las siguientes actividades:
 
