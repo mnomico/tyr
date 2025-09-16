@@ -229,17 +229,53 @@ Figura 1: Host en la red a definir en DNS
 
     a. En el dispositivo capturador inicie la captura utilizando el comando tcpdump o tshark sobre la interfaz eth0 y redirigir la salida a un archivo en el directorio /shared para su posterior análisis. (Ej. “tshark -i eth0 -w - > /shared/captura_dns.pcap”)
 
+        root@capturador:/# tshark -i eth0 -w - > /shared/captura_dns.pcap
+        Running as user "root" and group "root". This could be dangerous.
+        Capturing on 'eth0'
+        ** (tshark:47) 21:38:03.622377 [Main MESSAGE] -- Capture started.
+        ** (tshark:47) 21:38:03.622518 [Main MESSAGE] -- File: "-"
+
     b. Desde pc1.lugroma3.org, ejecute el comando ping -c 4 pc2.nanoinside.net
+
+        PING pc2.nanoinside.net (192.168.0.222) 56(84) bytes of data.
+        64 bytes from 192.168.0.222 (192.168.0.222): icmp_seq=1 ttl=64 time=1.33 ms
+        64 bytes from 192.168.0.222 (192.168.0.222): icmp_seq=2 ttl=64 time=0.795 ms
+        64 bytes from 192.168.0.222 (192.168.0.222): icmp_seq=3 ttl=64 time=1.14 ms
+        64 bytes from 192.168.0.222 (192.168.0.222): icmp_seq=4 ttl=64 time=0.526 ms
+
+        --- pc2.nanoinside.net ping statistics ---
+        4 packets transmitted, 4 received, 0% packet loss, time 3003ms
+        rtt min/avg/max/mdev = 0.526/0.948/1.333/0.310 ms
 
     c. Una vez recibidas las 4 respuestas ICMP, detenga la captura.
 
     d. Analice la captura y describa cómo es el proceso de resolución de nombres para determinar la dirección ip de pc2.nanoinside.net, representando gráficamente el intercambio de mensajes dns, e indicando el propósito de cada uno.
 
+    <div align='center'>
+
+    ![](./archivos/dns.png)
+
+    </div>
+
+    ```pc1``` solicita a dnslug que resuelva las direcciones IPv4 e IPv6 de ```pc2.nanoinside.net```. ```dnslug``` se comunica con ```dnsroot``` para obtener la dirección IP del servidor que contiene la información del dominio ```net```. Luego, ```dnslug``` se comunica con ```dnsnet``` para obtener la dirección IP del servidor que contiene la información del dominio ```nanoinside.net```. Finalmente, ```dnslug``` se comunica con ```dnsnano```, el cual le responde con el registro ```A``` de ```pc2.nanoinside.net```. Por último, ```dnslug``` le envía la respuesta a ```pc1```.
+
     e. Identifique el host que realiza una consulta recursiva y cuál consultas iterarivas.
+
+    El host que realiza la consulta recursiva es ```pc1```, ya que en la consulta que realiza, el flag para consultas recursivas se encuentra en 1. El host que realiza las consultas iterativas es ```dnslug```, ya que el flag para consultas recursivas de sus consultas se encuentra siempre en 0.
 
 6. Analice la captura captura_ejemplo_dns.pcap y represente el intercambio de mensajes. ¿Puede indicar alguna particularidad que observe en la misma?
 
+    <div align='center'>
+
+    ![](./archivos/dns_captura.png)
+
+    </div>
+
+    La particularidad que se puede observar en la captura es que el host con dirección IP ```203.219.167.126``` no responde la consulta al resolver.
+
 7. ¿Cómo un desarrollador de aplicaciones puede acceder al servicio DNS? (Por ej. si es necesario resolver, en una aplicación de software, mnemónicos a direcciones IP o viceversa)
+
+    Un desarrollador de aplicaciones puede acceder al servicio DNS a partir del uso de librerías que provee el lenguaje de programación o mediante llamadas al resolver del sistema operativo.
 
 ---
 
