@@ -12,6 +12,8 @@
 
 ➤ [03 - Capa de Enlace](/teoria/03_capa_de_enlace.md)
 
+➤ [04 - Redes Locales y WLANs](/teoria/04_redes_lan_wlan.md)
+
 ## Trabajos Prácticos
 
 ➤ [TPL 1 - Configuración inicial de la red del laboratorio](/practica/tpl1-configuracion-inicial.md)
@@ -26,7 +28,7 @@
 |:----------|:--------------------------------------------------------------------------------------------------------------------------------------------|
 |[**FOR07**]|[FOROUZAN, B.A. Data Communications and Networking. 4o ed. McGraw Hill. 2007.](https://github.com/mnomico/tyr/raw/main/libros/FOR07.pdf)                                                     |
 |[**FOR09**]|FOROUZAN, B.A. TCP IP Protocol Suite. McGraw-Hill Higher Education, 2009.                                                                    |
-|[**KUR12**]|KUROSE, J. y ROSS, K. Computer Networking: A Top-Down Approach. 6o ed. Prenctice Hall, 2012.                                                 |
+|[**KUR12**]|[KUROSE, J. y ROSS, K. Computer Networking: A Top-Down Approach. 6o ed. Prenctice Hall, 2012.](https://github.com/mnomico/tyr/raw/main/libros/KUR12.pdf)                                                 |
 |[**PET11**]|PETERSON, L. y DAVIE B. Computer Networks: A Systems Approach, 5o ed. Morgan Kaufmann, 2011.                                                 |
 |[**STA04**]|[STALLINGS, W. Comunicaciones y Redes de Computadoras. 7 ed. Prentice Hall. 2004.](https://github.com/mnomico/tyr/raw/main/libros/STA04.pdf) |
 |[**STE11**]|STEVENS, W.R. y FALL, K. TCP/IP Illustrated Vol I, 2o ed. Adisson Wesley. 2011.                                                              |
