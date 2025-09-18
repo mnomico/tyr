@@ -36,21 +36,103 @@
     - Cualquier persona puede enviar un mensaje haciéndose pasar por otra persona, permitiendo ataques de phishing.
     - Mediante el uso de servidores SMTP abiertos se pueden enviar mensajes spam de manera masiva.
 
-3. Instale e inicie en el entorno kathará el laboratorio de email provisto por los docentes, disponible en https://github.com/redesunlu/kathara- labs/blob/main/tarballs/kathara-lab_email.tar.gz y realice las siguientes actividades:
+3. Instale e inicie en el entorno kathará el laboratorio de email provisto por los docentes, disponible en https://github.com/redesunlu/kathara-labs/blob/main/tarballs/kathara-lab_email.tar.gz y realice las siguientes actividades:
 
     1. En el dispositivo capturador inicie la captura utilizando el comando tcpdump o tshark sobre la interfaz eth0 y redirija la salida a un archivo en el directorio /shared para su posterior análisis. (Ej. “tshark -i eth0 -w - > /shared/captura_email.pcap”)
 
     2. Desde la pc1, utilizando nc , conéctese al servidor SMTP mail.lugroma3.org (TCP puerto 25) y envíe un mensaje cuyo remitente sea <su-nombre@lugroma3.org> destinado a la cuenta de correo <guest@nanoinside.net> .
 
+            root@pc1:/# nc mail.lugroma3.org 25
+            220 dnslug ESMTP Exim 4.96 Thu, 18 Sep 2025 15:06:49 +0000
+            HELO pc1.lugroma3.org
+            250 dnslug Hello pc1.lugroma3.org [192.168.0.111]
+            MAIL FROM:<mateonomico@lugroma3.org>
+            250 OK
+            RCPT TO:<guest@nanoinside.net>
+            250 Accepted
+            DATA
+            354 Enter message, ending with "." on a line by itself
+            Subject: Resolucion del ejercicio 3
+
+            Nombre: Mateo Nomico
+
+            Legajo: 168102
+
+            Este es un mensaje de prueba.
+
+            .
+            250 OK id=1uzGEK-00003j-1Y
+
         • Indique en el encabezado Subject: “Resolucion del ejercicio 3”. Escriba un cuerpo de mensaje de al menos 3 líneas, incluyendo su nombre y su legajo.
+
+            DATA
+            354 Enter message, ending with "." on a line by itself
+            Subject: Resolucion del ejercicio 3
+
+            Nombre: Mateo Nomico
+
+            Legajo: 168102
+
+            Este es un mensaje de prueba.
 
         • Finalice el mensaje escribiendo un punto en una línea en blanco. Deberá ver la respuesta 250 OK id=... indicando que el mensaje fue procesado correctamente.
 
+            .
+            250 OK id=1uzGEK-00003j-1Y
+
     3. Desde la pc2, utilizando nc , conéctese al servidor POP3 pop.nanoinside.net (TCP puerto 110). Acceda a la cuenta de usuario guest (contraseña guest ), recupere el mensaje almacenado en la casilla, bórrelo y finalice adecuadamente la sesión POP.
+
+        ```
+        root@pc2:/# nc pop.nanoinside.net 110
+        +OK Dovecot (Debian) ready.
+        USER guest
+        +OK
+        PASS guest
+        +OK Logged in.
+        LIST
+        +OK 1 messages:
+        1 800
+        .
+        RETR 1
+        +OK 800 octets
+        Return-path: <mateonomico@lugroma3.org>
+        Envelope-to: guest@nanoinside.net
+        Delivery-date: Thu, 18 Sep 2025 15:08:08 +0000
+        Received: from [192.168.0.11] (port=52526 helo=dnslug)
+                by dnsnano with esmtp (Exim 4.96)
+                (envelope-from <mateonomico@lugroma3.org>)
+                id 1uzGEy-000032-1y
+                for guest@nanoinside.net;
+                Thu, 18 Sep 2025 15:08:08 +0000
+        Received: from [192.168.0.111] (port=39886 helo=pc1.lugroma3.org)
+                by dnslug with smtp (Exim 4.96)
+                (envelope-from <mateonomico@lugroma3.org>)
+                id 1uzGEK-00003j-1Y
+                for guest@nanoinside.net;
+                Thu, 18 Sep 2025 15:08:08 +0000
+        Subject: Resolucion del ejercicio 3
+        Message-Id: <E1uzGEK-00003j-1Y@dnslug>
+        From: mateonomico@lugroma3.org
+        Date: Thu, 18 Sep 2025 15:07:45 +0000
+
+        Nombre: Mateo Nomico
+
+        Legajo: 168102
+
+        Este es un mensaje de prueba.
+
+        .
+        DELE 1
+        +OK Marked to be deleted.
+        QUIT
+        +OK Logging out, messages deleted.
+        ```
 
     4. Detenga el proceso de captura en el dispositivo capturador.
 
     5. Analice la captura y discuta acerca de la confidencialidad de los datos transmitidos.
+
+        Los mensajes SMTP no están cifrados, es decir que la información sobre direcciones de emisor y destinatario quedan expuestos, y el mensaje se puede ver en texto plano. Se intenta establecer una conexión segura con STARTTLS pero falla, ya que parece que el servidor no soporta TLS, y esto hace que la información se vea en texto plano, y por lo tanto, que los mensajes puedan ser interceptados por alguien y ser leídos o modificados.
 
     6. Identifique la conexión TCP que se establece entre los MTA’s. Utilice tshark para mostrar el contenido de dicho stream y adjúntelo.
 
