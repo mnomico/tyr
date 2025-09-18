@@ -18,16 +18,18 @@
 
 ➤ [TPL 1 - Configuración inicial de la red del laboratorio](/practica/tpl1-configuracion-inicial.md)
 
-➤ [TPL 2 - Aplicaciones 1: Cliente/Servidor - Telnet](/practica/tpl2-telnet.md)
+➤ [TPL 2 - Cliente/Servidor - Telnet](/practica/tpl2-telnet.md)
 
 ➤ [TPL 3 - Domain Name System](/practica/tpl3-dns.md)
+
+➤ [TPL 4 - Correo Electrónico](/practica/tpl3-dns.md)
 
 ## Bibliografía
 
 |ID         |Libro                                                                                                                                        |
 |:----------|:--------------------------------------------------------------------------------------------------------------------------------------------|
 |[**FOR07**]|[FOROUZAN, B.A. Data Communications and Networking. 4o ed. McGraw Hill. 2007.](https://github.com/mnomico/tyr/raw/main/libros/FOR07.pdf)                                                     |
-|[**FOR09**]|FOROUZAN, B.A. TCP IP Protocol Suite. McGraw-Hill Higher Education, 2009.                                                                    |
+|[**FOR09**]|[FOROUZAN, B.A. TCP IP Protocol Suite. McGraw-Hill Higher Education, 2009.](https://github.com/mnomico/tyr/raw/main/libros/FOR09.pdf)                                                                    |
 |[**KUR12**]|[KUROSE, J. y ROSS, K. Computer Networking: A Top-Down Approach. 6o ed. Prenctice Hall, 2012.](https://github.com/mnomico/tyr/raw/main/libros/KUR12.pdf)                                                 |
 |[**PET11**]|PETERSON, L. y DAVIE B. Computer Networks: A Systems Approach, 5o ed. Morgan Kaufmann, 2011.                                                 |
 |[**STA04**]|[STALLINGS, W. Comunicaciones y Redes de Computadoras. 7 ed. Prentice Hall. 2004.](https://github.com/mnomico/tyr/raw/main/libros/STA04.pdf) |
