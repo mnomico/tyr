@@ -246,7 +246,95 @@ La ventaja del esquema ARQ con stop and wait es su simplicidad, y su desventaja 
 
 **ARQ con vuelta atrás N**
 
+El control de errores basado en el control de flujo mediante ventana deslizante se denomina ARQ con vuelta atrás N. Una estación puede enviar varias tramas numeradas secuencialmente módulo W. El número de tramas pendientes a confirmar se determina mediante el tamaño de la ventana (W). Si la estación destino detecta un error en una trama, o llegan tramas desordenadas, envía una confirmación negativa **REJ** para esa trama, descarta la trama y todas las tramas siguientes hasta que se reciba la primer trama correctamente. La estación origen, al recibir el REJ, retransmite tanto la trama correspondiente como las tramas ya transmitidas anteriormente.
 
+**ARQ con Rechazo Selectivo**
+
+En ARQ con rechazo selectivo, las únicas tramas que se retransmiten son para las que se recibe una confirmación negativa **SREJ** (Selective REJect), o cuando un timer expira.
+Este esquema minimiza las retransmisiones, ya que solo solicita la retransmisión de aquellas tramas dañadas o perdidas, y no rechaza las tramas siguientes.
+
+La desventaja de este esquema es que el receptor debe mantener un buffer de memoria lo suficientemente grande para almacenar las tramas que se reciben después de enviar el SREJ, y además se debe implementar la lógica para reinsertar la trama reenviada donde corresponde. Esto último también aplica para la estación origen.
+
+En este caso, el tamaño de la ventana se limita a 2^(k-1) bits, siendo k la cantidad de bits que se utiliza para el número de secuencia de las tramas. Esto es así debido a que pueden ocurrir ambigüedades ante la pérdida de tramas de datos o tramas RR. Si la ventana es mayor, el emisor y receptor pueden confundir tramas nuevas con retransmisión de tramas viejas.
+
+#### 7.3 Control del Enlace de Datos de Alto Nivel (HDLC)
+
+El protocolo de control de enlace de datos **HDLC (High-level Data Link Control)** es la base de otros protocolos de control de enlace importantes.
+
+**Características**
+
+HDLC define tres tipos de estaciones, dos configuraciones del enlace y tres modos de operación para la transferencia de los datos.
+
+Los tres tipos de estaciones son:
+- **Primaria**: responsable de controlar el funcionamiento del enlace. Las tramas generadas por esta estación se llaman órdenes.
+- **Secundaria**: funciona bajo el control de la estación primaria. Las tramas generadas por esta estación se llaman respuestas.
+- **Combinada**: combina las características de las primarias y de las secundarias.
+
+Las dos configuraciones del enlace son:
+- **No balanceada**: formada por una estación primaria y una o más secundarias. Permite transmisión full-duplex y half-duplex.
+- **Balanceada**: formada por dos estaciones combinadas. Permite también transmisión full-duplex y half-duplex.
+
+Los tres modos de transferencia son:
+- **NRM (Normal Responde Mode)**: se usa en la configuración no balanceada. La estación primaria inicia la transferencia de datos y la secundaria solo puede responder a las órdenes de la primaria.
+- **ABM (Asynchronous Balanced Mode)**: se usa en la configuración balanceada. Cualquier estación combinada puede iniciar la transmisión.
+- **ARM (Asynchronous Responde Mode)**: se usa en la configuración no balanceada. La estación secundaria puede iniciar la transmisión.
+
+**Estructura de la trama**
+
+La transmisión mediante el protocolo HDLC es síncrona, y los intercambios se realizan por tramas.
+
+<div asign='center'>
+
+![](./imagenes/03_trama_hdlc.png)
+
+</div>
+
+Los campos de delimitación, dirección y control, se denominan **cabecera**. Los campos FCS y delimitación, se denominan **cola**. 
+
+Los **campos de delimitación** se encuentran en los extremos de la trama, y corresponden al patrón de bits 01111110. Se puede usar un solo delimitador como final de trama y comienzo de la siguiente. Para evitar que el patrón mencionado provoque ambigüedades, se utiliza la **inserción de bits**. Esto consiste en insertar un 0 cada vez que se encuentren cinco 1s seguidos. El receptor, después de detectar el delimitador, verifica que cuando se encuentren cinco 1s seguidos, el sexto bit:
+- Si es 0, se elimina.
+- Si es 1 y el séptimo bit es 0, se considera como un delimitador.
+- Si es 1 y el séptimo bit es 1, se considera como un cierre generado por el emisor.
+
+La inserción de bits permite que en el campo de datos pueda aparecer cualquier combinación de bits. Esta propiedad se conoce como **transparencia en los datos**.
+
+El **campo de dirección** identifica la estación secundaria emisora o receptora de la trama. El campo de dirección es de 8 bits, pero se puede negociar para utilizar un formato ampliado. Un octeto con la forma 11111111 se interpreta como una dirección que representa a todas las estaciones.
+
+En HDLC se definen tres tipos de tramas:
+- **Tramas de información (tramas-I)**: transportan datos generados por el usuario. Incluyen información para el control de ARQ de errores y de flujo.
+- **Tramas de supervisión (tramas-S)**: proporcionan el mecanismo ARQ cuando no se utiliza piggybacking.
+- **Tramas no numeradas (tramas-U)**: proporcionan funciones complementarias para controlar el enlace.
+
+El primero o los dos primeros bits del **campo de control** identifican el tipo de trama. Todos los formatos posibles del campo de control contienen el bit sondeo/fin (P/F, poll/final). En las tramas de órdenes se lo llama bit P y su valor es 1 para solicitar una trama de respuesta. En las tramas de respuesta, se lo llama bit F y su valor es 1 para identificar la trama de respuesta.
+
+El **campo de información** solamente está presente en tramas-I y en algunas tramas-U. Contiene cualquier secuencia de bits, la longitud del campo es variable y es menor que un valor máximo predefinido.
+
+El **FCS (Frame Check Sequence)** es un código para detectar errores que se calcula a partir de los bits de la trama, sin contar los delimitadores.
+
+El funcionamiento de HDLC tiene tres fases. Primero, uno de los extremos inicia el enlace de datos, acordando las opciones que se usarán en la transferencia. Luego, los dos extremos intercambian datos e información de control. Por último, uno de los extremos finaliza la comunicación.
+
+El **inicio** lo puede realizar cualquiera de los extremos a partir de la transmisión de una órden que fija el modo. Esta orden tiene tres objetivos:
+- Avisan al otro extremo sobre la solicitud de iniciación.
+- Especifica cuál de los tres modos se solicita.
+- Indica si se van a usar números de secuencia de 3 o 7 bits.
+
+Si el extremo destino acepta la solicitud, la entidad HDLC transmite una trama de confirmación no numerada (UA, Unnumbered Acknowledgement) al extremo origen. Si la solicitud se rechaza, se envía una trama de modo desconectado (DM, Disconnected Mode).
+
+Una vez establecida la conexión, los extremos pueden enviar datos mediante tramas-I, empezando por el número de secuencia 0. Los campos **N(S)** y **N(R)** contienen los números de secuencia para el control de flujo y de errores.
+
+Las tramas-S también se usan para controlar el flujo y los errores. La trama RR confirma la última trama-I recibida, indicando la siguiente trama-I que quiere recibir. La trama RR se utiliza cuando no se puede hacer piggybacking. La trama RNR confirma una trama-I pero solicita que se suspenda la transmisión de tramas-I, y para solicitar que se reanude la transmisión, envía una trama RR. La trama REJ se usa para iniciar ARQ con vuelta atrás N, indicando que la última trama-I se rechazó y solicitando la retransmisión de esa trama y de las siguientes. La trama SREJ se usa para pedir la retransmisión de una sola trama.
+
+Cualquiera de las dos entidades HDLC puede iniciar la **desconexión**. Se realiza mediante el envío de una trama DISC (DISConnect). La desconexión se puede aceptar enviando una trama UA, y las tramas-I pendientes de confirmación pueden perderse.
+
+**Ejemplos de funcionamiento**:
+
+<div asign='center'>
+
+![](./imagenes/03_ejemplos_hdlc.png)
+
+</div>
+
+#### 7.A Análisis de Prestaciones
 
 ---
 
