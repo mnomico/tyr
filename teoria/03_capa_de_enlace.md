@@ -336,6 +336,88 @@ Cualquiera de las dos entidades HDLC puede iniciar la **desconexión**. Se reali
 
 #### 7.A Análisis de Prestaciones
 
+**Control de flujo mediante stop and wait**
+
+El tiempo total para enviar datos usando el esquema de parada y espera se puede expresar como T = nTf, donde Tf es el tiempo en enviar una trama y recibir la confirmación. Tf se puede expresar de la siguiente manera:
+
+    Tf = tprop + ttrama + tprop + ttrama + tack + tprop
+
+    tprop: tiempo de propagación.
+
+    ttrama: tiempo en trasmitir una trama, es decir el tiempo que tarda el emisor en inyectar todos los bits de la trama sobre el medio.
+
+    tproc: tiempo de procesamiento de una trama.
+
+    tack: tiempo en transmitir una confirmación.
+
+Suponiendo que el tiempo de procesamiento es despreciable y que la trama de confirmación es muy pequeña comparada con la de datos, el tiempo total involucrado en el envío de datos se puede expresar como
+
+    T = n(2tprop + ttrama)
+
+De ese tiempo, sólo se usa realmente ```n x ttrama``` en transmitir datos. La utilización o eficiencia de la línea es:
+
+    U = n x ttrama / n(2tprop + ttrama) = ttrama / (2tprop + ttrama)
+
+Para simplificar, se puede definir el parámetro ```a = tprop / ttrama```, de modo que:
+
+    U = 1 / (1 + 2a)
+
+Para el parámetro ```a``` se puede usar una expresión diferente:
+
+    a = tiempo de propagación / tiempo de transmisión
+
+El ```tiempo de propagación``` es igual a la distancia del enlace, ```d```, dividida por la velocidad de propagación, ```V```. Para transmisiones a través del aire, V es la velocidad de la luz, aproximadamente 3x10⁸ m/s. Para tranmisiones a través de fibra óptica y cobre, V es aproximadamente 0.67 veces la velocidad de la luz. El ```tiempo de transmisión``` es igual a la longitud de la trama en bits, ```L```, dividida por la velocidad de transmisión, ```R```. Entonces:
+
+    a = (d / V) / (L / R) = Rd / VL
+
+**Control de flujo sin errores mediante ventana deslizante**
+
+En el esquema de control de flujo mediante sliding window, la utilización de la línea depende del tamaño de la ventana W y del valor de a. En la siguiente imagen se muestra la eficiencia de una línea full-duplex:
+
+<div asign='center'>
+
+![](./imagenes/03_sliding_window_utilizacion.png)
+
+</div>
+
+A empieza a transmitir tramas en t = 0. El primer bit de la primer trama llega a B en t = a. La primera trama se recibe completamente en t = a + 1. Suponiendo que el tiempo de procesamiento es despreciable, B envía una trama ACK inmediatamente, y es tan pequeña que el tiempo de transmisión es despreciable. Entonces, la trama ACK llega a A en t = 2a + 1.
+
+Para evaluar las prestaciones, hay que tener en cuenta dos casos:
+- **W >= 2a + 1**: la confirmación de la trama 1 llega a A antes de que se agote su ventana. A puede transmitir continuamente sin pausa, y la utilización será 1.
+- **W < 2a + 1**: A agota su ventana en t = W y no puede enviar más tramas hasta t = 2a + 1. La utilización de la línea es W unidades de tiempo por cada período de 2a + 1 unidades de tiempo.
+
+Entonces, se puede expresar la utilización como:
+
+    U = 1               si W >= 2a + 1
+
+    U = W / (2a + 1)    si W < 2a + 1
+
+El tamaño máximo de la ventana W es 2^(n - 1), n siendo el número de bits que se utiliza para el número de secuencia.
+
+**ARQ**
+
+Las técnicas ARQ mediante vuelta atrás N y mediante rechazo selectivo son más eficientes que el esquema ARQ con parada y espera.
+
+Para stop and wait, la fórmula de utilización es la siguiente:
+
+    U = (1 - P) / (1 + 2a)
+
+Para sliding window, la fórmula de utilización es la siguiente:
+
+    U = W (1 - P) / (1 + 2a)
+
+**Otras fórmulas**
+
+El throughtput se calcula de la siguiente manera:
+
+    T = cantidad de datos enviados / RTT = WL / 2tprop = tasa (en bps)
+
+    T: throughtput.
+    RTT: round trip time.
+    W: ventana.
+    L: longitud de la trama en bits.
+    tprop: tiempo de propagación.
+
 ---
 
 ### Bibliografia
