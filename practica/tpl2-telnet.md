@@ -4,7 +4,21 @@
 <h1>TPL 2 - Aplicaciones 1: Cliente/Servidor - Telnet</h1>
 </div>
 
-### Primer parte: Creación de un modelo simple Cliente/Servidor
+### Indice
+
+✍️ [Consignas](#consignas)
+
+❓ [Guía de preguntas](#guia-de-preguntas)
+
+📝 [Resumen](#resumen)
+
+📖 [Bibliografía](#bibliografia)
+
+---
+
+### Consignas
+
+#### Primer parte: Creación de un modelo simple Cliente/Servidor
 
 Utilice para esta parte de la práctica el laboratorio de práctica kathara-lab_conf_inicial y configure las interfaces de pc1 y pc2 tal como lo hizo en el primer trabajo práctico de laboratorio. Verifique conectividad entre ambos hosts.
 
@@ -154,7 +168,7 @@ c) ¿Todas las tramas en las que identifica el protocolo TCP transportan datos d
 
 No, las tramas involucradas en el establecimiento y finalización de la conexión, y en algunos casos en la confirmación de recepción de datos, sólo contienen datos de control para la conexión. Es así porque la característica principal del protocolo TCP es asegurar la entrega correcta y ordenada de los datos.
 
-### Segunda parte: Protocolo de acceso remoto TELNET
+#### Segunda parte: Protocolo de acceso remoto TELNET
 
 Instale e inicie en Kathará el laboratorio de Telnet provisto por los docentes, disponible en https://github.com/redesunlu/kathara-labs/blob/main/tarballs/kathara-lab_telnet.tar.gz
 
@@ -275,3 +289,17 @@ Los datos se envían sin cifrado en texto plano, esto es un problema porque agen
 - ¿Qué problemática resuelve NVT?
 
 	Cada sistema tiene su forma de representar caracteres y controlar terminales, por lo que cuando se enviaban datos desde una terminal física a uno remoto con TELNET, un código enviado que representa un caracter en una terminal física podía representar un caracter distinto en la terminal remota. Para evitar esto se introdujo NVT (Network Virtual Terminal), un formato estándar de comunicación para TELNET. NVT define que todos los caracteres se deben transmitir en formato ASCII de 7 bits. Funcionaba de la siguiente manera: cuando un cliente se conecta a través de TELNET, traduce su terminal al formato NVT. Los datos se transmiten en formato NVT, y cuando llegan al servidor se traducen al formato que pueda interpretar el servidor.
+
+---
+
+### Resumen
+
+---
+
+### Bibliografia
+
+➤ [**FOR09**] - [TCP IP Protocol Suite](https://github.com/mnomico/tyr/raw/main/libros/FOR09.pdf)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 17: “Introduction to the Application Layer” (hasta pág. 546)
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 20: “Remote Login: TELNET and SSH”
