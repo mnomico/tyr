@@ -221,6 +221,31 @@ Si se transmiten tramas en ambas direcciones, se puede utilizar un procedimiento
 
 #### 7.2 Control de errores
 
+El control de errores hace referencia a los mecanismos necesarios para la detección y corrección de errores que aparecen en una transmisión de tramas. Pueden ocurrir dos tipos de errores:
+- **Tramas perdidas**: ocurre cuando una trama no llega a destino.
+- **Tramas dañadas**: ocurre cuando una trama se recibe con bits erróneos.
+
+Las técnicas que se utilizan para el control de errores se basan en:
+
+- **Detección de errores**.
+- **Confirmaciones positivas**: el destino devuelve una confirmación por cada trama recibida sin errores.
+- **Retransmisión por expiración de timer**: el origen retransmite cuando no se confirma una trama después de un tiempo.
+- **Confirmación negativa y retransmisión**: el destino devuelve una confirmación negativa para las tramas con errores. El origen retransmite esas tramas.
+
+Estos mecanismos se denominan **Automatic Repeat reQuest (ARQ)**. El objetivo de un esquema ARQ es convertir un enlace de datos no fiable en fiable
+
+**ARQ con Parada y Espera**
+
+Se basa en la técnica para el control de flujo mediante stop and wait. La estación origen transmite una sola trama y debe esperar la recepción de un ACK antes de enviar otra trama.
+
+La estación origen usa un timer. Si no se recibe una confirmación cuando expira el timer, retransmite la trama.
+
+Puede ocurrir que la estación destino reciba la trama y envíe la confirmación, pero esta se dañe o pierda. La estación origen retransmite porque su timer expiró, la estación destino recibe un duplicado de la trama, la descarta y envía un ACK nuevamente.
+
+La ventaja del esquema ARQ con stop and wait es su simplicidad, y su desventaja principal es que es ineficiente.
+
+**ARQ con vuelta atrás N**
+
 
 
 ---
