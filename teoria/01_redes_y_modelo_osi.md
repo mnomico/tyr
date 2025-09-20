@@ -161,19 +161,111 @@
 
 ### Resumen
 
+### 1.1 Modelo para las comunicaciones
+
+El objetivo principal de cualquier sistema de comunicaciones es intercambiar información entre dos entidades. Los elementos clave del modelo para las comunicaciones son:
+- **La fuente**: el dispositivo que genera los datos a transmitir.
+- **El transmisor**: el transmisor transforma y codifica la información, generando señales electromagnéticas que son transmitidas a través de un sistema de transmisión.
+- **El sistema de transmisión**: puede ser una línea de transmisión o una red compleja que conecte a la fuente con el destino.
+- **El receptor**: el receptor acepta la señal del sistema de transmisión y la transforma para que pueda ser manejada por el destino.
+- **El destino**: toma los datos del receptor.
+
+<div align="center">
+
+![](/teoria/imagenes/01_modelo_simplificado_para_las_comunicaciones.png)
+
+</div>
+
+Las tareas que debe realizar un sistema de comunicación son las siguientes:
+- **Utilización del sistema de transmisión**: uso eficaz de los recursos que se utilizan en la transmisión mediante la multiplexación y el control de congestión.
+- **Implementación de la interfaz**: transmisión de la información a través de la interfaz con el medio de transmisión.
+- **Generación de la señal**: las características de la señal deben permitir la propagación por el medio de transmisión y que pueda ser interpretada por el receptor.
+- **Sincronización**: el receptor debe ser capaz de determinar cuándo comienza y termina la señal recibida.
+- **Gestión del intercambio**: para intercambiar datos durante un período de tiempo, las dos entidades deben cooperar.
+- **Detección y corrección de errores**: necesaria ya que la señal transmitida se distorsiona siempre antes de llegar a destino.
+- **Control de flujo**: para evitar que la fuente no sature el destino transmitiendo datos más rápido de lo que el receptor puede procesar.
+- **Direccionamiento**: el sistema fuente debe indicar la identidad del destino, y el sistema de transmisión debe garantizar que sólo ese destino recibe los datos.
+- **Recuperación**: para situaciones en la que la pérdida de datos no es aceptable, como en transacciónes de bases de datos.
+- **Formato de mensajes**: acuerdo entre las dos partes sobre el formato de los datos que intercambian.
+- **Seguridad**: los datos deben llegar solamente al destino, no deben ser alterados y debe asegurarse que los datos realmente provienen del origen.
+- **Gestión de red**: el sistema de comunicación es muy complejo, por lo que se necesita gestionar la red para configurar el sistema, monitorear su estado, y poder reaccionar ante fallos y sobrecargas.
+
+### 1.3 Redes de Transmisión de Datos
+
+A veces no es práctico que dos dispositivos de comunicaciones se conecten directamente por un enlace punto a punto. Esto se debe a las siguientes circunstancias:
+- Los dispositivos están demasiado alejados.
+- Hay dispositivos que necesitan conectarse entre ellos en instantes de tiempos diferentes.
+
+La solución a este problema es conectar cada dispositivo a una red de comunicación. Las redes se pueden clasificar en dos, las **redes de área amplia (WAN, Wide Area Networks)** y las **redes de área local (LAN, LOcal Area Networks)**.
+
+**Redes de Área Amplia**
+
+Se considera como redes de área amplia a aquellas que cubren un gran área geográfica, y usan circuitos de un proveedor de servicios. Las WAN se implementan usando las siguientes tecnologías:
+- **Conmutación de circuitos**: se establece un camino dedicado a través de dos nodos de la red. El camino es un conjunto de enlaces físicos conectados entre nodos.
+- **Conmutación de paquetes**: no se asignan recursos en el camino, sino que los datos se envían en paquetes, y cada paquete se pasa de nodo en nodo siguiendo algún camino.
+- **Retransmisión de tramas (frame relay)**: surgió debido a que la tasa de errores se redujo drásticamente y a que las velocidades de transmisión son mayores.
+- **ATM (Asynchronous Transfer Mode) (cell relay)**: se la considera como la evolución de la retransmisión de tramas. El frame relay utiliza paquetes de longitud variable mientras que el cell relay utiliza paquetes de longitud fija, llamados celdas. Reduce el esfuerzo de procesamiento, y trabaja a velocidades de entre 10 a 100 Mbps.
+
+**Redes de Área Local**
+
+Una LAN es una red de comunicaciones que interconecta varios dispositivos y brinda un medio para el intercambio de información. Su área de cobertura es reducida en comparación con WAN, generalmente ocupa el área de uno o varios edificios. Es mucho más costosa de implementar, mantener y gestionar. Por lo general, las velocidades de transmisión internas son mayores que en una WAN.
+
+### 2.1 Necesidad de una Arquitectura de Protocolos
+
+Para transferir datos entre dispositivos, debe haber cooperación entre ellos. En una arquitectura de protocolos, cada capa de la pila de protocolos realiza tareas relacionadas entre sí que son necesarias para comunicar con otro sistema. Cada capa proporciona un conjunto de servicios a la capa inmediatamente superior. 
+
+La comunicación se consigue haciendo que las capas **pares** intercambien información. Las capas pares se comunican intercambiando datos que verifican una serie de reglas o convenciones llamadas **protocolo**. Las características que definen a un protocolo son:
+- **Sintaxis**: establece cuestiones sobre el formato de los datos.
+- **Semántica**: incluye información de control para la gestión de errores.
+- **Temporización**: tiene en cuenta aspectos sobre la sintonización de velocidades y secuenciación.
+
+### 2.2 Una Arquitectura de Protocolos Simple
+
+En vez de tener un solo módulo que haga todas las tareas necesarias para la comunicación, se utiliza un conjunto de módulos que realizan todas las funciones, es decir, una **arquitectura de protocolos**.
+
+**Un modelo de tres capas**
+
+La **capa de acceso a la red** está relacionada con el intercambio de datos entre la computadora y la red a la que está conectada. La computadora emisora debe darle a la red la dirección del destino, para que la red pueda encaminar los datos.
+
+Se necesita que los datos se intercambien de manera fiable, es decir, asegurarse que los datos llegan al destino, y que lleguen en el mismo orden. La **capa de transporte** es la que contiene las funciones que se encargan de esto.
+
+La **capa de aplicación** contiene la lógica necesaria para aceptar varias aplicaciones de usuario.
+
+<div align="center">
+
+![](/teoria/imagenes/01_arquitectura_simplificada.png)
+
+</div>
+
+Cada computadora en la red debe tener una dirección única, y cada aplicación dentro de la computadora tiene que tener una dirección única dentro de esa computadora. Esta dirección se llama **SAP (Service Access Point)** o **puertos**.
+
+La unión de los datos generados por la capa superior junto con la información de control de la capa actual se denomina **PDU (Protocol Data Unit)**. 
+
+La cabecera de la **PDU de transporte** contiene la siguiente información de control:
+- **Puerto destino**: lo necesita la capa de transporte del destino para saber a que aplicación van los datos.
+- **Número de secuencia**: se deben enumerar las PDU para que el destino pueda reordenarlas.
+- **Código de detección de error**: se debe incluir para que el destino pueda comprobar si hubo un error en la transmisión.
+
+La cabecera de la **PDU de red** contiene la siguiente información de control:
+- **Dirección destino**: debe saber a quién entregar los datos.
+- **Solicitud de recursos**: el protocolo de red puede pedir a la red que realice alguna función.
+
+<div align="center">
+
+![](/teoria/imagenes/01_funcionamiento_arquitectura_de_protocolos.png)
+
+</div>
+
+### 2.3 OSI
+
 ---
 
 ### Bibliografia
-
-<div>
 
 ➤ [**STA04**] - [Comunicaciones y redes de computadores](https://github.com/mnomico/tyr/raw/main/libros/STA04.pdf)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 1: “Introducción”<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 2: “Protocolos y Arquitectura”
-
-</div>
-
 
 ➤ [**Online**] - [Breve historia de Internet](https://www.internetsociety.org/es/internet/history-internet/brief-history-internet/)
 
