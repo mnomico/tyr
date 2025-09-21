@@ -122,7 +122,7 @@ Si más de una estación trata de transmitir, puede haber una colisión y las tr
 
 El protocolo ALOHA original se llama **ALOHA puro**. Cada estación transmite una trama cuando tiene datos para transmitir. Como hay un solo canal compartido, existe la posibilidad de colisión. El ALOHA puro depende de los ACKs del destino, si no se recibe el ACK luego de un período de tiempo (conocido como **time-out**), la estación asume que la trama o el ACK fueron destruídas y retransmite la trama.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_aloha_puro.png)
 
@@ -134,7 +134,7 @@ Luego de un número máximo de retransmisiones Kmax, la estación debe darse por
 
 El período de time-out es igual al máximo valor posible de **delay de propagación de ida y vuelta** (RTPD, round-trip propagation delay), el cual es el doble del tiempo requerido para enviar una trama: 2Tprop. El tiempo back-off es un valor aleatorio que depende de K (el número de intento de transmisiones). Se toma un valor entre 0 y 2^k - 1 y se multiplica por Tprop o Ttrama para encontrar Tb. El valor de Kmax en general es 15.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_procedimiento_aloha_puro.png)
 
@@ -146,7 +146,7 @@ Este tiempo de vulnerabilidad en ALOHA puro se da porque no hay reglas definidas
 
 En ALOHA con ranuras se divide el tiempo en ranuras de Ttrama y obliga a las estaciones a transmitir sólo al comienzo de una ranura.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_aloha_con_ranuras.png)
 
@@ -158,7 +158,7 @@ Para minimizar las probabilidades de colisión e incrementar el rendimiento, se 
 
 La probabilidad de colisión todavía existe debido al delay de propagación, cuando una estación envía una trama, le toma un tiempo al primer bit para llegar a cada estación. Una estación puede sensar el medio y verlo desocupado porque el primer bit de otra estación todavía no llegó.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_colisiones_csma.png)
 
@@ -170,7 +170,7 @@ El período vulnerable de CSMA es el tiempo de propagación Tp, el tiempo que ne
 
 Para saber que hacer cuando un canal está ocupado o desocupado, se desarrollaron tres métodos.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_metodos_de_persistencia.png)
 
