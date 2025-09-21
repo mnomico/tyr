@@ -333,6 +333,8 @@ Los chips tienen las siguientes propiedades:
 
 Si una estación necesita enviar un bit 0, lo codifica como -1, y si necesita enviar un bit 1, lo codifica como +1. Cuando una estación está desocupada, no envía ninguna señal, lo cual se interpreta como 0.
 
+---
+
 ### 13 Wired LANs: Ethernet
 
 #### 13.1 IEEE Standards
@@ -533,6 +535,63 @@ Carrier extension es ineficiente si las tramas son cortas. Se propuso el método
 
 La implementación de Gigabit Ethernet se puede categorizar como **dos cables** o **cuatro cables**. La implementación de dos cables utiliza cables de fibra óptica (1000Base-SX, short-wave, o 1000Base-LX, long-wave), o STP (1000Base-CX). La implementación de cuatro cables utiliza cables de par trenzado (1000Base-T).
 
+### 14 Wireless LANs
+
+---
+
+### 5.4.3 Link-Layer Switches
+
+El rol de un switch es recibir tramas de la capa de enlace y enviarlas a enlaces salientes. El switch es **transparente** para los hosts y los routers de la subred. La tasa a las que llegan las tramas al switch pueden exceder la capacidad del enlace de la interfaz. Para acomodar esto, las interfaces de output del switch tienen buffers.
+
+El **filtrado** es la función del switch que determina si una trama debe ser forwardeada a una interfaz o si debería ser descartada. El **forwarding** es la función del switch que determina las interfaces por las cuales una trama debe ser enviada. El filtrado y forwarding se realizan con una **switch table**, que contiene las entradas de algunos de los hosts y routers en una LAN. Una entrada en la switch table contiene:
+- Una dirección MAC.
+- La interfaz del switch que apunta a esa dirección MAC.
+- El momento en el que dicha entrada fue ingresada en la tabla.
+
+El filtrado y forwarding de un switch funcionan de la siguiente manera:
+- Si la dirección destino no se encuentra en la tabla, el switch forwardea copias de la trama a los buffers de salida de todas las interfaces, excepto de la interfaz que envió la trama.
+- Si la dirección destino se encuentra en la tabla y está asociada con la interfaz que emitió la trama, se descarta la trama.
+- Si la dirección destino se encuentra en la tabla y está asociada con una interfaz que no es la que emitió la trama, el switch pone la trama en el buffer de salida de la interfaz correspondiente.
+
+La switch table se arma automática, dinámica y autónomamente, es decir que los switches son autodidactas. 
+- Inicialmente, la switch table se encuentra vacía.
+- Por cada trama recibida de una interfaz, el switch almacena en su tabla:
+    - La dirección MAC origen de la trama.
+    - La interfaz por la que vino la trama.
+    - El momento actual.
+- La switch table elimina una dirección en la tabla si no se reciben tramas con esa dirección luego de un período de tiempo (**aging time**).
+
+**Propiedades del Link-Layer Switching**
+
+- **Eliminación de colisiones**: no se desperdicia ancho de banda debido a las colisiones. El switch almacena las tramas y nunca trasmite más de una en un segmento al mismo tiempo.
+- **Enlaces heterogéneos**: el switch aisla un enlace de otro, los enlaces en la LAN pueden operar a diferentes velocidades y pueden operar sobre diferentes medios.
+- **Administración**: el switch puede detectar problemas y brindar información sobre uso de ancho de banda, tasas de colisión, y tipos de tráfico.
+
+**Ventajas y desventajas de los switches**
+
+- **Plug-and-play**, no requieren configuración previa.
+- Poseen **altas tasas de filtrado y forwarding**.
+- Para prevenir que las tramas broadcast circulen sin fin, la topología de una red con switches se restringe a **STP (Spanning Tree Protocol)**
+- Las redes grandes de switches requieren **tablas ARP grandes** y generan demasiado **tráfico y procesamiento ARP**.
+- Son **susceptibles a tormentas de broadcast**, que pueden saturar y colapsar la red.
+
+Para redes pequeñas, utilizar switches es suficiente, pero para redes grandes se necesita tanto routers como switches para obtener un aislamiento del tráfico más robusto, controlar las tormentas de broadcast, y utilizar mejores rutas entre los hosts de la red.
+
+<div asign='center'>
+
+![](./imagenes/04_comparacion_hubs_routers_switches.png)
+
+</div>
+
+---
+
+### 15.4 Bridges
+
+
+
+---
+
+### 15.5 Layer 2 and Layer 3 Switches
 
 ---
 
