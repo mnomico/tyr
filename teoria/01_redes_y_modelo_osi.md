@@ -161,7 +161,7 @@
 
 ### Resumen
 
-### 1.1 Modelo para las comunicaciones
+#### 1.1 Modelo para las comunicaciones
 
 El objetivo principal de cualquier sistema de comunicaciones es intercambiar información entre dos entidades. Los elementos clave del modelo para las comunicaciones son:
 - **La fuente**: el dispositivo que genera los datos a transmitir.
@@ -190,7 +190,7 @@ Las tareas que debe realizar un sistema de comunicación son las siguientes:
 - **Seguridad**: los datos deben llegar solamente al destino, no deben ser alterados y debe asegurarse que los datos realmente provienen del origen.
 - **Gestión de red**: el sistema de comunicación es muy complejo, por lo que se necesita gestionar la red para configurar el sistema, monitorear su estado, y poder reaccionar ante fallos y sobrecargas.
 
-### 1.3 Redes de Transmisión de Datos
+#### 1.3 Redes de Transmisión de Datos
 
 A veces no es práctico que dos dispositivos de comunicaciones se conecten directamente por un enlace punto a punto. Esto se debe a las siguientes circunstancias:
 - Los dispositivos están demasiado alejados.
@@ -210,7 +210,7 @@ Se considera como redes de área amplia a aquellas que cubren un gran área geog
 
 Una LAN es una red de comunicaciones que interconecta varios dispositivos y brinda un medio para el intercambio de información. Su área de cobertura es reducida en comparación con WAN, generalmente ocupa el área de uno o varios edificios. Es mucho más costosa de implementar, mantener y gestionar. Por lo general, las velocidades de transmisión internas son mayores que en una WAN.
 
-### 2.1 Necesidad de una Arquitectura de Protocolos
+#### 2.1 Necesidad de una Arquitectura de Protocolos
 
 Para transferir datos entre dispositivos, debe haber cooperación entre ellos. En una arquitectura de protocolos, cada capa de la pila de protocolos realiza tareas relacionadas entre sí que son necesarias para comunicar con otro sistema. Cada capa proporciona un conjunto de servicios a la capa inmediatamente superior. 
 
@@ -219,7 +219,7 @@ La comunicación se consigue haciendo que las capas **pares** intercambien infor
 - **Semántica**: incluye información de control para la gestión de errores.
 - **Temporización**: tiene en cuenta aspectos sobre la sintonización de velocidades y secuenciación.
 
-### 2.2 Una Arquitectura de Protocolos Simple
+#### 2.2 Una Arquitectura de Protocolos Simple
 
 En vez de tener un solo módulo que haga todas las tareas necesarias para la comunicación, se utiliza un conjunto de módulos que realizan todas las funciones, es decir, una **arquitectura de protocolos**.
 
@@ -256,7 +256,91 @@ La cabecera de la **PDU de red** contiene la siguiente información de control:
 
 </div>
 
-### 2.3 OSI
+#### 2.3 OSI
+
+Debido a la complejidad que implican las comunicaciones, un solo estándar no es suficiente, las distintas funcionalidades se deben dividir en partes más manejables, estructurándose en una arquitectura de comunicaciones. En 1977 el ISO (International Organization for Standarization) desarrolló el **modelo de referencia OSI**.
+
+La técnica para estructurar los problemas es la división en capas. Las funciones de comunicación se distribuyen en una jerarquía de capas, en donde cada capa realiza un conjunto de tareas relacionadas entre sí, necesarias para lograr la comunicación con otros sistemas. Cada capa proporciona servicios a la capa inmediatamente superior. Los cambios en las capas no implican cambios en las otras capas.
+
+El modelo de referencia OSI tiene siete capas. La comunicación se realiza entre dos aplicaciones de dos computadoras. Si una aplicación quiere transmitir un mensaje a otra aplicación, invoca a la capa de aplicación. La capa origen establece una relación paritaria con las capa destino usando el protocolo de la capa en cuestión. Este protocolo necesita los servicios de la capa inferior, el cual debe ser el mismo en las dos entidades, y así sucesivamente hasta llegar a la capa física, donde se transmiten los bits por el medio.
+
+<div align='center'>
+
+![](./imagenes/01_capas_osi.png)
+
+</div>
+
+Las unidades de datos de protocolo (PDU) en la arquitectura OSI se utilizan de la siguiente manera: por cada capa, a la PDU que se recibe de la capa superior, se le agrega una cabecera (header) con datos de control sobre la capa en cuestión, y luego se entrega tanto la cabecera como el payload (el PDU recibido) como si fuera una sola PDU. A esto se lo conoce como **encapsulación**. Esto se realiza en todas las capas, excepto en la capa física. Cuando el destino recibe la trama, va desencapsulando los datos, leyendo los datos de la cabecera, descartándola y pasándole el resto de los datos a la capa superior.
+
+<div align='center'>
+
+![](./imagenes/01_entorno_osi.png)
+
+</div>
+
+El motivo principal para el desarrollo del modelo OSI fue dar un modelo de referencia para la normalización. En cada capa se pueden desarrollar más de un protocolo.
+
+En la arquitectura OSI, los servicios entre capas adyacentes se describen en primitivas y parámetros. Una primitiva especifica la función que se va a realizar, y los parámetros se usan para pasar datos e información de control.
+
+<div align='center'>
+
+![](./imagenes/01_primitivas_de_servicio.png)
+
+</div>
+
+El **servicio confirmado** consiste en que el que inicia la transferencia recibe una confirmación de que el servicio solicitado tuvo efecto en el otro extremo. Si solamente se invocan primitivas de solicitud e indicación, se denomina **servicio no confirmado**, la entidad que inicia la transferencia no recibe confirmaciones.
+
+#### 2.4 La Arquitectura de Protocolos TCP/IP
+
+El modelo TCP/IP estructura el problema de la comunicación en cinco capas:
+- **Capa física**.
+- **Capa de enlace**.
+- **Capa de red**.
+- **Capa de transporte**.
+- **Capa de aplicación**.
+
+La **capa física** define la interfaz física entre la estación que transmite datos y el medio de transmisión. Se encarga de especificar las características del medio de transmisión, las señales, la velocidad de los datos, etc.
+
+La **capa de enlace** es responsable del intercambio de datos entre el sistema final y la red. El emisor debe brindar la dirección del destino para poder encaminar los datos.
+
+La **capa de red** brinda las funciones que permiten que los datos puedan ser transmitidos por distintas redes. El protocolo **IP (Internet Protocol)** se utiliza para encaminar los datos por varias redes. Este protocolo se implementa tanto en los sistemas finales como en los encaminadores intermedios. 
+
+La **capa de transporte** debe asegurar que los datos se transmitan de forma fiable, es decir que los datos lleguen al destino y en el mismo orden en el que fueron enviados. El protocolo **TCP (Transmission Control Protocol)** es el más utilizado para esta capa.
+
+La **capa de aplicación** contiene toda la lógica necesaria para el funcionamiento de las aplicaciones de usuario.
+
+<div align='center'>
+
+![](./imagenes/01_correspondencia_osi_tcpip.png)
+
+</div>
+
+TCP brinda una conexión fiable para transferir datos entre las aplicaciones. Una conexión es una asociación lógica temporal entre dos entidades. Cada PDU de TCP, llamada **segmento TCP**, tiene en la cabecera las direcciones de los puertos origen y destino, los cuales corresponden con los SAP de OSI. Los valores de los puertos identifican a los usuarios de las entidades TCP.
+
+Aparte del protocolo TCP, TCP/IP usa otro protocolo de transporte, el protocolo **UDP (User Datagram Protocol)**, que no garantiza la entrega, la llegada en orden de los datos ni tiene en cuenta los duplicados. Su función principal es identificar los puertos, y algunas aplicaciones orientadas a transacciones lo utilizan.
+
+Para poder transferir datos, cada entidad debe tener una dirección única, y dentro de cada entidad, los procesos también se deben identificar de manera única mediante los puertos.
+
+A cada fragmento de datos que tenga que enviar, TCP añade información de control en su cabecera TCP, formando un **segmento TCP**. La información de control la va a usar la entidad par TCP en la estación destino. En la cabecera TCP se incluyen los siguientes campos:
+- **Puerto destino**: la estación destino lo necesita para saber a que proceso entregarle los datos.
+- **Número de secuencia**: se numeran los segmentos para que el destino pueda ordenarlos si llegan desordenados.
+- **Checksum**: el emisor incluye un código que se calcula en función al resto del segmento TCP, para que el receptor haga el mismo cálculo y pueda saber si hubo errores en la transmisión.
+
+Luego TCP pasa cada segmento a IP para transmitir a la estación destino. Los segmentos se transmiten por la red y pasan por dispositivos de encaminamiento. Para esto se necesita información de control, entonces IP agrega una cabecera de información de control a cada segmento para formar un **datagrama IP**. En la cabecera IP, se incluye la dirección de la computadora destino.
+
+Por último, cada datagrama IP se pasa a la capa de enlace, que agrega su cabecera, creando una **trama**. La cabecera de la trama contiene información que la subred necesita para transferir los datos, entre ellos:
+- **Dirección de la subred destino**: la subred debe saber a que dispositivo debe entregar la trama.
+- **Funciones solicitadas**: el protocolo de enlace puede pedir el uso de funciones que ofrece la subred, por ejemplo el uso de prioridades.
+
+En el dispositivo de encaminamiento, la cabecera del paquete se elimina, y se examina la cabecera IP. El módulo IP del dispositivo de encaminamiento direcciona el paquete hacia el destino usando la dirección destino de la cabecera IP. Para hacer esto, se agrega al datagrama una cabecera de enlace.
+
+Luego el destino recibe los datos, y en cada capa se elimina la cabecera correspondiente y el resto se pasa a la capa superior, hasta que los datos de usuario lleguen al proceso destino.
+
+<div align='center'>
+
+![](./imagenes/01_pdu_tcpip.png)
+
+</div>
 
 ---
 
