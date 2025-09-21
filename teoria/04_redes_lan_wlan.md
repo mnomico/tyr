@@ -188,7 +188,7 @@ El método de **persistencia p** se usa si el medio tiene ranuras de tiempo con 
 
     b. Si el medio está ocupado, asume que ocurrió una colisión y usa el procedimiento back-off. 
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_diagrama_de_flujo_persistencia.png)
 
@@ -198,7 +198,7 @@ El método **CSMA/CD (Carrier Sense Multiple Access with Collision Detection)** 
 
 En este método, una estación sensa el medio al transmitir una trama para ver si la transmisión fue exitosa. Si no lo fue, ocurrió una colisión, y se retransmite la trama.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_colision_csma_cd.png)
 
@@ -208,7 +208,7 @@ Para que CSMA/CD funcione, se necesita restringir el tamaño de trama. Antes de 
 
 Para decidir cuando transmitir, se utiliza uno de los métodos de persistencia. La estación transmite la trama y al mismo tiempo sensa su propia señal (si es igual, es porque no hubo colisión) en puertos diferentes para detectar si hubo una colisión o si la transferencia fue exitosa. Si se detecta una colisión, se envía una **señal jamming** para que las otras estaciones se enteren de la colisión.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_diagrama_de_flujo_csma_cd.png)
 
@@ -216,7 +216,7 @@ Para decidir cuando transmitir, se utiliza uno de los métodos de persistencia. 
 
 El nivel de energía de un canal puede tener tres valores: cero, normal, y anormal. En el nivel cero, el medio está desocupado. En el nivel normal, una estación está transmitiendo una trama por el medio. En un nivel anormal, hay una colisión y el nivel de energía es el doble que el del nivel normal. Una estación que quiere transmitir una trama debe sensar el nivel de energía del medio para determinar si el canal está ocupado, desocupado, o en modo colisión.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_nivel_de_energia.png)
 
@@ -226,7 +226,7 @@ En una red inalámbrica, la mayoría de la energía enviada es perdida durante l
 
 Como no se pueden detectar las colisiones, se deben evitar. **CSMA/CA (Carrier Sense Multiple Access with Collision Avoidance)** fue creado para las redes inalámbricas. Las colisiones se evitan mediante tres estrategias: el espacio entre tramas, la ventana de contención, y acknowledgements.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_csma_ca.png)
 
@@ -238,7 +238,7 @@ La **ventana de contención** es una cantidad de tiempo dividida en ranuras. La 
 
 Incluso con estas precauciones, puede haber una colisión y se pueden corromper los datos. Para verificar esto, se utilizan las **confirmaciones** o acknowledgements y el timer de time-out para saber si el receptor recibió la trama.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_diagrama_de_flujo_csma_ca.png)
 
@@ -252,7 +252,7 @@ En el método de **reserva**, una estación debe realizar una reserva antes de t
 
 Por cada estación en el sistema hay una ranura de reserva en la trama de reserva. Cada ranura pertenece a una estación, y cuando una estación necesita transmitir datos, hace una reserva en su ranura. 
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_reservas.png)
 
@@ -262,7 +262,7 @@ El **muestreo** funciona con topologías en las que un dispositivo se designa co
 
 Si la estación primaria quiere recibir datos, le pregunta a las estaciones secundarias si tienen algo para transmitir; esto se conoce como **muestreo**. Si la estación primaria quiere enviar datos, le avisa a las estaciones secundarias que los reciba; esto se conoce como **selección**.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_muestreo.png)
 
@@ -276,11 +276,11 @@ En el método **token-passing** o **paso de testigo**, las estaciones se organiz
 
 Para que el derecho de acceso al medio se transmita de una estación a otra, un paquete especial llamado **token** circula por el anillo. Este token da derecho de acceso al medio a quien lo posea.
 
-El tiempo que las estaciones poseen el token debe ser limitado, y el token debe ser sensado para asegurar que no se haya perdido o destruido. También se puede asignar prioridades a las estaciones y a los tipos de datos a transmitir.
+El tiempo que las estaciones poseen el token debe ser limitado, y el token debe ser sensado para asegurar que no se haya perdido o destruido. También se puede alignar prioridades a las estaciones y a los tipos de datos a transmitir.
 
 Las estaciones no tienen que estar físicamente conectadas a un anillo, este puede ser lógico.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_token_passing.png)
 
@@ -294,9 +294,9 @@ Acá podría explicar las diferentes topologías, pero con la imagen creo que es
 
 La canalización es un método de acceso múltiple en el cual el ancho de banda disponible de un enlace es compartido en tiempo, frecuencia, o mediante código, entre diferentes estaciones.
 
-En el **acceso múltiple por division de frecuencia (FDMA)** el ancho de banda se divide en bandas de frecuencia. A cada estación se le asigna una banda para transmitir datos. Cada estación también usa un filtro de pasabanda para confinar las frequencias que transmite. Para prevenir interferencias entre las estaciones, las bandas se separan por pequeñas bandas de guarda.
+En el **acceso múltiple por division de frecuencia (FDMA)** el ancho de banda se divide en bandas de frecuencia. A cada estación se le aligna una banda para transmitir datos. Cada estación también usa un filtro de pasabanda para confinar las frequencias que transmite. Para prevenir interferencias entre las estaciones, las bandas se separan por pequeñas bandas de guarda.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_fdma.png)
 
@@ -304,9 +304,9 @@ En el **acceso múltiple por division de frecuencia (FDMA)** el ancho de banda s
 
 FDMA define una banda de frecuencia default para la comunicación, lo cual significa que se puede utilizar un flujo de datos continuo con FDMA.
 
-En el **acceso múltiple por división de tiempo (TDMA)**, las estaciones comparten el ancho de banda del canal en el tiempo. A cada estación se le asigna una ranura de tiempo en la cual puede transmitir datos.
+En el **acceso múltiple por división de tiempo (TDMA)**, las estaciones comparten el ancho de banda del canal en el tiempo. A cada estación se le aligna una ranura de tiempo en la cual puede transmitir datos.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_tdma.png)
 
@@ -316,9 +316,9 @@ El problema principal de TDMA es la sincronización de las diferentes estaciones
 
 En el **acceso múltiple por división de código (CDMA)**, sólo un canal ocupa el ancho de banda entero, y todas las estaciones pueden transmitir al mismo tiempo.
 
-CDMA se basa en la teoría de la codificación, a cada estación se le asigna un código, el cual es una secuencia de números llamada **chips**.
+CDMA se basa en la teoría de la codificación, a cada estación se le aligna un código, el cual es una secuencia de números llamada **chips**.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_chips.png)
 
@@ -347,7 +347,7 @@ El LLC provee un solo protocolo de control de enlace de datos para todas las LAN
 
 LLC define una unidad de datos de protocolo (PDU) que es similar al de HDLC. La cabecera contiene un campo de control que se usa para el control de flujo y de errores. Dos campos definen el protocolo de capa superior en el origen y en el destino, estos campos se llaman **destination service access point (DSAP)** y **source service access point (SSAP)**. Los otros campos que están definidos en HDLC se movieron a MAC. Es decir que una trama definida en HDLC se divide en una PDU para LLC y en una trama para MAC.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_hdlc_llc_mac.png)
 
@@ -365,7 +365,7 @@ En el Ethernet Estándar, la subcapa MAC gobierna el método de acceso y realiza
 
 La trama de Ethernet contiene siete campos: preámbulo, SFD, DA, SA, longitud o tipo de PDU, datos de capa superior, y el RCR. Ethernet no provee ningun mecanismo para confirmar las tramas recibidas, lo cual lo hace un medio poco fiable. Las confirmaciones se deben implementar en las capas superiores.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_trama_mac.png)
 
@@ -407,7 +407,7 @@ Todas las implementaciones estándar usan señalización digital (banda base) a 
 
 La primera implementación se llama **10Base5** o **thick Ethernet**. Fue la primer especificación Ethernet que usa una topología de bus con un transceiver (transmisor/receptor) externo conectado a un cable coaxial.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_10base5.png)
 
@@ -419,7 +419,7 @@ El largo máximo del cable coaxial es 500m, si se excede puede haber degradació
 
 La segunda implementación de llama **10Base2** o **thin Ethernet**. También usa una topología de bus, pero el cable es mucho más fino y más flexible. El transceiver es parte de la tarjeta de interfaz de red (NIC).
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_10base2.png)
 
@@ -429,7 +429,7 @@ La colisión también ocurre en el cable coaxial fino. Esta implementación es m
 
 La tercera implementación se llama **10Base-T** o **twisted-pair Ethernet (Ethernet de par trenzado)**. Usa una topología de estrella física, y las estaciones se conectan al hub por dos pares de cables trenzados.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_10baset.png)
 
@@ -439,7 +439,7 @@ Los dos pares trenzados crean dos caminos, uno para transmitir y otro para recib
 
 **10Base-F*** usa la topología de estrella para conectar estaciones a un hub. Las estaciones se conectan al hub usando dos cables de fibra óptica.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_10basef.png)
 
@@ -455,7 +455,7 @@ En una red Ethernet sin bridges, la capacidad total (10 Mbps) se comparte entre 
 
 El bridge divide la red en dos o más redes, y cada red es independiente en cuanto a ancho de banda. Mientras más se divide la red, más ancho de banda de puede ganar para cada segmento dividido.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_bridges.png)
 
@@ -463,7 +463,7 @@ El bridge divide la red en dos o más redes, y cada red es independiente en cuan
 
 Otra ventaja de los bridges es la separación del dominio de colisiones. Al dividir las subredes, el dominio de colisión se reduce, y por lo tanto también reduce la probabilidad de colisión.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_dominios_colision_bridges.png)
 
@@ -471,7 +471,7 @@ Otra ventaja de los bridges es la separación del dominio de colisiones. Al divi
 
 A partir de las LANs con bridges surgió la idea del **switched Ethernet**, utilizando **switches** o **conmutadores** con N puertos, donde N es igual al número de estaciones en LAN. De esta manera, el ancho de banda sólo se comparte entre la estación y el switch (5 Mbps cada uno). Además, el dominio de colisiones se divide en N dominios.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_switch.png)
 
@@ -479,7 +479,7 @@ A partir de las LANs con bridges surgió la idea del **switched Ethernet**, util
 
 Una de las limitaciones de 10Base5 y 10Base2 es que la comunicación es half-duplex. El **full-duplex switched Ethernet** incrementa la capacidad de cada dominio de 10 a 20 Mbps.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_fullduplex_switched_ethernet.png)
 
@@ -527,7 +527,7 @@ Para poder alcanzar este tamaño, generalmente se deben agregar bits de extensi�
 
 Carrier extension es ineficiente si las tramas son cortas. Se propuso el método **frame bursting** o **ráfagas de tramas** en el cual se envían múltiples tramas. Para hacer que estas tramas parezcan como si fueran una sola, se agregan bits entre las tramas para que el medio no se encuentre desocupado.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_topologias_gigabit.png)
 
@@ -577,7 +577,7 @@ La switch table se arma automática, dinámica y autónomamente, es decir que lo
 
 Para redes pequeñas, utilizar switches es suficiente, pero para redes grandes se necesita tanto routers como switches para obtener un aislamiento del tráfico más robusto, controlar las tormentas de broadcast, y utilizar mejores rutas entre los hosts de la red.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_comparacion_hubs_routers_switches.png)
 
@@ -601,7 +601,7 @@ Las funciones de un puente son las siguientes:
 - Lectura de las tramas transmitidas en una LAN y aceptación o descarte de dichas tramas dirigidas a otra LAN.
 - Retransmisión de tramas a una LAN mediante el protocolo de control de acceso al medio de esa LAN.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_funcionamiento_de_puentes.png)
 
@@ -619,7 +619,7 @@ El puente permite ampliar las LANs sin tener que modificar el software de comuni
 
 El puente funciona de la siguiente manera: captura las tramas MAC cuyo destino no se encuentra en la LAN de origen, las almacena temporalmente y las transmite sobre la otra LAN.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_conexion_lan_puente.png)
 
@@ -643,7 +643,6 @@ Un puente en spanning tree mantiene una **forwarding database** para cada puerto
 
 Un puente encamina y aprende direcciones de la misma manera que un switch. [(ver Link Layer Switches)](#543-link-layer-switches)
 
-
 ---
 
 ### 15.5 Layer 2 and Layer 3 Switches
@@ -656,7 +655,7 @@ Se puede formar una estructura jerárquica utilizando hubs en cascada. Se utiliz
 
 Las prestaciones del hub se pueden mejorar mediante el uso de un **switch de capa 2**. Una trama transmitida por una estación se conmuta hacia la línea de salida correspondiente para ser enviada a la estación destino. Al mismo tiempo, otras líneas desocupadas se pueden usar para conmutar otro tráfico.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_hubs_y_switches.png)
 
@@ -679,7 +678,7 @@ Sin embargo, el uso de routers presenta problemas de rendimiento, ya que realiza
 
 Los **switches de capa 3** se pueden clasificar en dos categorías: de tipo **paquete a paquete** o **basados en flujo**. Un switch de tipo paquete a paquete funciona igual que un router tradicional. Como la lógica de retransmisión está en el hardware, se incrementa el rendimiento. El switch basado en flujos trata de mejorar el rendimiento identificando flujos de paquetes IP que tengan las mismas direcciones de origen y de destino. Una vez que se identifica un flujo, se puede establecer una ruta predefinida para acelerar la retransmisión.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/04_configuracion_ejemplo.png)
 
