@@ -114,7 +114,7 @@ Podemos considerar que la capa de enlace de datos tiene dos subcapas. La capa su
 
 Cuando los nodos o estaciones están conectados mediante un mismo enlace, llamado **enlace multipoint** o **broadcast**, se necesita un protocolo de múltiple acceso para coordinar el acceso al enlace.
 
-### 12.1 Random Access
+#### 12.1 Random Access
 
 En los métodos de acceso o contención aleatoria, ninguna estación es superior al resto y a ninguna se le asigna el control sobre otra. Ninguna estación permite o bloquea a otra estación a transmitir. Cuando una estación necesita transmitir, usa un procedimiento definido por el protocolo para decidir si transmitir o no transmitir. Esta decisión depende el estado del medio, es decir si está desocupado u ocupado. Las estaciones compiten entre sí para acceder al medio.
 
@@ -244,7 +244,7 @@ Incluso con estas precauciones, puede haber una colisión y se pueden corromper 
 
 </div>
 
-### 12.2 Controlled Access
+#### 12.2 Controlled Access
 
 En el acceso controlado, las estaciones se consultan para saber que estación tiene el derecho de transmitir. Una estación no puede transmitir a no ser que haya sido autorizada por otras estaciones.
 
@@ -290,7 +290,7 @@ Las estaciones no tienen que estar físicamente conectadas a un anillo, este pue
 Acá podría explicar las diferentes topologías, pero con la imagen creo que es suficiente
 ```
 
-### 12.3 Channelization
+#### 12.3 Channelization
 
 La canalización es un método de acceso múltiple en el cual el ancho de banda disponible de un enlace es compartido en tiempo, frecuencia, o mediante código, entre diferentes estaciones.
 
@@ -332,6 +332,118 @@ Los chips tienen las siguientes propiedades:
 5. Sumar dos secuencias da como resultado otra secuencia.
 
 Si una estación necesita enviar un bit 0, lo codifica como -1, y si necesita enviar un bit 1, lo codifica como +1. Cuando una estación está desocupada, no envía ninguna señal, lo cual se interpreta como 0.
+
+### 13 Wired LANs: Ethernet
+
+#### 13.1 IEEE Standards
+
+La capa de enlace de datos en el estándar IEEE se divide en dos subcapas: LLC y MAC.
+
+En el proyecto 802 de IEEE, el control de flujo, el control de errores, y parte de las tareas de tramado se juntan en una subcapa llamada **control de enlace lógico (LLC, Logical Link Control)**. El tramado se maneja tanto en LLC como en MAC.
+
+El LLC provee un solo protocolo de control de enlace de datos para todas las LANs IEEE.
+
+LLC define una unidad de datos de protocolo (PDU) que es similar al de HDLC. La cabecera contiene un campo de control que se usa para el control de flujo y de errores. Dos campos definen el protocolo de capa superior en el origen y en el destino, estos campos se llaman **destination service access point (DSAP)** y **source service access point (SSAP)**. Los otros campos que están definidos en HDLC se movieron a MAC. Es decir que una trama definida en HDLC se divide en una PDU para LLC y en una trama para MAC.
+
+<div asign='center'>
+
+![](./imagenes/04_hdlc_llc_mac.png)
+
+</div>
+
+El propósito de LLC es proveer control de flujo y de errores para los protocolos de capa superior. Sin embargo, la gran mayoría de protocolos de capa superior como IP no usan los servicios de LLC.
+
+La subcapa **MAC (Media Access Control)** define el método de acceso y el formato específico de tramado para el protocolo LAN correspondiente.
+
+#### 13.2 Standard Ethernet
+
+El Ethernet original pasó por cuatro generaciones: Standard Ethernet, Fast Ethernet, Gigabit Ethernet, y Ten-Gigabit Ethernet.
+
+En el Ethernet Estándar, la subcapa MAC gobierna el método de acceso y realiza el tramado de los datos recibidos de la capa superior y se los pasa a la capa física.
+
+La trama de Ethernet contiene siete campos: preámbulo, SFD, DA, SA, longitud o tipo de PDU, datos de capa superior, y el RCR. Ethernet no provee ningun mecanismo para confirmar las tramas recibidas, lo cual lo hace un medio poco fiable. Las confirmaciones se deben implementar en las capas superiores.
+
+<div asign='center'>
+
+![](./imagenes/04_trama_mac.png)
+
+</div>
+
+- **Preámbulo**: contiene 7 bytes de 0s y 1s alternados que alerta al receptor de la llegada de la trama y permite sincronizar su entrada.
+- **SFD (Start Frame Delimiter)**: indica el comienzo de la trama.
+- **DA (Destination Address)**: contiene la dirección física de la estación destino.
+- **SA (Source Address)**: contiene la dirección física de la estación emisora.
+- **Longitud o tipo**: el Ethernet original usaba este campo como un campo de tipo para definir el protocolo de capa superior usando la trama MAC. El estándar IEEE lo usaba como campo de longitud para definir el número de bytes en el campo de datos.
+- **Datos**: datos encapsulados de los protocolos de capas superiores. Tiene un máximo de 1500 bytes.
+- **CRC**: contiene información de detección de errores.
+
+La restricción de longitud mínima se necesita para el funcionamiento correcto de CSMA/CD. La longitud mínima de datos de la capa superior debe ser 46 bytes.
+
+La restricción de longitud máxima tiene dos razones históricas. La primera era que la memoria era demasiada cara cuando se diseñó Ethernet, y la segunda era que la restricción prevenia que una estación monopolice el medio compartido.
+
+Cada estación en una red Ethernet tiene su propia **tarjeta de interfaz de red (NIC, Network Interface Card)**. El NIC provee a la estación una dirección física de 6 bytes, que se expresa en notación hexadecimal, con : entre los bytes.
+
+Una dirección destino siempre es una dirección unicast, es decir que la trama viene de una sola estación. La dirección destino, sin embargo, puede ser unicast, multicast, o broadcast. Si el bit menos significativo del primer byte en una dirección destino es 0, la dirección es unicast, sino, es multicast.
+
+La dirección broadcast es un caso especial de la dirección multicast, los destinatarios son todas las estaciones en la LAN. Una dirección destino broadcast se representa con 48 1s.
+
+Ethernet estándar utiliza CSMA/CD con persistencia 1 como método de acceso al medio.
+
+En una red Ethernet, el tiempo de ida y vuelta (o round-trip time) requerido más el tiempo necesario para enviar la secuencia de jam, se llama tiempo de ranura:
+
+```
+Tiempo de ranura = round-trip time + tiempo necesario para enviar la secuencia de jam
+```
+
+El tiempo de ranura se define en bits, y es el tiempo que requiere una estación para enviar 512 bits.
+
+La razón por la cual se eligió 512 bits fue para el funcionamiento correcto de CSMA/CD. Si todas las estaciones utilizan el protocolo CSMA/CD, cuando una trama cuyo tamaño está entre 512 y 1518 bits y una estación envía los primeros 512 bits y no sensa ninguna colisión, entonces se garantiza que no va a haber colisión.
+
+El Ethernet Estándar define varias implementaciones de capa física.
+
+Todas las implementaciones estándar usan señalización digital (banda base) a 10 Mbps. En el emisor, los datos se convierten en una señal digital usando el esquema Manchester, y en el receptor la señal se interpreta como Manchester y se decodifica en datos.
+
+La primera implementación se llama **10Base5** o **thick Ethernet**. Fue la primer especificación Ethernet que usa una topología de bus con un transceiver (transmisor/receptor) externo conectado a un cable coaxial.
+
+<div asign='center'>
+
+![](./imagenes/04_10base5.png)
+
+</div>
+
+El transceiver transmite, recibe y detecta colisiones. Está conectado a una estación por un cable que provee caminos diferentes para transmitir y recibir. La colisión solo sucede en el cable coaxial.
+
+El largo máximo del cable coaxial es 500m, si se excede puede haber degradación de señal. Si se necesita una mayor longitud, se pueden utilizar repetidores.
+
+La segunda implementación de llama **10Base2** o **thin Ethernet**. También usa una topología de bus, pero el cable es mucho más fino y más flexible. El transceiver es parte de la tarjeta de interfaz de red (NIC).
+
+<div asign='center'>
+
+![](./imagenes/04_10base2.png)
+
+</div>
+
+La colisión también ocurre en el cable coaxial fino. Esta implementación es más barata y más simple que 10Base5. Sin embargo, el largo de cada segmento no puede exceder 200m debido al alto nivel de atenuación en los cables coaxiales finos.
+
+La tercera implementación se llama **10Base-T** o **twisted-pair Ethernet (Ethernet de par trenzado)**. Usa una topología de estrella física, y las estaciones se conectan al hub por dos pares de cables trenzados.
+
+<div asign='center'>
+
+![](./imagenes/04_10baset.png)
+
+</div>
+
+Los dos pares trenzados crean dos caminos, uno para transmitir y otro para recibir, entre la estación y el hub. Las colisiones ocurren en el hub, que reemplaza el cable coaxial. El largo máximo del par trenzado es 100m para minimizar la atenuación.
+
+**10Base-F*** usa la topología de estrella para conectar estaciones a un hub. Las estaciones se conectan al hub usando dos cables de fibra óptica.
+
+<div asign='center'>
+
+![](./imagenes/04_10basef.png)
+
+</div>
+
+#### 13.3 Changes in the Standard
 
 ---
 
