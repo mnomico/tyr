@@ -445,6 +445,95 @@ Los dos pares trenzados crean dos caminos, uno para transmitir y otro para recib
 
 #### 13.3 Changes in the Standard
 
+El Ethernet Estándar de 10 Mbps sufrió varios cambios antes de pasar a las tasas de datos más altas.
+
+El primer cambio fue la división de una LAN en **bridges**, los cuales aumentan el ancho de banda y separan los dominios de colisión.
+
+En una red Ethernet sin bridges, la capacidad total (10 Mbps) se comparte entre todas las estaciones que tienen que transmitir. Si sólo una estación transmite, utiliza la capacidad total. Si dos estaciones tienen que transmitir, se alternan el uso del medio, transmitiendo cada una en promedio a una velocidad de 5 Mbps.
+
+El bridge divide la red en dos o más redes, y cada red es independiente en cuanto a ancho de banda. Mientras más se divide la red, más ancho de banda de puede ganar para cada segmento dividido.
+
+<div asign='center'>
+
+![](./imagenes/04_bridges.png)
+
+</div>
+
+Otra ventaja de los bridges es la separación del dominio de colisiones. Al dividir las subredes, el dominio de colisión se reduce, y por lo tanto también reduce la probabilidad de colisión.
+
+<div asign='center'>
+
+![](./imagenes/04_dominios_colision_bridges.png)
+
+</div>
+
+A partir de las LANs con bridges surgió la idea del **switched Ethernet**, utilizando **switches** o **conmutadores** con N puertos, donde N es igual al número de estaciones en LAN. De esta manera, el ancho de banda sólo se comparte entre la estación y el switch (5 Mbps cada uno). Además, el dominio de colisiones se divide en N dominios.
+
+<div asign='center'>
+
+![](./imagenes/04_switch.png)
+
+</div>
+
+Una de las limitaciones de 10Base5 y 10Base2 es que la comunicación es half-duplex. El **full-duplex switched Ethernet** incrementa la capacidad de cada dominio de 10 a 20 Mbps.
+
+<div asign='center'>
+
+![](./imagenes/04_fullduplex_switched_ethernet.png)
+
+</div>
+
+En full-duplex switched Ethernet no se necesita CSMA/CD, ya que cada estación está conectada al switch mediante dos enlaces separados, entonces las estaciones o el switch pueden transmitir y recibir sin preocuparse por las colisiones.
+
+El Ethernet Estándar fue diseñado como un protocolo no orientado a la conexión de la subcapa MAC, por lo que no tenía control de flujo ni de errores.
+
+Para brindar estos servicios al full-duplex switched Ethernet, se crea una nueva subcapa, llamada **control MAC**, que se situa entre el LLC y el MAC.
+
+#### 13.4 Fast Ethernet
+
+**Fast Ethernet** es compatible con Ethernet Estándar, pero puede transmitir datos 10 veces más rápido, a una tasa de 100 Mbps.
+
+Para Fast Ethernet, se abandonó la topología de bus y se optó por la topología de estrella. Para half-duplex, las estaciones se conectan mediante un hub, y para full-duplex, las estaciones se conectan mediante un switch con buffers en cada puerto.
+
+El método de acceso para half-duplex es el mismo, CSMA/CD. Full-duplex Fast Ethernet no lo necesita, pero lo implementa para ser compatible con Ethernet Estándar.
+
+Una nueva función del Fast Ethernet es la **autonegociación**. Permite a una estación o a un hub negociar el modo o la tasa de datos de la operación.
+
+Si sólo se usan dos estaciones, se conectan punto a punto. Si son más de dos estaciones, se necesita utilizar una topología de estrella con un hub o switch en el centro.
+
+La implementación de Fast Ethernet en la capa física se puede categorizar en **dos cables** o **cuatro cables**. La implementación de dos cables puede ser 100Base-TX (2 pares de twisted pair) o 100Base-FX (2 pares de cables de fibra óptica). La implementación de cuatro cables sólo puede ser 100Base-T4 (cuatro pares de twisted pair).
+
+Se eligieron tres esquemas de codificación para Fast Ethernet: 
+- 100Base-TX utiliza el esquema MLT-3.
+- 100Base-FX utiliza el esquema RRZ-1.
+- 100Base-T4 utiliza el esquema 8B/6T.
+
+#### 13.5 Gigabit Ethernet
+
+La necesidad de mayor tasa de datos resultó en el desarrollo del protocolo **Gigabit Ethernet**. Es compatible con Ethernet Estándar y Fast Ethernet.
+
+En general, Gigabit Ethernet utiliza la comunicación full-duplex, pero se puede utilizar half-duplex para ser compatible con sus predecesores.
+
+En el modo full-duplex de Gigabit Ethernet, no hay colisiones, y el largo máximo del cable se determina por la atenuación de la señal en el cable.
+
+En el modo half-duplex de Gigabit Ethernet, pueden ocurrir colisiones, y el largo máximo del cable se determina a partir del tamaño mínimo de trama. Para definir el tamaño mínimo de la trama, se utilizan tres métodos: tradicional, carrier extension, y frame bursting.
+
+En el método **tradicional**, se mantiene el largo mínimo de trama del Ethernet tradicional (512 bits), lo que significa que el largo máximo de la red es de 25m.
+
+En el método **carrier extension**, se incrementa el largo mínimo de la trama a 512 bytes (4096 bits), lo que significa que el largo máximo de la red es de 200m.
+Para poder alcanzar este tamaño, generalmente se deben agregar bits de extensión (padding) a la trama.
+
+Carrier extension es ineficiente si las tramas son cortas. Se propuso el método **frame bursting** o **ráfagas de tramas** en el cual se envían múltiples tramas. Para hacer que estas tramas parezcan como si fueran una sola, se agregan bits entre las tramas para que el medio no se encuentre desocupado.
+
+<div asign='center'>
+
+![](./imagenes/04_topologias_gigabit.png)
+
+</div>
+
+La implementación de Gigabit Ethernet se puede categorizar como **dos cables** o **cuatro cables**. La implementación de dos cables utiliza cables de fibra óptica (1000Base-SX, short-wave, o 1000Base-LX, long-wave), o STP (1000Base-CX). La implementación de cuatro cables utiliza cables de par trenzado (1000Base-T).
+
+
 ---
 
 ### Bibliografia
