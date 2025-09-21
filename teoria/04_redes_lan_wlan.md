@@ -587,11 +587,103 @@ Para redes pequeñas, utilizar switches es suficiente, pero para redes grandes s
 
 ### 15.4 Bridges
 
+Para lograr la interconexión con otras LANs y WANs, se utilizan puentes (bridges) y dispositivos de encaminamiento. Los puentes son los más sencillos y permiten la interconexión de LANs similares, mientras que los dispositivos de encaminamiento son para usos generales y permiten la interconexión de variedades de redes LAN y WAN.
+
+Los puentes se diseñaron para LANs que usan los mismos protocolos en las capas físicas y de acceso al medio, lo cual reduce drásicamente el procesamiento en el puente.
+
+Las razones para las que se usan varias LANs interconectadas mediante puentes son:
+- **Fiabilidad**: usando puentes, la red se puede dividir en segmentos aislados, decrementando la probabilidad de errores.
+- **Prestaciones**: las prestaciones de una LAN decrecen cuando aumenta la cantidad de estaciones o la longitud del medio, esto se puede solucionar mediante el uso de puentes.
+- **Seguridad**: la división de la red LAN puede mejorar la seguridad, ya que se puede contar con diferentes tipos de tráficos, con necesidades de seguridad diferentes en medios separados.
+- **Geografía**: los puentes permiten la separación de LANs en áreas geográficas diferentes.
+
+Las funciones de un puente son las siguientes:
+- Lectura de las tramas transmitidas en una LAN y aceptación o descarte de dichas tramas dirigidas a otra LAN.
+- Retransmisión de tramas a una LAN mediante el protocolo de control de acceso al medio de esa LAN.
+
+<div asign='center'>
+
+![](./imagenes/04_funcionamiento_de_puentes.png)
+
+</div>
+
+Las características de un puente son las siguientes:
+- El puente no modifica el contenido o el formato de las tramas, ya que las LANs usan los mismos protocolos.
+- El puente debe tener la memoria temporal suficiente para aceptar demandas de pico.
+- El puente debe poder direccionar y encaminar las tramas.
+- Un puente puede conectar más de dos LANs.
+
+El puente permite ampliar las LANs sin tener que modificar el software de comunicación de las estaciones.
+
+**Arquitectura de Protocolos de los Puentes**
+
+El puente funciona de la siguiente manera: captura las tramas MAC cuyo destino no se encuentra en la LAN de origen, las almacena temporalmente y las transmite sobre la otra LAN.
+
+<div asign='center'>
+
+![](./imagenes/04_conexion_lan_puente.png)
+
+</div>
+
+El puente debe disponer de la capacidad de encaminar los datos, de manera que cuando recibe una trama debe decidir si se retransmite o no, y sobre qué LAN hacerlo.
+
+La técnica de encaminamiento más sencilla es el **encaminamiento estático**, adecuada para números pequeños de redes LAN. El comité IEEE 802 desarrollaron dos estrategias de encaminamiento, una basada en el **spanning tree**, y otra basada en el **token ring**. 
+
+En el encaminamiento estático, se selecciona una ruta para la LAN origen y para la LAN destino. Si hay rutas alternativas, se selecciona la que tenga menor cantidad de saltos. Las rutas son fijas y sólo cambian cuando se cambia la topología.
+
+Cada puente necesita una **tabla de encaminamiento** para cada una de las LANs a las que está conectado. 
+
+La carga de la tabla de encaminamiento se realiza manualmente, y la realiza un administrador de red.
+
+**Técnica del Árbol de Expansión**
+
+El método de spanning tree es un mecanismo en el que los puentes arman automáticamente una tabla de encaminamiento y la actualizan a partir de los cambios en la topología.
+
+Un puente en spanning tree mantiene una **forwarding database** para cada puerto de conexión a una LAN. La base de datos asocia direcciones MAC con puertos específicos, permitiendo al puente saber por cuál puerto debe reenviar una trama.
+
+Un puente encamina y aprende direcciones de la misma manera que un switch. [(ver Link Layer Switches)](#543-link-layer-switches)
 
 
 ---
 
 ### 15.5 Layer 2 and Layer 3 Switches
+
+Otros dispositivos para la interconexión de redes LAN son los conmutadores de capa 2 y de capa 3.
+
+El **concentrador (hub)** es un elemento activo que actúa como elemento central de la topología en estrella. Cada estación se conecta al hub mediante dos enlaces (full-duplex). El hub reenvía la señal de la trama a las líneas de salida de cada estación.
+
+Se puede formar una estructura jerárquica utilizando hubs en cascada. Se utiliza un **hub raíz (HHUB, Header Hub)** y uno o más **hubs intermedios (IHUB, Intermediate Hub)**. Cada hub puede ser una mezcla de estaciones y otros hubs conectados a él. Esta estructura es adecuada para edificios cableados, en el cual hay un armario de interconexiones en cada planta del edificio, pudiendo colocarse un hub en cada una.
+
+Las prestaciones del hub se pueden mejorar mediante el uso de un **switch de capa 2**. Una trama transmitida por una estación se conmuta hacia la línea de salida correspondiente para ser enviada a la estación destino. Al mismo tiempo, otras líneas desocupadas se pueden usar para conmutar otro tráfico.
+
+<div asign='center'>
+
+![](./imagenes/04_hubs_y_switches.png)
+
+</div>
+
+Existen dos tipos de switches:
+- **Store-and-forward switch**: el switch acepta una trama en una línea de entrada, la almacena temporalmente, y la encamina hacia la línea de salida.
+- **Cut-through switch**: el switch retransmite la trama tan pronto como sepa la dirección de destino.
+
+Un switch de capa 2 se puede ver como una versión full-duplex de un hub. La diferencias entre puentes y switches de capa 2 son:
+- La gestión de tramas en un puente se realiza mediante software mientras que un switch de capa 2 reconoce las direcciones y retransmite por hardware.
+- Un puente sólo analiza las tramas una en una mientras que un switch de capa 2 tiene varias rutas de datos que actúan en paralelo.
+- Un puente usa siempre un mecanismo de almacenamiento y envío mientras que un switch de capa 2 puede funcionar en modo cut-through.
+
+A medida que crece el número de dispositivos, los switches de capa 2 muestran deficiencias. Una de esas deficiencias es la tormenta de broadcast, y la otra es que sólo puede existir un único camino entre dos dispositivos.
+
+Una estrategia lógica para solucionar estas limitaciones consiste en dividir una red local en **subredes** conectadas entre sí por dispositivos de encaminamiento, o **routers**. De esta manera, una trama MAC broadcast está restringida a aquellas estaciones y switches que pertenecen a la misma subred. Además, los routers basados en IP usan algoritmos de encaminamiento que toleran caminos alternativos entre subredes mediante diferentes routers.
+
+Sin embargo, el uso de routers presenta problemas de rendimiento, ya que realizan todo el procesamiento IP que tiene que ver con la retransmisión por software. Para solucionar esto, se fabricaron routers que implementan la lógica de retransmisión por hardware.
+
+Los **switches de capa 3** se pueden clasificar en dos categorías: de tipo **paquete a paquete** o **basados en flujo**. Un switch de tipo paquete a paquete funciona igual que un router tradicional. Como la lógica de retransmisión está en el hardware, se incrementa el rendimiento. El switch basado en flujos trata de mejorar el rendimiento identificando flujos de paquetes IP que tengan las mismas direcciones de origen y de destino. Una vez que se identifica un flujo, se puede establecer una ruta predefinida para acelerar la retransmisión.
+
+<div asign='center'>
+
+![](./imagenes/04_configuracion_ejemplo.png)
+
+</div>
 
 ---
 
