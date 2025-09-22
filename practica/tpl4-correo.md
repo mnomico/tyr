@@ -167,10 +167,66 @@ los encabezados del mensaje e indique:
 
 ### Resumen
 
+### 23 Electronic Mail
+
+#### 23.1 Architecture
+
+Para explicar la arquitectura del e-mail, se presentan cuatro escenarios.
+
+**Primer escenario**
+
+El emisor y el receptor del e-mail son usuarios del mismo servidor de mail. El administrador creó un mailbox para cada usuario, que está almacenado en el disco duro local. Cuando un usuario quiere enviar un mensaje, ejecuta un programa llamado **user agent (UA)** que prepara el mensaje y lo almacena en el mailbox del destinatario. El mensaje tiene la dirección de mailbox del emisor y del receptor. El destinatario puede ver los contenidos de su mailbox mediante un user agent.
+
+<div align='center'>
+
+![](./archivos/tpl4/23_escenario1.png)
+
+</div>
+
+**Segundo escenario**
+
+El emisor y el receptor del e-mail son usuarios de diferentes servidores de mail. El mensaje debe ser enviado por Internet. Para esto se necesita user agents y **message transfer agents (MTAs)**
+
+<div align='center'>
+
+![](./archivos/tpl4/23_escenario2.png)
+
+</div>
+
+El usuario usa un user agent para enviar su mensaje a su servidor de mail. El servidor de mail usa una cola llamada **spool** que almacena los mensajes a enviar pendientes. El destinatario necesita un user agent para ver el contenido de su mailbox, contenido en su servidor de mail. El mensaje necesita ser enviado por Internet, y para esto se necesita dos MTA: un cliente y un servidor.
+
+**Tercer escenario**
+
+<div align='center'>
+
+![](./archivos/tpl4/23_escenario3.png)
+
+</div>
+
+El usuario destino está conectado a su servidor de mail, sin embargo el usuario origen está separado físicamente del servidor de mail. El emisor utiliza un user agent para redactar su mensaje, el cual es enviado por su MTA cliente, que establece una conexión con el MTA servidor del servidor de mail. El MTA cliente en el servidor de mail envía el mensaje por Internet con destino al MTA servidor que se encuentra en el servidor de mail del destinatario. El destinatario utiliza un user agent para ver el contenido de su mailbox.
+
+**Cuatro escenario**
+
+Este escenario es el más común. El destinatario ahora también está separado físicamente del servidor de mail. Para que el destinatario pueda ver el contenido de su mailbox, se necesitan los **message access agents (MAAs)**. El destinatario utiliza un MAA cliente para ver sus mensajes, el MAA cliente envía una petición al MAA servidor, que se encuentra en el servidor de mail, y le pide que le transfiera los mensajes.
+
+<div align='center'>
+
+![](./archivos/tpl4/23_escenario4.png)
+
+</div>
+
+El destinatario necesita los MAAs para ver sus mensajes porque los MTA son programas **push**, el cliente pushea el mensaje al servidor. El destinatario necesita un programa **pull**, el cliente necesita pullear el mensaje del servidor.
+
+<div align='center'>
+
+![](./archivos/tpl4/23_push_pull.png)
+
+</div>
+
 ---
 
 ### Bibliografia
 
 ➤ [**FOR09**] - [TCP IP Protocol Suite](https://github.com/mnomico/tyr/raw/main/libros/FOR09.pdf)
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 26: “Electronic Mail: SMTP, POP, IMAP and MIME”
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 23: “Electronic Mail: SMTP, POP, IMAP and MIME”
