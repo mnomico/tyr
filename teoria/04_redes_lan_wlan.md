@@ -537,6 +537,83 @@ La implementación de Gigabit Ethernet se puede categorizar como **dos cables** 
 
 ### 14 Wireless LANs
 
+Las tecnologías principales para LANs inalámbricas son la **IEEE 802.11**, también conocida como **Ethernet inalámbrica** y **Bluetooth**.
+
+#### 14.1 IEEE 802.11
+
+El estándar 802.11 define dos servicios: el conjunto de servicios básico (BSS, Basic Service Set) y el conjunto de servicios extendido (ESS, Extended Service Set).
+
+Un conjunto de servicios básico está compuesta por estaciones móviles o fijas y una estación base opcional, que se la conoce como **punto de acceso (AP, Access Point)**.
+
+El BSS sin AP es una red aislada, llamada arquitectura **ad hoc**. En esta arquitectura, las estaciones se pueden localizar y acordar para formar parte de un BSS. El BSS con un AP se denomina como una **red de infraestructura**.
+
+Un conjunto de servicios extendidos está compuesto por dos o más BSS con APs. Los BSSs se conectan por un sistema de distribución, el cual normalmente es una LAN cableada. El sistema de distribución conecta los APs en las BSSs.
+
+<div align='center'>
+
+![](./imagenes/04_ess.png)
+
+</div>
+
+IEEE 802.11 define tres tipos de estaciones basado en su movilidad en una LAN inalámbrica: sin transición, con transición BSS y con transición ESS. Una estación con movilidad BSS se puede mover de un BSS a otro, pero no puede moverse de ESS. Una estación con movilidad ESS se puede mover de un ESS a otro, pero no se garantiza la comunicación continua durante la transición.
+
+IEEE 802.11 define dos subcapas MAC: la **función de coordinación distribuida (DCF, Distributed Coordination Function)** y la **función de coordinación puntual (PCF, Point Coordination Function)**. La siguiente imagen muestra la relación entre estas subcapas, la subcapa LLC, y la subcapa física:
+
+<div align='center'>
+
+![](./imagenes/04_subcapas_mac_ieee802.11.png)
+
+</div>
+
+Uno de los protocolos de la subcapa MAC se llama DCF (Distributed Coordination Function). DCF utiliza CSMA/CA como el método de acceso. Las LANs inalámbricas no pueden implementar CSMA/CD por tres razones:
+- Para detectar colisiones se necesita que la estación envíe y reciba señales al mismo tiempo, lo cual sería costoso.
+- Las colisiones pueden no ser detectadas debido a estaciones escondidas.
+- Como la distancia entre las estaciones puede ser muy grande, la atenuación de la señal podría prevenir que una estación detecte una colisión.
+
+<div align='center'>
+
+![](./imagenes/04_csma_dcf.png)
+
+</div>
+
+<div align='center'>
+
+![](./imagenes/04_intercambio_dcf.png)
+
+</div>
+
+1. Antes de enviar una trama, la estación origen sensa el medio verificando el nivel de energía en la frecuencia portadora.
+
+   a. El canal utiliza una estrategia de persistencia con back-off hasta que el medio se desocupe.
+
+   b. Luego de que el medio se desocupade, la estación espera un período de tiempo llamado **DIFS (Distributed InterFrame Space)**, y envía una trama de control llamada **RTS (Request To Send)**.
+
+2. Luego de recibir el RTS y esperar un período de tiempo llamado **SIFS (Short InterFrame Space)**, el destino envía una trama de control, llamada **CTS (Clear To Send)** al origen.
+
+3. El origen envía datos luego de esperar SIFS.
+
+4. El destino, luego de esperar SIFS, envía una confirmación por la trama recibida, a diferencia de Etherner con CSMA/CD, que no necesita confirmaciones ya que si no detecta colisión da por hecho que se recibió la trama.
+
+Para lograr la prevención de colisiones, se utiliza el **NAV (Network Allocation Vector)**. Cuando una estación envía una trama RTS, necesita un tiempo para ocupar el medio. Para que no se produzca una colisión, las estaciones crean un timer llamado NAV que muestra cuánto tiempo debe pasar antes de que puedan sensar el medio para ver si está ocupado.
+
+Si se produce una colisión en el establecimiento de la conexión, se detecta a partir de la ausencia de la trama CTS, y se aplica back-off.
+
+El PCF (PCF, Point Coordination Function) es un método de acceso opcional que puede ser implementado en una red de infraestructura. Se implementa por encima de DCF y se utiliza para transmisiones sensibles al tiempo.
+
+PCF tiene un método de acceso con muestreo libre de contención. El AP realiza el muestreo para las estaciones que pueden ser muestreadas, y envían los datos que tienen al AP.
+
+Para dar prioridad a PCF sobre DCF, se utiliza otro conjunto de períodos de tiempo: PIFS y SIFS. **PIFS (PCF IFS)** es más corto que DIFS. Esto significa que si una estación quiere usar DCF y un AP quiere usar PCF, el AP tiene prioridad.
+
+Para prevenir que las estaciones que usan DCF no tengan acceso al medio, se introduce un **intervalo de repetición**, el cual se repite constantemente. Empieza con una trama de control especial, llamada **beacon frame**. Cuando las estaciones escuchan el beacon frame, empiezan su timer NAV por la duración del período libre de contención.
+
+Durante el intervalo de repetición, PC (Point Controller) puede enviar una trama de muestreo, recibir datos, enviar un ACK, recibir un ACK. Una vez terminado el período libre de contención, PC envía una trama **CF end** (Contention-Free End) para permitir a las estaciones basadas en contención a utilizar el medio.
+
+<div align='center'>
+
+![](./imagenes/04_ej_intervalo_de_repeticion.png)
+
+</div>
+
 ---
 
 ### 5.4.3 Link-Layer Switches
