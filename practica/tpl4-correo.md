@@ -223,6 +223,138 @@ El destinatario necesita los MAAs para ver sus mensajes porque los MTA son progr
 
 </div>
 
+#### 23.2 User Agent
+
+El **user agent (UA)** brinda servicios relacionados con el envío y recepción de mensajes al usuario.
+
+**Enviar mails**
+
+Para enviar un mail, el usuario, mediante el user agent, crea un mail con la dirección origen y destino de e-mail y otra información, junto con un mensaje.
+
+El mensaje contiene un **encabezado** y un **cuerpo**. El encabezado del mensaje define el emisor, el receptor, el asunto, entre otra información. El cuerpo del mensaje contiene el mensaje que redacta el usuario.
+
+**Direcciones**
+
+Para enviar un mail, se utilizan direcciones que consisten de dos partes, una **parte local** y un **nombre de dominio** separados por un @.
+
+<div align='center'>
+
+![](./archivos/tpl4/23_direcciones.png)
+
+</div>
+
+La parte local define el nombre del mailbox del usuario.
+
+#### 23.3 SMTP (Simple Mail Transfer Protocol)
+
+La transferencia de mails se hace mediante **MTAs (Message Transfer Agents)**. Para enviar mails, se debe contar con un MTA cliente, y para recibir mails, se debe contar con un MTA servidor. El protocolo que define la comunicación entre MTAs se llama **SMTP (Simple Mail Transfer Protocol)**.
+
+<div align='center'>
+
+![](./archivos/tpl4/23_smtp.png)
+
+</div>
+
+SMTP se utiliza dos veces, entre el emisor y el servidor de mail del emisor, y entre los dos servidores de mail. SMTP define se deben enviar y recibir los comandos y las respuestas.
+
+**Comandos**
+
+<div align='center'>
+
+![](./archivos/tpl4/23_comandos_smtp.png)
+
+</div>
+
+- HELO: lo utiliza el cliente para identificarse frente al servidor. El argumento es el nombre de dominio del cliente. Su formato es el siguiente:
+    
+    ```HELO: challenger.atc.fhda.edu```
+
+- MAIL FROM: lo utiliza el cliente para identificar el emisor del mensaje. El argumento es la dirección e-mail del emisor. Su formato es el siguiente:
+
+    ```MAIL FROM: forouzan@challenger.atc.fhda.edu```
+
+- RCPT TO: lo utiliza el cliente para identificar el receptor del mensaje. El argumento es la dirección e-mail del receptor. Si hay varios destinatarios, el comando se repite. Su formato es el siguiente:
+
+    ```RCPT TO: betsy@mcgraw-hill.com```
+
+- DATA: este comando se usa para enviar el mail. Las líneas que le siguen son tratados como el mensaje del mail. El mensaje se termina por una línea que contiene solamente un punto. Su formato es el siguiente:
+
+    ```
+    DATA
+    This is the message
+    to be sent to McGraw-Hill
+    Company
+    .
+    ```
+
+- QUIT: este comando termina la comunicación con el servidor.
+
+- RSET: este comando aborta la transacción de mail actual. Se elimina la información almacenada sobre el emisor y el receptor, y se reinicia la conexión.
+
+- VRFY: este comando le pide al receptor que confirme si el nombre identifica a un receptor válido. Su formato es el siguiente:
+
+    ```VRFY: betsy@mcgraw-hill.com```
+
+- NOOP: este comando lo utiliza el cliente para verificar el estado del receptor.
+
+**Respuestas**
+
+Las respuestas las envía el servidor al cliente. Una respuesta es un código de tres dígitos que puede ser seguida por información adicional.
+
+<div align='center'>
+
+![](./archivos/tpl4/23_respuestas.png)
+
+</div>
+
+**Fases de transferencia**
+
+Luego de que el cliente haga una conexión TCP al puerto bien conocido 25, el servidor SMTP comienza la fase de conexión. Esta fase consiste de tres pasos:
+
+1. El servidor envía el código 220 (service ready) para decirle al cliente que está listo para recibir mail. Si el servidor no está listo, envía el código 421 (service not available).
+2. El cliente envía el mensaje HELO para identificarse usando la dirección de nombre de dominio. 
+3. El servidor responde con el código 250 (request command completed) u otro código dependiendo de la situación.
+
+<div align='center'>
+
+![](./archivos/tpl4/23_establecimiento_conexion_smtp.png)
+
+</div>
+
+Luego de establecer la conexión entre el SMTP cliente y servidor, se puede envíar un mensaje entre un emisor y uno o varios receptores. Esta fase contiene ocho pasos, y los pasos 3 y 4 se pueden repetir si hay más de un emisor:
+
+1. El cliente envía el mensaje MAIL FROM para enviar la dirección mail del emisor.
+2. El servidor responde con el código 250.
+3. El cliente envía el mensaje RCPT TO para enviar la dirección mail del receptor.
+4. El servidor responde con el código 250.
+5. El cliente envía el mensaje DATA para iniciar la transferencia del mensaje.
+6. El servidor responde con el código 354 (start mail input).
+7. El cliente envía el contenido del mensaje en líneas consecutivas. El mensaje se termina con una línea con solamente un punto.
+8. El servidor responde con el código 250 (OK).
+
+<div align='center'>
+
+![](./archivos/tpl4/23_transferencia_mensaje.png)
+
+</div>
+
+Luego de que el mensaje se transfiera con éxito, el cliente termina la conexión:
+1. El cliente envía el comando QUIT.
+2. El servidor responde con el código 221.
+
+Luego de terminar la fase de cierre de conexión, se debe cerrar la conexión TCP.
+
+<div align='center'>
+
+![](./archivos/tpl4/23_cierre_conexion.png)
+
+</div>
+
+#### 23.4 MTAs y POP3
+
+
+
+
 ---
 
 ### Bibliografia
