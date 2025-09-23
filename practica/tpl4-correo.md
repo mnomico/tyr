@@ -352,6 +352,27 @@ Luego de terminar la fase de cierre de conexión, se debe cerrar la conexión TC
 
 #### 23.4 MTAs y POP3
 
+SMTP es un protocolo push, pushea el mensaje del cliente al servidor. Para la siguiente fase, en la cual el cliente necesita obtener los mensajes del servidor, se necesita usar un protocolo pull. Por lo tanto, se necesita un MTA (Message Access Agent).
+
+Se pueden utilizar dos protocolos: **Post Office Protocol version 3 (POP3)** e Internet Mail Access Protocol version 4 (IMAP).
+
+<div align='center'>
+
+![](./archivos/tpl4/23_pop_imap.png)
+
+</div>
+
+**Post Office Protocol version 3 (POP3)** es simple y limitado en funcionalidad. El cliente POP3 se instala en la computadora del receptor, y el servidor POP3 se instala en el servidor de mail.
+
+El acceso al mail arranca cuando un usuario utiliza el cliente para descargar su e-mail del mailbox del servidor de mail. El cliente abre una conexión al servidor en el puerto TCP 110. Luego envía su nombre de usuario y contraseña para acceder al mailbox, el cual le permite listar y ver los mensajes.
+
+<div align='center'>
+
+![](./archivos/tpl4/23_pop3.png)
+
+</div>
+
+#### MIME
 
 
 
