@@ -372,9 +372,48 @@ El acceso al mail arranca cuando un usuario utiliza el cliente para descargar su
 
 </div>
 
-#### MIME
+#### 23.5 MIME
 
+El e-mail solo puede mandar formato en ASCII NVT de 7 bits, lo cual presenta algunas limitaciones, y dificulta el uso de algunos lenguajes y el envío de archivos binarios y archivos multimedia.
 
+**Multipurpose Internet Mail Extensions (MIME)** es un protocolo suplementario que permite el envío de datos sin formato ASCII por e-mail. MIME transforma los datos sin formato ASCII del emisor a datos ASCII NVT y se los envía al cliente MTA, para que sean enviados por Internet. El mensaje es transformado a los datos originales cuando se reciben.
+
+<div align='center'>
+
+![](./archivos/tpl4/23_mime.png)
+
+</div>
+
+MIME define tres encabezados que pueden ser agregados al encabezado del e-mail para definir los parámetros de transformación:
+1. MIME-Version: define la versión de MIME.
+2. Content-Type: define el tipo de datos utilizado en el cuerpo del mensaje. El tipo y el subtipo del contenido se separan con una barra. Dependiendo del subtipo, puede contener otros parámetros.
+
+<div align='center'>
+
+![](./archivos/tpl4/23_mime_tipos_subtipos.png)
+
+</div>
+
+3. Content-Transfer-Encoding: define el método usado para codificar los mensajes.
+
+<div align='center'>
+
+![](./archivos/tpl4/23_mime_codificacion.png)
+
+</div>
+
+4. Content-Id: identifica unívoacmente el mensaje entero en entornos de mensajes múltiples.
+5. Content-Description: define si el cuerpo es imagen, audio o video.
+
+### 23.7 E-Mail Security
+
+Los intercambios de e-mail pueden ser asegurados mediante dos seguridades de capa de aplicación: Pretty Good Privacy (PGP) y Secure MIME (SMIME).
+
+<div align='center'>
+
+![](./archivos/tpl4/23_header_mime.png)
+
+</div>
 
 ---
 
