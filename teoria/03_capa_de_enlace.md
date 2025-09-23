@@ -199,7 +199,7 @@ Por ejemplo, B recibe las tramas 2, 3 y 4 y envía la confirmación cuando llega
 
 La numeración de las tramas ocupa un campo, por lo tanto va a tener un número limitado. Para un campo de k bits, el rango de números de secuencia es desde 0 hasta 2^k - 1. El máximo de la ventana es 2^(k-1) por una cuestión que se ve más adelante.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/03_ventana_deslizante.png)
 
@@ -207,9 +207,9 @@ La numeración de las tramas ocupa un campo, por lo tanto va a tener un número 
 
 En la imagen se usa números de secuencia de 3 bits, por lo que las tramas se van a numerar del 0 al 7 (porque 2^3 - 1 => 8 - 1 => 7), usando los mismos números para las tramas luego de la número 7. El rectángulo sombreado indica las tramas que se pueden transmitir. Cada vez que se envía una trama, la ventana se cierra, y cada vez que recibe una confirmación, la ventana se abre. Las tramas que están entre la barra vertical y la ventana ya fueron enviadas, pero no fueron confirmadas. Estas tramas son almacenadas por si hay que retransmitirlas.
 
-<div asign='center'>
+<div align='center'>
 
-![](./imagenes/03_ventana_deslizante.png)
+![](./imagenes/03_ej_ventana_deslizante.png)
 
 </div>
 
@@ -283,7 +283,7 @@ Los tres modos de transferencia son:
 
 La transmisión mediante el protocolo HDLC es síncrona, y los intercambios se realizan por tramas.
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/03_trama_hdlc.png)
 
@@ -328,7 +328,7 @@ Cualquiera de las dos entidades HDLC puede iniciar la **desconexión**. Se reali
 
 **Ejemplos de funcionamiento**:
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/03_ejemplos_hdlc.png)
 
@@ -374,7 +374,7 @@ El ```tiempo de propagación``` es igual a la distancia del enlace, ```d```, div
 
 En el esquema de control de flujo mediante sliding window, la utilización de la línea depende del tamaño de la ventana W y del valor de a. En la siguiente imagen se muestra la eficiencia de una línea full-duplex:
 
-<div asign='center'>
+<div align='center'>
 
 ![](./imagenes/03_sliding_window_utilizacion.png)
 
