@@ -22,7 +22,7 @@
 
 ➤ [TPL 3 - Domain Name System](/practica/tpl3-dns.md)
 
-➤ [TPL 4 - Correo Electrónico](/practica/tpl3-dns.md)
+➤ [TPL 4 - Correo Electrónico](/practica/tpl4-correo.md)
 
 ## Bibliografía
 
