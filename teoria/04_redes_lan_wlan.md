@@ -363,7 +363,7 @@ El Ethernet original pasó por cuatro generaciones: Standard Ethernet, Fast Ethe
 
 En el Ethernet Estándar, la subcapa MAC gobierna el método de acceso y realiza el tramado de los datos recibidos de la capa superior y se los pasa a la capa física.
 
-La trama de Ethernet contiene siete campos: preámbulo, SFD, DA, SA, longitud o tipo de PDU, datos de capa superior, y el RCR. Ethernet no provee ningun mecanismo para confirmar las tramas recibidas, lo cual lo hace un medio poco fiable. Las confirmaciones se deben implementar en las capas superiores.
+La trama de Ethernet contiene siete campos: preámbulo, SFD, DA, SA, longitud o tipo de PDU, datos de capa superior, y el CRC. Ethernet no provee ningun mecanismo para confirmar las tramas recibidas, lo cual lo hace un medio poco fiable. Las confirmaciones se deben implementar en las capas superiores.
 
 <div align='center'>
 
@@ -385,7 +385,7 @@ La restricción de longitud máxima tiene dos razones históricas. La primera er
 
 Cada estación en una red Ethernet tiene su propia **tarjeta de interfaz de red (NIC, Network Interface Card)**. El NIC provee a la estación una dirección física de 6 bytes, que se expresa en notación hexadecimal, con : entre los bytes.
 
-Una dirección destino siempre es una dirección unicast, es decir que la trama viene de una sola estación. La dirección destino, sin embargo, puede ser unicast, multicast, o broadcast. Si el bit menos significativo del primer byte en una dirección destino es 0, la dirección es unicast, sino, es multicast.
+Una dirección origen siempre es una dirección unicast, es decir que la trama viene de una sola estación. La dirección destino, sin embargo, puede ser unicast, multicast, o broadcast. Si el bit menos significativo del primer byte en una dirección destino es 0, la dirección es unicast, sino, es multicast.
 
 La dirección broadcast es un caso especial de la dirección multicast, los destinatarios son todas las estaciones en la LAN. Una dirección destino broadcast se representa con 48 1s.
 
@@ -437,7 +437,7 @@ La tercera implementación se llama **10Base-T** o **twisted-pair Ethernet (Ethe
 
 Los dos pares trenzados crean dos caminos, uno para transmitir y otro para recibir, entre la estación y el hub. Las colisiones ocurren en el hub, que reemplaza el cable coaxial. El largo máximo del par trenzado es 100m para minimizar la atenuación.
 
-**10Base-F*** usa la topología de estrella para conectar estaciones a un hub. Las estaciones se conectan al hub usando dos cables de fibra óptica.
+**10Base-F** usa la topología de estrella para conectar estaciones a un hub. Las estaciones se conectan al hub usando dos cables de fibra óptica.
 
 <div align='center'>
 
@@ -582,19 +582,19 @@ Uno de los protocolos de la subcapa MAC se llama DCF (Distributed Coordination F
 
 </div>
 
-1. Antes de enviar una trama, la estación origen sensa el medio verificando el nivel de energía en la frecuencia portadora.
+1. Antes de enviar una trama, la estación origen sensa el medio verificando el nivel de energía de la frecuencia portadora.
 
-   a. El canal utiliza una estrategia de persistencia con back-off hasta que el medio se desocupe.
+   a. La estación utiliza una estrategia de persistencia con back-off hasta que el medio se desocupe.
 
-   b. Luego de que el medio se desocupade, la estación espera un período de tiempo llamado **DIFS (Distributed InterFrame Space)**, y envía una trama de control llamada **RTS (Request To Send)**.
+   b. Luego de que el medio se desocupe, la estación espera un período de tiempo llamado **DIFS (Distributed InterFrame Space)**, y envía una trama de control llamada **RTS (Request To Send)**.
 
 2. Luego de recibir el RTS y esperar un período de tiempo llamado **SIFS (Short InterFrame Space)**, el destino envía una trama de control, llamada **CTS (Clear To Send)** al origen.
 
 3. El origen envía datos luego de esperar SIFS.
 
-4. El destino, luego de esperar SIFS, envía una confirmación por la trama recibida, a diferencia de Etherner con CSMA/CD, que no necesita confirmaciones ya que si no detecta colisión da por hecho que se recibió la trama.
+4. El destino, luego de esperar SIFS, envía una confirmación por la trama recibida, a diferencia de Ethernet con CSMA/CD, que no necesita confirmaciones ya que si no detecta colisión da por hecho que se recibió la trama.
 
-Para lograr la prevención de colisiones, se utiliza el **NAV (Network Allocation Vector)**. Cuando una estación envía una trama RTS, necesita un tiempo para ocupar el medio. Para que no se produzca una colisión, las estaciones crean un timer llamado NAV que muestra cuánto tiempo debe pasar antes de que puedan sensar el medio para ver si está ocupado.
+Para lograr la prevención de colisiones, se utiliza el **NAV (Network Allocation Vector)**. Cuando una estación envía una trama RTS, necesita un tiempo para ocupar el medio. Para que no se produzca una colisión, las estaciones escuchan la trama y crean un timer llamado NAV que muestra cuánto tiempo debe pasar antes de que puedan sensar el medio para ver si está ocupado. El tiempo del timer se basa en el tiempo indicado en el campo Duration de las tramas que escuchan.
 
 Si se produce una colisión en el establecimiento de la conexión, se detecta a partir de la ausencia de la trama CTS, y se aplica back-off.
 
