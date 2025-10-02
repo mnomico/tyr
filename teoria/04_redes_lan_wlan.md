@@ -379,7 +379,7 @@ La trama de Ethernet contiene siete campos: preámbulo, SFD, DA, SA, longitud o 
 - **Datos**: datos encapsulados de los protocolos de capas superiores. Tiene un máximo de 1500 bytes.
 - **CRC**: contiene información de detección de errores.
 
-La restricción de longitud mínima se necesita para el funcionamiento correcto de CSMA/CD. La longitud mínima de datos de la capa superior debe ser 46 bytes.
+La restricción de longitud mínima se necesita para el funcionamiento correcto de CSMA/CD. La longitud mínima de datos de la capa superior debe ser 64 bytes.
 
 La restricción de longitud máxima tiene dos razones históricas. La primera era que la memoria era demasiada cara cuando se diseñó Ethernet, y la segunda era que la restricción prevenia que una estación monopolice el medio compartido.
 
