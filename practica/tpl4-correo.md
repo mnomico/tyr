@@ -136,7 +136,88 @@
 
     6. Identifique la conexión TCP que se establece entre los MTA’s. Utilice tshark para mostrar el contenido de dicho stream y adjúntelo.
 
+        ```
+        [user@host shared]$ tshark -r captura_email.pcap -qz follow,tcp,ascii,1
+
+        ===================================================================
+        Follow: tcp,ascii
+        Filter: tcp.stream eq 1
+        Node 0: 192.168.0.11:52526
+        Node 1: 192.168.0.22:25
+            61
+        220 dnsnano ESMTP Exim 4.96 Thu, 18 Sep 2025 15:08:08 +0000
+
+        13
+        EHLO dnslug
+
+            159
+        250-dnsnano Hello dnslug [192.168.0.11]
+        250-SIZE 52428800
+        250-8BITMIME
+        250-PIPELINING
+        250-PIPECONNECT
+        250-CHUNKING
+        250-STARTTLS
+        250-SMTPUTF8
+        250 HELP
+
+        10
+        STARTTLS
+
+            31
+        454 TLS currently unavailable
+
+        556
+        MAIL FROM:<mateonomico@lugroma3.org> SIZE=1478
+        RCPT TO:<guest@nanoinside.net>
+        BDAT 455 LAST
+        Received: from [192.168.0.111] (port=39886 helo=pc1.lugroma3.org)
+        .by dnslug with smtp (Exim 4.96)
+        .(envelope-from <mateonomico@lugroma3.org>)
+        .id 1uzGEK-00003j-1Y
+        .for guest@nanoinside.net;
+        .Thu, 18 Sep 2025 15:08:08 +0000
+        Subject: Resolucion del ejercicio 3
+        Message-Id: <E1uzGEK-00003j-1Y@dnslug>
+        From: mateonomico@lugroma3.org
+        Date: Thu, 18 Sep 2025 15:07:45 +0000
+
+        Nombre: Mateo Nomico
+
+        Legajo: 168102
+
+        Este es un mensaje de prueba.
+
+        QUIT
+
+            114
+        250 OK
+        250 Accepted
+        250- 455 byte chunk, total 455
+        250 OK id=1uzGEy-000032-1y
+        221 dnsnano closing connection
+
+        ===================================================================
+        ```
+
+        La conexión TCP se establece entre el MTA emisor con el socket 192.168.0.11:52526 y el MTA receptor con el socket 192.168.0.22:25.
+
     7. ¿Qué cosas adicionó al mensaje original el servidor mail.lugroma3.org ?
+
+        ```
+        Received: from [192.168.0.111] (port=39886 helo=pc1.lugroma3.org)
+        .by dnslug with smtp (Exim 4.96)
+        .(envelope-from <mateonomico@lugroma3.org>)
+        .id 1uzGEK-00003j-1Y
+        .for guest@nanoinside.net;
+        .Thu, 18 Sep 2025 15:08:08 +0000
+        Message-Id: <E1uzGEK-00003j-1Y@dnslug>
+        ```
+        
+        El servidor mail.lugroma3.org agregó algunos encabezados al mensaje original:
+        - Received, que indica el host origen, el host destino, la versión de SMTP, y la fecha y hora.
+
+        Estos campos los agrega el servidor para controlar y saber el camino por el cual fue transmitido el mensaje.
 
 4. Seleccione un mensaje dentro de la carpeta SPAM de su casilla de correo y, utilizando el menú “. . .”, descargue el código RFC 822 del mismo (en Gmail corresponde a la opción Mostrar original, en Outlook a Ver origen del mensaje, en Yahoo a Ver mensaje original, etc). Analice
 los encabezados del mensaje e indique:
