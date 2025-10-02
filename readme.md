@@ -24,6 +24,8 @@
 
 ➤ [TPL 4 - Correo Electrónico](/practica/tpl4-correo.md)
 
+➤ [TPL 5 - HTTP - Parte 1](/practica/tpl5-http-parte-1.md)
+
 ## Bibliografía
 
 |ID         |Libro                                                                                                                                        |
