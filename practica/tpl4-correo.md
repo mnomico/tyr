@@ -215,12 +215,12 @@
         ```
         
         El servidor mail.lugroma3.org agregó algunos encabezados al mensaje original:
-        - Received, que indica el host origen, el host destino, la versión de SMTP, y la fecha y hora.
+        - **Received**: indica el host origen, el host destino, la versión de SMTP, y la fecha y hora.
+        - **Message-Id**: id único del mensaje.
 
         Estos campos los agrega el servidor para controlar y saber el camino por el cual fue transmitido el mensaje.
 
-4. Seleccione un mensaje dentro de la carpeta SPAM de su casilla de correo y, utilizando el menú “. . .”, descargue el código RFC 822 del mismo (en Gmail corresponde a la opción Mostrar original, en Outlook a Ver origen del mensaje, en Yahoo a Ver mensaje original, etc). Analice
-los encabezados del mensaje e indique:
+4. Seleccione un mensaje dentro de la carpeta SPAM de su casilla de correo y, utilizando el menú “. . .”, descargue el código RFC 822 del mismo (en Gmail corresponde a la opción Mostrar original, en Outlook a Ver origen del mensaje, en Yahoo a Ver mensaje original, etc). Analice los encabezados del mensaje e indique:
 
     • La semántica y el valor de los campos de encabezado vistos en clase (From, To, CC, Date, Subject, Reply-To, MIME-Version, Content-Type),
 
@@ -229,6 +229,70 @@ los encabezados del mensaje e indique:
     • La lista de servidores SMTP por los que fue pasando el mensaje (encabezados que comienzan con Received: from ), la hora en la que pasó por cada uno de ellos y qué protocolo se utilizó en la transferencia (indicado por with ... ),
 
     • Si es MIME de tipo _multipart/*_, determinar para qué se utiliza el valor del dato boundary , cuantos bloques componen el mensaje, qué tipo de contenido (Content-Type) y qué codificación se utiliza (Content-Transfer-Encoding) en cada bloque.
+
+        From: =?UTF-8?Q?Ayr=C4=B1nt=C4=B1_Yay=C4=B1n_Grubu?=    <website@ayrintiyayingrubu.com>
+
+    Es la dirección del remitente.
+
+        To: nomicomateo@gmail.com
+
+    Es la dirección del destinatario.
+
+        CC: No hay.
+
+    Copia el mensaje a otros destinatarios.
+
+        Date: Sun, 20 Apr 2025 22:29:32 +0000
+        
+    Es la fecha y hora en el que se envió el mensaje.
+
+        Subject:=?UTF-8?Q?[Ayr=C4=B1nt=C4=B1_Yay=C4=B1n_Grubu]Oturum_a=C3=A7ma_bilgileri?=
+
+    Es el asunto del mensaje.
+
+        Reply-To: No Hay.
+
+    Es la dirección para responder el mensaje.
+
+        MIME-Version: 1.0
+
+    Es la versión de MIME.
+
+        Content-Type: text/plain; charset=UTF-8
+
+    Describe el tipo y el formato del mensaje.
+
+        Content-Transfer-Encoding: 8bit
+
+    El MIME no es multipart, por lo tanto no tiene partes múltiples, y no se usan boundaries ya que no hay bloques para separar.
+
+        Return-Path: <website@ayrintiyayingrubu.com>
+
+    Coincide con From.
+
+        Received: by 2002:ac8:12cd:0:b0:47a:dd1d:d5fd with SMTP id b13csp1399076qtj;
+
+            Sun, 20 Apr 2025 15:29:32 -0700 (PDT)
+
+        Received: from 242.129.8.185.alastyr.com ([185.8.129.242])
+
+            by mx.google.com with ESMTPS id 4fb4d7f45d1cf-5f62582aeeasi4051664a12.297.2025.04.20.15.29.32
+
+            Sun, 20 Apr 2025 15:29:32 -0700 (PDT)
+
+    En este caso se utiliza el protocolo ESMTPS, una extensión de Extended SMTP que indica que el mensaje enviado por el protocolo TLS (Transfer Layer Security), el cual encripta el mensaje.
+
+        Received: from [185.8.129.242] (port=54026 helo=www.ayrintiyayingrubu.com)
+
+            by server.ayrintiyayingrubu.com with esmtpa (Exim 4.98.1)
+
+            (envelope-from <website@ayrintiyayingrubu.com>)
+
+            id 1u6dAK-0000000BY9M-3OUy
+
+            Sun, 20 Apr 2025 18:29:32 -0400
+
+    En este caso se utiliza el protocolo esmtpa, otra extensión de ESMTP que se utiliza para la autenticación.
 
 ---
 
