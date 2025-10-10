@@ -28,7 +28,7 @@
 
 ## Parciales
 
-➤ [Primer Parcial 2025 - Segundo Cuatrimestre]
+➤ [Primer Parcial 2025 - Segundo Cuatrimestre](/parciales/primer_parcial_2025-09.md)
 
 ## Bibliografía
 
