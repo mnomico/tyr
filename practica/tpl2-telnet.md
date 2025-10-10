@@ -122,7 +122,7 @@ Analice la captura almacenada en el archivo utilizando tshark y diversos paráme
 
 a) “Extraiga” de la captura solamente los datos intercambiados a nivel aplicación y remítalos.
 
-[Captura Cliente/Servidor](./archivos/captura_cliente_servidor.pcap)
+[Captura Cliente/Servidor](./archivos/capturas/captura_cliente_servidor.pcap)
 
 ```
 [usuario@host kathara-lab_conf_inicial]$ tshark -r shared/captura_cliente_servidor.pcap -nqz follow,tcp,hex,0

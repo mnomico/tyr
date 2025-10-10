@@ -255,7 +255,7 @@ Los comandos necesarios para llevar adelante la práctica se encuentran listados
 
     d. Analizar el volcado del programa de captura utilizando la aplicación wireshark (o cualquier otro analizador de tráfico que permita leer archivos en formato pcap), representando en un gráfico ideado por usted el intercambio de mensajes. Indicar cuál es la función de cada uno identificando los datos de encabezados mas relevantes.
 
-    [Captura ICMP](./archivos/captura_icmp.pcap)
+    [Captura ICMP](./archivos/capturas/captura_icmp.pcap)
 
     <div align='center'>
 
