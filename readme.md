@@ -35,6 +35,6 @@
 |[**KUR12**]|[KUROSE, J. y ROSS, K. Computer Networking: A Top-Down Approach. 6o ed. Prenctice Hall, 2012.](https://github.com/mnomico/tyr/raw/main/libros/KUR12.pdf)                                                 |
 |[**PET11**]|PETERSON, L. y DAVIE B. Computer Networks: A Systems Approach, 5o ed. Morgan Kaufmann, 2011.                                                 |
 |[**STA04**]|[STALLINGS, W. Comunicaciones y Redes de Computadoras. 7 ed. Prentice Hall. 2004.](https://github.com/mnomico/tyr/raw/main/libros/STA04.pdf) |
-|[**STE11**]|STEVENS, W.R. y FALL, K. TCP/IP Illustrated Vol I, 2o ed. Adisson Wesley. 2011.                                                              |
+|[**STE11**]|[STEVENS, W.R. y FALL, K. TCP/IP Illustrated Vol I, 2o ed. Adisson Wesley. 2011.](https://github.com/mnomico/tyr/raw/main/libros/STE11.pdf)                                                              |
 |[**BOR04**]|BORDIGNON, F.; LORGE, F. y TOLOSA, G. WLANs, Una Introducción al Standard IEEE 802.11.Laboratorio de Redes de Datos. UNLu, 2004.             |
 
