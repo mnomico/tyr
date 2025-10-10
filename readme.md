@@ -26,6 +26,10 @@
 
 ➤ [TPL 5 - HTTP - Parte 1](/practica/tpl5-http-parte-1.md)
 
+## Parciales
+
+➤ [Primer Parcial 2025 - Segundo Cuatrimestre]
+
 ## Bibliografía
 
 |ID         |Libro                                                                                                                                        |
