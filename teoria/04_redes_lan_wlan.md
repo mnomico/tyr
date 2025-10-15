@@ -765,7 +765,7 @@ Los **switches de capa 3** se pueden clasificar en dos categorías: de tipo **pa
 
 ### Bibliografia
 
-➤ [**FOR07**] - [Comunicaciones y redes de computadores](https://github.com/mnomico/tyr/raw/main/libros/FOR07.pdf)
+➤ [**FOR07**] - [Data Communications and Networking](https://github.com/mnomico/tyr/raw/main/libros/FOR07.pdf)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 12: “Multiple Access”
 
