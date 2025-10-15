@@ -14,6 +14,8 @@
 
 ➤ [04 - Redes Locales y WLANs](/teoria/04_redes_lan_wlan.md)
 
+➤ [05 - Conmutación, Capa de Red y Protocolo IPv4](/teoria/05_capa_de_red_ipv4.md)
+
 ## Trabajos Prácticos
 
 ➤ [TPL 1 - Configuración inicial de la red del laboratorio](/practica/tpl1-configuracion-inicial.md)
@@ -28,7 +30,7 @@
 
 ## Parciales
 
-➤ [Primer Parcial 2025 - Segundo Cuatrimestre](/parciales/primer_parcial_2025-09.md)
+➤ [Primer Parcial Septiembre 2025](/parciales/primer_parcial_2025-09.md)
 
 ## Bibliografía
 
