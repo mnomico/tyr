@@ -73,6 +73,57 @@
 
 ### Resumen
 
+### 8 Switching
+
+Una red es un conjunto de dispositivos conectados. Una red conmutada consiste de una serie de nodos entrelazados llamados **switches**. Los switches (o conmutadores) crean conexiones temporales entre dos o más dispositivos conectados al switch. 
+
+Los tres métodos de conmutación más importantes son **conmutación de circuitos**, **conmutación de paquetes**, y **conmutación de mensajes**. Los primeros dos son usados actualmente, mientras que el último ya no se utiliza demasiado. Las redes actuales se pueden dividir en tres categorías: redes de conmutación de circuitos, redes de conmutación de paquetes, y redes de conmutación de mensajes. Las redes de conmutación de paquetes se pueden dividir en redes de circuitos virtuales y redes de datagramas.
+
+<div align='center'>
+
+![](./imagenes/05_taxonomia_conmutacion.png)
+
+</div>
+
+### 8.1 Circuit-Switched Networks
+
+Una red de conmutación de circuitos es una serie de switches conectados por enlaces físicos. La conexión entre dos estaciones es un camino dedicado formado por uno o más enlaces. Sin embargo cada conexión usa sólo un canal dedicado en cada enlace.
+
+Los sistemas finales se conectan directamente a un switch. Cuando un sistema final A necesita comunicarse con un sistema final B, el A necesita enviar una solicitud de conexión a B que debe ser aceptada tanto por todos los switches como por B. Para esto se debe realizar primero la fase de establecimiento: se reserva un circuito (un canal) en cada enlace. Esta combinación de circuitos define el camino que va a usarse para la transferencia de datos. Una vez finalizada la transferencia, los circuitos se desarman.
+
+La conmutación de circuitos tiene las siguientes características:
+- Antes de comenzar la comunicación, se deben reservar los recursos que se van a utilizar. Estos recursos pueden ser canales (ancho de banda en FDM y ranuras de tiempo en TDM), buffers en switches, tiempo de procesamiento de los switches, y los puertos de entrada/salida de los switches, que deben mantenerse exclusivamente dedicados a la transferencia de datos hasta la fase de desarmado.
+- Los datos que se transfieren entre las estaciones no se empaquetan, es decir que los datos son un flujo continuo enviados desde la estación origen y recibidos por la estación destino.
+- No hay direccionamiento durante la transferencia de datos, solamente para la fase de establecimiento de la conexión.
+
+La comunicación en una red de conmutación de circuitos requiere tres fases: **fase de establecimiento de conexión**, **fase de transferencia de datos**, y **fase de desarmado de conexión**.
+
+**Fase de establecimiento de conexión**
+
+Para que dos o más entidades se puedan comunicar, se debe establecer un circuito dedicado. Los sistemas finales normalmente están conectados por líneas dedicadas a los switches, entonces la fase de establecimiento significa crear canales dedicados entre los switches.
+
+<div align='center'>
+
+![](./imagenes/05_ej_conmutacion_circuitos.png)
+
+</div>
+
+Cuando el sistema A necesita conectarse al sistema M, envía al switch I una solicitud de establecimiento que incluye la dirección del sistema M. El switch I encuentra un canal entre si mismo y el switch IV, entonces el switch I envía la solicitud al switch IV, y este encuentraun canal dedicado entre si mismo y el switch III. El switch III le entrega la solicitud al sistema M.
+
+El sistema M envía una confirmación al sistema A mediante el mismo camino de manera inversa.
+
+**Fase de transferencia de datos**
+
+Luego de establecer el circuito dedicado, las dos entidades pueden transferir datos.
+
+**Fase de desarmado de conexión**
+
+Cuando una de las entidades solicite el fin de la conexión, se envía una señal a cada switch para que libere sus recursos.
+
+En cuanto a **eficiencia**, las redes de conmutación de circuitos no son tan eficientes como los otros dos tipos de redes porque los recursos se asignan durante toda la conexión, y estos recursos no se pueden utilizar para otras conexiones.
+
+Si bien las redes de conmutación de circuitos tienen baja eficiencia, el **delay** en este tipo es mínimo. Gracias a que los recursos para la conexión son dedicados, el flujo de datos es continuo, por lo tanto no hay tiempos de espera en los switches. El único delay que ocurre es durante el establecimiento de la conexión, la transferencia de datos, y el desarmado del circuito.
+
 ---
 
 ### Bibliografia
