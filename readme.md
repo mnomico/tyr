@@ -28,6 +28,10 @@
 
 ➤ [TPL 5 - HTTP - Parte 1](/practica/tpl5-http-parte-1.md)
 
+## Ejercicios
+
+➤ [Ejercicio Ruteo 1](/ejercicios/ejercicio_ruteo.md)
+
 ## Parciales
 
 ➤ [Primer Parcial Septiembre 2025](/parciales/primer_parcial_2025-09.md)
