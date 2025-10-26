@@ -173,7 +173,7 @@ Para poder solucionar el problema de enviar por varios enlaces, se diseñó la c
 
 </div>
 
-La capa de red en el origen es responsable de crear un paquete de los datos que provienen de otro protocolo (como el protocolo de capa de transporte). El encabezado del paquete contiene las direcciones lógicas de origen y de destino. La capa de red es responsable de verificar su tabla de ruteo para encontrar información sobre el ruteo, como la interaz por la que debe salir el paquete o la dirección física del siguiente nodo. Si el paquete es muy grande, se fragmenta.
+La capa de red en el origen es responsable de crear un paquete a partir de los datos que provienen de otro protocolo (como el protocolo de capa de transporte). El encabezado del paquete contiene las direcciones lógicas de origen y de destino. La capa de red es responsable de verificar su tabla de ruteo para encontrar información sobre el ruteo, como la interfaz por la que debe salir el paquete o la dirección física del siguiente nodo. Si el paquete es muy grande, se fragmenta.
 
 La capa de red en el switch o router es responsable de rutear el paquete. Cuando llega un paquete, el router o switch consulta su tabla de ruteo y encuentra la interfaz por la cual debe enviar el paquete. El paquete, luego de sufrir algunos cambios en su encabezado, se pasa nuevamente a la capa de enlace.
 
@@ -197,8 +197,91 @@ La razón de esto es que el Internet está formado de varias redes heterogéneas
 
 #### 20.2 IPv4
 
+IPv4 es un protocolo de datagrama no orientado a la conexión y no fiable. No provee control de errores o de flujo (excepto para la detección de errores en el header). Hace el mejor esfuerzo posible para que una transimisión llegue al destino, pero no lo garantiza.
 
+Cada datagrama es tratado independientemente, y cada datagrama puede seguir una ruta diferente hacia el destino, y por lo tanto los datagramas pueden llegar fuera de orden o pueden perderse o corromperse. Para resguardarse de esto, se necesita un protocolo de capa superior que se encargue de esto, como TCP.
 
+**Datagrama**
+
+Los paquetes en la capa de IPv4 se llaman datagramas. Un datagrama es un paquete de longitud variable que consiste de dos partes: header y datos. El header tiene una longitud de entre 20 a 60 bytes y contiene información necesaria para el ruteo y entrega. En TCP/IP es común mostrar el header en secciones de 4 bytes.
+
+<div align='center'>
+
+![](./imagenes/05_datagrama_ipv4.png)
+
+</div>
+
+- **Version (VER)**: campo de 4 bits que define la versión del protocolo IP, que puede ser IPv4 o IPv6, y en base a este valor se interpretan los campos del datagrama.
+- **Header length (HLEN)**: campo de 4 bits que define la longitud total del datagrama en palabras de 4 bytes. Se necesita ya que la longitud del header es variable. Cuando no contiene opciones, el largo del header es de 20 bytes, y el valor de este campo es 5 (porque 20 bytes / 4 bytes = 5).
+- **Services**: campo de 8 bits, conocido como service type.
+
+<div align='center'>
+
+![](./imagenes/05_servicios.png)
+
+</div>
+
+Se lo puede interpretar como service type o como differentiated services. Cuando se lo interpreta como **service type**, los primeros 3 bits se llaman bits de precedencia. Los siguientes 4 bits se llaman bits de tipo de servicio, y el último bit no se usa.
+
+1. La **precedencia** es un subcampo de 3 bits cuyo valor es del rango 0 al 7. Define la prioridad del datagrama en cuestiones como la congestión. Los datagramas con menor precedencia son descartados por el router en estos casos. 
+2. El **tipo de servicio** es un subcampo de 4 bits, en el que cada bit tiene un significado especial. Sólo uno de estos bits puede tener el valor 1.
+
+<div align='center'>
+
+![](./imagenes/05_tipo_de_servicios.png)
+
+</div>
+
+- **Total length**: campo de 16 bits que define la longitud total del datagrama IPv4 en bytes. Para saber la longitud de los datos que vienen de la capa superior, se resta el Header length del Total length. El Header length se puede encontrar multiplicando el valor del campo HLEN por 4.
+
+    Longitud de data = Total length - HLEN x 4
+
+Como la longitud del campo es de 16 bits, la longitud total del datagrama IPv4 está limitado a 65535 (2^16 - 1). En la mayoría de los casos, este campo no es necesario. Sin embargo, hay ocasiones en la que el datagrama contiene bits de relleno. Por ejemplo, el protocolo Ethernet tiene una restricción mínima y máxima para el tamaño de datos que pueden ser encapsulados en una trama (de 46 a 1500 bytes). Si el tamaño del datagrama IPv4 es menor a 46 bytes, se deben agregar bits de relleno. Entonces cuando se desencapsula el datagrama, se necesita verificar el campo de Total length para separar los datos de los bits de relleno. 
+
+- **Identification**: campo de 16 bits que identifica un datagrama a partir de su host origen. La combinación de la identificación y de la dirección IPv4 origen debe identificar unívocamente a un datagrama. Este campo se utiliza para la fragmentación.
+- **Flags**: campo de 3 bits. Se utiliza para la fragmentación.
+- **Fragmentation offset**: campo de 13 bits que se utiliza para la fragmentación.
+- **Time to live (TTL)**: un datagrama tiene un tiempo limitado para ser transmitido. El valor del campo se decrementa por cada router por el que pasa el datagrama, y si llega a cero, es descartado. El valor de este campo es aproximadamente 2 veces el número máximo de rutas entre dos hosts. Este campo es necesario porque las tablas de ruteo pueden corromperse. Un datagrama puede viajar por dos o más routers por mucho tiempo sin ser entregado al destino; esto no sucede con esta restricción.
+- **Protocol**: campo de 8 bits que define el protocolo de capa superior que usa los servicios de IPv4. Un datagrama IPv4 puede encapsular datos de protocolos de capa superior como TCP o UDP.
+- **Checksum**: se utiliza para la verificación de errores.
+- **Source address**: campo de 32 bits que define la dirección IPv4 de origen.
+- **Destination address**: campo de 32 bits que define la dirección IPv4 de destino. 
+
+**Fragmentación**
+
+Cada protocolo de capa de enlace tiene su propio formato de trama. Uno de los campos definidos es el campo de tamaño máximo de datos. Esto implica que cuando un datagrama es encapsulado en una trama, el tamaño total del datagrama debe ser menor que el tamaño máximo, que es definido por las restricciones impuestas por el hardware y el software usadas en la red.
+
+El valor del **MTU (Maximum Transfer Unit)** depende del procotolo de la red física.
+
+Para hacer que el protocolo IPv4 sea independiente de la red física, se fijó el largo máximo del datagrama a 65535 bytes. Esto hace la transmisión más eficiente si se usa un protocolo con un MTU de este tamaño. Sin embargo, para otras redes físicas, se debe dividir el datagrama para que pueda pasar por estas redes. Esto se llama **fragmentación**.
+
+El origen no fragmenta el paquete IPv4, sino que la capa de transporte va a segmentar los datos en un tamaño que pueda ser acomodado por IPv4 y por la capa de enlace.
+
+Cuando se fragmenta un datagrama, cada fragmento contiene su propio header sin cambiar la mayoría de los campos. El datagrama fragmentado puede ser fragmentado si encuentra una red con una MTU menor.
+
+Un datagrama puede ser fragmentado por el host origen o por un router aunque generalmente se limita la fragmentación en el origen. El reensamblado del datagrama sólo lo hace el host destino, ya que este es el único que va a recibir todos los fragmentos.
+
+Los campos que deben ser cambiados cuando un datagrama es fragmentado son: Flags, Fragmentation offset, y Total length. El resto de los campos debe ser copiado, y el valor de Checksum debe ser recalculado (aunque esto no es por la fragmentación en si sino debido a que, por ejemplo, cuando un datagrama llega a un router, su TTL decrementa, y por lo tanto también debe hacerlo el checksum).
+
+Los campos relacionados con la fragmentación y reensamblado de un datagrama IPv4 son los siguientes:
+
+- **Identification**: cuando se fragmenta un datagrama, el valor en este campo se copia a todos los fragmentos. Esto ayuda al destino a reensamblar el datagrama.
+- **Flags**: el primer bit está reservado. El segundo bit se llama **do not fragment**. Si su valor es 1, no debe fragmentarse el datagrama. Si el datagrama no puede pasar por una red física, se descarta el datagrama y se envía un mensaje de error ICMP al host origen. Si su valor es 0, el datagrama puede ser fragmentado. El tercer bit se llama **more fragment**. Si su valor es 1, el datagrama no es el último fragmento, y hay más fragmentos después de este. Si su valor es 0, significa que es el último fragmento.
+- **Fragmentation offset**: muestra la posición relativa del fragmento con respecto al datagrama completo. Es el offset de los datos en el datagrama original medido en unidades de 8 bytes. Dicho de otra manera, el valor de offset del fragmento es el bit a partir del cual comienza el fragmento del datagrama, dividido por 8.
+
+Para reensamblar el datagrama, el host destino sigue la siguiente estrategia:
+1. El primer fragmento tiene un offset con valor = 0.
+2. Divide el largo del primer fragmento por 8. El segundo fragmento tiene un offset igual a ese resultado.
+3. Divide el largo total del primer y segundo fragmento por 8. El tercer fragmento tiene un offset igual a ese resultado.
+4. Continúa con el mismo proceso. El último fragmento tiene un bit **more** con valor = 0.
+
+<div align='center'>
+
+![](./imagenes/05_ej_fragmentacion.png)
+
+</div>
+
+**Checksum**
 
 ---
 
