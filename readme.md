@@ -4,6 +4,10 @@
 
 </div>
 
+## Mirrors
+
+➤ [GitLab](https://gitlab.com/mnomico/tyr.git)
+
 ## Guías Teóricas
 
 ➤ [01 - Introducción, Redes y Modelo OSI](/teoria/01_redes_y_modelo_osi.md)
@@ -15,6 +19,8 @@
 ➤ [04 - Redes Locales y WLANs](/teoria/04_redes_lan_wlan.md)
 
 ➤ [05 - Conmutación, Capa de Red y Protocolo IPv4](/teoria/05_capa_de_red_ipv4.md)
+
+➤ [09 - Capa de Transporte y TCP](/teoria/09_capa_de_transporte_tcp.md)
 
 ## Trabajos Prácticos
 
