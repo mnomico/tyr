@@ -6,6 +6,8 @@
 
 ## Mirrors
 
+➤ [GitHub](https://github.com/mnomico/tyr.git)
+
 ➤ [GitLab](https://gitlab.com/mnomico/tyr.git)
 
 ## Guías Teóricas
