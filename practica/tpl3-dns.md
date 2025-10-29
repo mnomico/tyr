@@ -476,7 +476,7 @@ El **caching** acelera la resolución, pero puede ser problemática si la inform
 
 ### Bibliografia
 
-➤ [**FOR07**] - [Data Communications and Networking](https://github.com/mnomico/tyr/raw/main/libros/FOR07.pdf)
+➤ [**FOR07**] - [Data Communications and Networking](../libros/FOR07.pdf)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 25: “Domain Name System”
 

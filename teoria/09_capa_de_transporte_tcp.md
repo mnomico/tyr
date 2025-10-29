@@ -70,7 +70,7 @@
 
 ### Bibliografia
 
-➤ [**STE11**] - [TCP/IP Illustrated Vol I](https://github.com/mnomico/tyr/raw/main/libros/STE11.pdf)
+➤ [**STE11**] - [TCP/IP Illustrated Vol I](../libros/STE11.pdf)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 12: “TCP: The Transmission Control Protocol”
 

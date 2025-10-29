@@ -287,14 +287,14 @@ Para reensamblar el datagrama, el host destino sigue la siguiente estrategia:
 
 ### Bibliografia
 
-➤ [**FOR07**] - [Data Communications and Networking](https://github.com/mnomico/tyr/raw/main/libros/FOR07.pdf)
+➤ [**FOR07**] - [Data Communications and Networking](../libros/FOR07.pdf)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 8: “Switching” (hasta 8.3)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 20: “Network Layer:
 Internet Protocol” (hasta 20.2 inclusive)
 
-➤ [**STE11**] - [TCP/IP Illustrated Vol I](https://github.com/mnomico/tyr/raw/main/libros/STE11.pdf)
+➤ [**STE11**] - [TCP/IP Illustrated Vol I](../libros/STE11.pdf)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 2: “The Internet Address Architecture” (hasta 2.3)
 

@@ -422,6 +422,6 @@ El throughtput se calcula de la siguiente manera:
 
 ### Bibliografia
 
-➤ [**STA04**] - [Comunicaciones y redes de computadores](https://github.com/mnomico/tyr/raw/main/libros/STA04.pdf)
+➤ [**STA04**] - [Comunicaciones y redes de computadores](../libros/STA04.pdf)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 7: “Protocolos de control del enlace de datos”

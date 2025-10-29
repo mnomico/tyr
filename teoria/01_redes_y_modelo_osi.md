@@ -346,7 +346,7 @@ Luego el destino recibe los datos, y en cada capa se elimina la cabecera corresp
 
 ### Bibliografia
 
-➤ [**STA04**] - [Comunicaciones y redes de computadores](https://github.com/mnomico/tyr/raw/main/libros/STA04.pdf)
+➤ [**STA04**] - [Comunicaciones y redes de computadores](../libros/STA04.pdf)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 1: “Introducción”<br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 2: “Protocolos y Arquitectura”

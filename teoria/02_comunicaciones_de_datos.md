@@ -573,9 +573,10 @@ En DSSS, si se usa un código de ensanchado que ensancha señales que no pueden 
 
 ### Bibliografia
 
-➤ [**FOR07**] - [Data Communications and Networking](https://github.com/mnomico/tyr/raw/main/libros/FOR07.pdf)
+➤ [**FOR07**] - [Data Communications and Networking](../libros/FOR07.pdf)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 3: “Data and Signals”<br>
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 6: “Bandwidth Utilization:
 Multiplexing and Spreading”
 

@@ -765,7 +765,7 @@ Los **switches de capa 3** se pueden clasificar en dos categorías: de tipo **pa
 
 ### Bibliografia
 
-➤ [**FOR07**] - [Data Communications and Networking](https://github.com/mnomico/tyr/raw/main/libros/FOR07.pdf)
+➤ [**FOR07**] - [Data Communications and Networking](../libros/FOR07.pdf)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 12: “Multiple Access”
 
@@ -773,11 +773,11 @@ Los **switches de capa 3** se pueden clasificar en dos categorías: de tipo **pa
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Capítulo 14: “Wireless LANs”
 
-[**KUR12**] - [Computer Networking: A Top-Down Approach](https://github.com/mnomico/tyr/raw/main/libros/KUR12.pdf)
+[**KUR12**] - [Computer Networking: A Top-Down Approach](../libros/KUR12.pdf)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Sección 5.4.3: "Link-Layer Switches"
 
-➤ [**STA04**] - [Comunicaciones y redes de computadores](https://github.com/mnomico/tyr/raw/main/libros/STA04.pdf)
+➤ [**STA04**] - [Comunicaciones y redes de computadores](../libros/STA04.pdf)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⤷ Sección 15.4: "Bridges"
 
