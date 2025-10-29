@@ -66,6 +66,28 @@
 
 ### Resumen
 
+### 12 TCP: The Transmission Control Protocol
+
+#### 12.1 Introduction
+
+El problema de comunicarse en entornos en los cuales el medio de comunicación puede perder o alterar los mensajes a entregar es un tema que fue estudiado por años. Hay varias métodos y teorías que intentan resolver este problema, pero el más simple y el más utilizado es el que simplemente "vuelve a enviar" hasta que la información sea entregada con éxito. Esta estrategia, llamada **Automatic Repeat Request (ARQ)** establece la base de varios protocolos de comunicación, entre ellos TCP.
+
+##### 12.1.1 ARQ and Retransmission
+
+Un protocolo de corrección de errores diseñado para funcionar sobre un canal de comunicaciones con múltiples saltos, como en el caso de IP, debe lidiar con problemas como el reordenamiento, duplicación, y pérdida de paquetes.
+
+Una manera de manejar la pérdida de paquetes y errores de bit es reenviar el paquete hasta que se reciba adecuadamente. Esto requiere una mandera de determinar:
+1. Si el receptor recibió el paquete
+2. Si el paquete recibido es el mismo que el paquete enviado
+
+El método por el cual el receptor informa al wmisor que recibió el paquete se llama **acknowledgement**, o **ACK**. Entonces cuando el emisor envía un paquete, espera un ACK. Cuando el receptor recibe un paquete, envía el ACK. Cuando el emisor recibe el ACK, envía otro paquete, y así sucesivamente. A partir de esto surgen algunas cuestiones, como cuánto tiempo debe esperar un emisor para recibir un ACK, qué pasa si un ACK se pierde, y qué sucede si el paquete fue recibido pero tiene errores.
+
+Si un paquete fue recibido pero contiene errores, se pueden utilizar códigos para detectar errores en un paquete grande usando sólo unos pocos bits. Los códigos simples normalmente no son capaces de corregir errores pero son capaces de detectarlos, es por eso que los **checksums** y **CRC**s son populares. Cuando un receptor recibe un paquete que contiene un error, no envía un ACK, por lo que luego de un tiempo, el emisor vuelve a enviar el paquete, el cual debería llegarle al receptor sin errores.
+
+Si un ACK se pierde, el emisor no puede saber si el receptor recibió el paquete y su ACK se perdió, o si el paquete que envió nunca llegó. Entonces el emisor envía nuevamente el paquete. En el primer caso, el receptor puede que reciba el paquete de nuevo, es decir que recibe un paquete duplicado. Para resolver este problema, se utiliza un **número de secuencia**. Cada paquete recibe un nuevo número de secuencia cuando se envía desde el emisor. El emisor puede usar este número para determinar si ya recibió este paquete, y si se da el caso, lo puede descartar.
+
+
+
 ---
 
 ### Bibliografia
