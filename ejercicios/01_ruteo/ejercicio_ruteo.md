@@ -66,7 +66,7 @@ Divido en dos subredes:
 ## Tabla de RISP
 | IP | Gateway | Interfaz |
 |----|---------|----------|
-| 192.168.10.14/30 | - | eth0 |
+| 192.168.10.12/30 | - | eth0 |
 | 170.210.96.0/28 | 192.168.10.13 | eth0 |
 
 ## Tabla de R1
