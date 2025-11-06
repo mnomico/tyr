@@ -299,9 +299,27 @@ Las opciones se utilizan para el testeo y debuggeo de la red.
 
 ### 2 The Internet Address Architecture
 
+#### 2.1 Introduction
+
+Cada dispositivo conectado a Internet tiene al menos una dirección IP. Los procedimientos de reenvio implementados por los routers IP usan direcciones IP para identificar de dónde viene y a dónde va el tráfico.
+
+Cuando los dispositivos navegan el Internet, se les asignan direcciones que deben ser coordinadas para que no se repitan. Para las redes privadas, las direcciones IP usadas deben ser coordinadas para evitar que se repitan, pero sólo dentro de la misma red privada. Conjuntos de direcciones IP son asignadas a usuarios y organizaciones, los que reciben estas direcciones asignan direcciones a los dispositivos. Para direcciones globales de Internet, un sistema jerárquico de entidades administrativas colaboran en la asignación de direcciones a usuarios y a proveedores de servicios. Los usuarios individuales por lo general reciben direcciones a partir de proveedores de servicio de Internet **(ISPs - Internet service providers)** que proveen tanto las direcciones como el ruteo de tráfico a cambio de una tarifa.
+
+#### 2.2 Expressing IP Addresses
+
+Las direcciones IPv4 se representan en notación de cuádruple punto, por ejemplo 165.195.130.107. Esta notación consiste de cuatro números decimales separados por puntos. Cada número es un entero positivo de rango [0, 255] y representa un cuarto de la dirección IP. Esto facilita la escritura de la dirección IPv4 entera, ya que esta se compone de un número positivo de 32 bits.
+
+En IPv6, las direcciones tienen un largo de 128 bits. La notación que se utiliza para estas direcciones es una serie de cuatro números hexadecimales llamados bloques o campos separados por dos puntos. Un ejemplo de una dirección IPv6 que contiene ocho bloques es 5f05:2000:80ad:5800:0058:0800:2023:1d71. Para que su escritura sea más fácil, se acordaron algunas reglas para estandarizar su expresión:
+- Los bloques que comienzan con 0s no necesitan ser escritos. Usando el ejemplo anterior, la dirección se pudo haber escrito como 5f05:2000:80ad:5800:58:800:2023:1d71.
+- Bloques que contienen únicamente 0s pueden ser omitidos y reemplazados por la notación ::. Por ejemplo, la dirección IPv6 0:0:0:0:0:0:0:1 se puede escribir como ::1. La dirección 2001:0db8:0:0:0:0:0:2 se puede escribir como 2001:db8::2. Para evitar ambigüedades, la notación :: sólo se puede utilizar una vez en una dirección IPv6.
+- Las direcciones IPv4 embebidas que se representan en formato IPv6 pueden usar una notación híbrida en la que el bloque que precede inmediatamente la porción IPv4 tiene el valor ffff y la parte restante de la dirección se formatea usando cuádruple punto. Por ejemplo, la dirección IPv6 ::ffff:10.0.0.1 representa la dirección IPv4 10.0.0.1. Esto se conoce como una **dirección IPv4-mapped IPv6**.
+- Existe una notación que se adopta cuando los últimos 32 bits de la dirección IPv6 pueden ser escritos usando cuádruple punto. La dirección IPv6 ::0102:f001 es equivalente a la dirección ::1.2.240.1. Esto se conoce como **dirección IPv6 compatible con IPv4**. Este tipo de dirección era requerido para transicionar entre IPv4 e IPv6 pero ya no se requiere hacerlo.
+
 ---
 
 ### 5 The Internet Protocol (IP)
+
+
 
 ---
 
