@@ -159,6 +159,8 @@ En cuanto a **eficiencia**, la red de datagramas es más eficiente que una red d
 
 Pueden existir **delays** más grandes en una red de datagramas. Si bien no hay fases de establecimiento o desarmado, cada paquete puede tener que esperar en un switch antes de ser reenviado. Además, como cada paquete puede viajar por medio de diferentes switches, el delay entre los paquetes puede ser muy diferente.
 
+---
+
 ### 20 Network Layer: Internet Protocol
 
 En Internet, el protocolo de red principal es el **Internet Protocol (IP)**. 
@@ -282,6 +284,24 @@ Para reensamblar el datagrama, el host destino sigue la siguiente estrategia:
 </div>
 
 **Checksum**
+
+Al principio, el valor de checksum se setea a 0. Luego el header entero se divide en secciones de 16 bits y se suman. El resultado se complementa e inserta en el campo Checksum.
+
+El checksum en el paquete IPv4 cubre solo el header, no los datos, ya que todos los protocolos de capa superior que encapsulan datos en el datagrama IPv4 tienen un checksum que cubre todo el paquete. Además, el header de IPv4 cambia cada vez que pasa por un router.
+
+**Options**
+
+El header del datagrama IPv4 está conformado por dos partes: una parte fija y una parte variable. La parte fija tiene un largo de 20 bytes, y la parte variable comprende las opciones, que pueden tener un máximo de 40 bytes.
+
+Las opciones se utilizan para el testeo y debuggeo de la red.
+
+---
+
+### 2 The Internet Address Architecture
+
+---
+
+### 5 The Internet Protocol (IP)
 
 ---
 
