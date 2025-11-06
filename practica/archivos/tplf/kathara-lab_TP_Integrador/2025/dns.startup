@@ -1,0 +1,6 @@
+chmod 755 /etc
+chmod 755 /etc/bind
+
+ip a a 8.8.8.8/28 dev eth0
+ip r a default via 8.8.8.1 dev eth0
+service bind start

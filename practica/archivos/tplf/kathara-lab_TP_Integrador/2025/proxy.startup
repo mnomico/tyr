@@ -1,0 +1,9 @@
+echo "visible_hostname proxy.tpfinal-tyr.com" >> /etc/squid/squid.conf
+sed -i 's/\#http_access allow localnet/http_access allow all/' /etc/squid/squid.conf
+#rm -r /var/spool/squid/*
+#squid -z
+
+ip a a 10.10.0.1/24 dev eth0
+ip r a default via 10.10.0.100 dev eth0
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
+service squid start

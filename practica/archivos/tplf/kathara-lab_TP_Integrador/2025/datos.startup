@@ -1,0 +1,8 @@
+chown www-data:www-data /usr/lib/cgi-bin/datos.pl
+chmod 750 /usr/lib/cgi-bin/datos.pl
+sed -i 's/\KeepAlive On/KeepAlive Off/' /etc/apache2/apache2.conf
+a2enmod cgid
+
+ip a a 12.12.0.12/24 dev eth0
+ip r a default via 12.12.0.1 dev eth0
+service apache2 start

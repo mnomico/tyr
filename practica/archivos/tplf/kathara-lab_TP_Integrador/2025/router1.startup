@@ -1,0 +1,5 @@
+ip a a 190.7.231.40/24 dev eth0
+ip a a 10.10.0.100/24 dev eth1
+
+ip r a 8.8.8.0/28 via 190.7.231.30 dev eth0
+ip r a 12.12.0.0/24 via 190.7.231.20 dev eth0
