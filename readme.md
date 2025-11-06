@@ -12,23 +12,23 @@
 
 ## Guías Teóricas
 
-[1️⃣ Introducción, Redes y Modelo OSI](/teoria/01_redes_y_modelo_osi.md)
+1️⃣ - [Introducción, Redes y Modelo OSI](/teoria/01_redes_y_modelo_osi.md)
 
-[2️⃣ Modelo para las Comunicaciones y Transmisión de Datos](/teoria/02_comunicaciones_de_datos.md)
+2️⃣ - [Modelo para las Comunicaciones y Transmisión de Datos](/teoria/02_comunicaciones_de_datos.md)
 
-[3️⃣ Capa de Enlace](/teoria/03_capa_de_enlace.md)
+3️⃣ - [Capa de Enlace](/teoria/03_capa_de_enlace.md)
 
-[4️⃣ Redes Locales y WLANs](/teoria/04_redes_lan_wlan.md)
+4️⃣ - [Redes Locales y WLANs](/teoria/04_redes_lan_wlan.md)
 
-[5️⃣ Conmutación, Capa de Red y Protocolo IPv4](/teoria/05_capa_de_red_ipv4.md)
+5️⃣ - [Conmutación, Capa de Red y Protocolo IPv4](/teoria/05_capa_de_red_ipv4.md)
 
-[6️⃣ Subnetting, CIDR, VLSM](/teoria/06_subnetting_cidr_vlsm.md)
+6️⃣ - [Subnetting, CIDR, VLSM](/teoria/06_subnetting_cidr_vlsm.md)
 
-[7️⃣ Ruteo estático y dinámico](/teoria/07_ruteo_estatico_dinamico.md)
+7️⃣ - [Ruteo estático y dinámico](/teoria/07_ruteo_estatico_dinamico.md)
 
-[8️⃣ IPv6](/teoria/08_ipv6.md)
+8️⃣ - [IPv6](/teoria/08_ipv6.md)
 
-[9️⃣ Capa de Transporte y TCP](/teoria/09_capa_de_transporte_tcp.md)
+9️⃣ - [Capa de Transporte y TCP](/teoria/09_capa_de_transporte_tcp.md)
 
 ## Trabajos Prácticos
 
