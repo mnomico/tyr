@@ -30,6 +30,8 @@
 
 9️⃣ - [Capa de Transporte y TCP](/teoria/09_capa_de_transporte_tcp.md)
 
+1️⃣0️⃣ - [TCP - Control de congestión](/teoria/10_tcp_control_de_congestion.md)
+
 ## Trabajos Prácticos
 
 ➤ [TPL 1 - Configuración inicial de la red del laboratorio](/practica/tpl1-configuracion-inicial.md)
